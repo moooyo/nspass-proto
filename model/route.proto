@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+package nspass.model.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/model;nspassmodel";
+
+import "google/protobuf/timestamp.proto";
+
+// 协议类型枚举
+enum Protocol {
+  PROTOCOL_UNSPECIFIED = 0;
+  PROTOCOL_SHADOWSOCKS = 1;
+  PROTOCOL_SNELL = 2;
+}
+
+// Shadowsocks加密方法枚举  
+enum ShadowsocksMethod {
+  SHADOWSOCKS_METHOD_UNSPECIFIED = 0;
+  SHADOWSOCKS_METHOD_AES_128_GCM = 1;
+  SHADOWSOCKS_METHOD_AES_256_GCM = 2;
+  SHADOWSOCKS_METHOD_CHACHA20_IETF_POLY1305 = 3;
+}
+
+// Snell版本枚举
+enum SnellVersion {
+  SNELL_VERSION_UNSPECIFIED = 0;
+  SNELL_VERSION_V4 = 1;
+  SNELL_VERSION_V5 = 2;
+}
+
+// 线路类型枚举
+enum RouteType {
+  ROUTE_TYPE_UNSPECIFIED = 0;
+  ROUTE_TYPE_CUSTOM = 1;      // 自定义线路
+  ROUTE_TYPE_SYSTEM = 2;      // 系统生成线路
+}
+
+// 线路状态枚举
+enum RouteStatus {
+  ROUTE_STATUS_UNSPECIFIED = 0;
+  ROUTE_STATUS_ACTIVE = 1;
+  ROUTE_STATUS_INACTIVE = 2;
+  ROUTE_STATUS_ERROR = 3;
+}
+
+// 协议特定参数
+message ProtocolParams {
+  oneof params {
+    ShadowsocksParams shadowsocks = 1;
+    SnellParams snell = 2;
+  }
+}
+
+// Shadowsocks参数
+message ShadowsocksParams {
+  ShadowsocksMethod method = 1;
+  string password = 2;
+  bool udp_support = 3;
+  bool tcp_fast_open = 4;
+  string other_params = 5; // JSON格式的其他参数
+}
+
+// Snell参数
+message SnellParams {
+  SnellVersion version = 1;
+  string psk = 2;
+  bool udp_support = 3;
+  bool tcp_fast_open = 4;
+  string other_params = 5; // JSON格式的其他参数
+}
+
+// 线路模型
+message Route {
+  string id = 1;                                    // 内部ID
+  string route_id = 2;                             // 用户可见的线路ID
+  string route_name = 3;                           // 线路名称
+  string entry_point = 4;                          // 入口(IP或域名)
+  int32 port = 5;                                  // 端口
+  Protocol protocol = 6;                           // 协议类型
+  ProtocolParams protocol_params = 7;              // 协议参数
+  RouteType type = 8;                              // 线路类型
+  RouteStatus status = 9;                          // 线路状态
+  string server_id = 10;                           // 关联的服务器ID(如果有)
+  google.protobuf.Timestamp created_at = 11;       // 创建时间
+  google.protobuf.Timestamp updated_at = 12;       // 更新时间
+  string created_by = 13;                          // 创建者
+  optional string description = 14;                // 描述
+  map<string, string> metadata = 15;               // 元数据
+} 

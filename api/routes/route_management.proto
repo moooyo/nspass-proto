@@ -1,0 +1,197 @@
+syntax = "proto3";
+
+package nspass.api.routes.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/api/routes;nspassroutes";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/field_mask.proto";
+import "common.proto";
+import "model/route.proto";
+
+// 创建线路请求
+message CreateRouteRequest {
+  string route_id = 1;                             // 线路ID (可选，不填自动生成)
+  string route_name = 2;                           // 线路名称
+  string entry_point = 3;                          // 入口(IP或域名)
+  int32 port = 4;                                  // 端口
+  nspass.model.v1.Protocol protocol = 5;           // 协议类型
+  nspass.model.v1.ProtocolParams protocol_params = 6; // 协议参数
+  optional string description = 7;                 // 描述
+  map<string, string> metadata = 8;               // 元数据
+}
+
+// 创建线路响应
+message CreateRouteResponse {
+  nspass.common.v1.ApiResponse result = 1;
+  optional nspass.model.v1.Route route = 2;
+}
+
+// 获取线路请求
+message GetRouteRequest {
+  string id = 1; // 可以是内部ID或route_id
+}
+
+// 获取线路响应
+message GetRouteResponse {
+  nspass.common.v1.ApiResponse result = 1;
+  optional nspass.model.v1.Route route = 2;
+}
+
+// 更新线路请求
+message UpdateRouteRequest {
+  string id = 1; // 可以是内部ID或route_id
+  optional string route_id = 2;
+  optional string route_name = 3;
+  optional string entry_point = 4;
+  optional int32 port = 5;
+  optional nspass.model.v1.Protocol protocol = 6;
+  optional nspass.model.v1.ProtocolParams protocol_params = 7;
+  optional string description = 8;
+  map<string, string> metadata = 9;
+  google.protobuf.FieldMask update_mask = 10;      // 指定要更新的字段
+}
+
+// 更新线路响应
+message UpdateRouteResponse {
+  nspass.common.v1.ApiResponse result = 1;
+  optional nspass.model.v1.Route route = 2;
+}
+
+// 删除线路请求
+message DeleteRouteRequest {
+  string id = 1; // 可以是内部ID或route_id
+}
+
+// 删除线路响应
+message DeleteRouteResponse {
+  nspass.common.v1.ApiResponse result = 1;
+}
+
+// 批量删除线路请求
+message BatchDeleteRoutesRequest {
+  repeated string ids = 1; // 可以是内部ID或route_id的混合
+}
+
+// 批量删除线路响应
+message BatchDeleteRoutesResponse {
+  nspass.common.v1.BatchOperationResponse result = 1;
+}
+
+// 列出线路请求
+message ListRoutesRequest {
+  nspass.common.v1.PaginationRequest pagination = 1;
+  repeated nspass.common.v1.FilterParam filters = 2;   // 过滤条件
+  repeated nspass.common.v1.SortParam sorts = 3;       // 排序条件
+  optional nspass.model.v1.RouteType type = 4;         // 按类型过滤
+  optional nspass.model.v1.RouteStatus status = 5;     // 按状态过滤
+  optional nspass.model.v1.Protocol protocol = 6;      // 按协议过滤
+}
+
+// 列出线路响应
+message ListRoutesResponse {
+  nspass.common.v1.ApiResponse result = 1;
+  repeated nspass.model.v1.Route routes = 2;
+  nspass.common.v1.PaginationResponse pagination = 3;
+}
+
+// 搜索线路请求
+message SearchRoutesRequest {
+  string query = 1;                                    // 搜索关键词
+  repeated string fields = 2;                          // 搜索字段 (route_name, entry_point等)
+  nspass.common.v1.PaginationRequest pagination = 3;
+  optional nspass.model.v1.RouteType type = 4;
+}
+
+// 搜索线路响应
+message SearchRoutesResponse {
+  nspass.common.v1.ApiResponse result = 1;
+  repeated nspass.model.v1.Route routes = 2;
+  nspass.common.v1.PaginationResponse pagination = 3;
+}
+
+// 更新线路状态请求
+message UpdateRouteStatusRequest {
+  string id = 1;
+  nspass.model.v1.RouteStatus status = 2;
+}
+
+// 更新线路状态响应
+message UpdateRouteStatusResponse {
+  nspass.common.v1.ApiResponse result = 1;
+  optional nspass.model.v1.Route route = 2;
+}
+
+// 批量更新线路状态请求
+message BatchUpdateRouteStatusRequest {
+  repeated string ids = 1;
+  nspass.model.v1.RouteStatus status = 2;
+}
+
+// 批量更新线路状态响应
+message BatchUpdateRouteStatusResponse {
+  nspass.common.v1.BatchOperationResponse result = 1;
+}
+
+// 生成线路配置请求
+message GenerateRouteConfigRequest {
+  string id = 1;
+  string format = 2; // 配置格式: "json", "yaml", "uri"等
+}
+
+// 生成线路配置响应
+message GenerateRouteConfigResponse {
+  nspass.common.v1.ApiResponse result = 1;
+  string config = 2;     // 生成的配置内容
+  string format = 3;     // 配置格式
+}
+
+// 验证线路连通性请求
+message ValidateRouteConnectivityRequest {
+  string id = 1;
+  optional int32 timeout_seconds = 2; // 超时时间，默认30秒
+}
+
+// 验证线路连通性响应
+message ValidateRouteConnectivityResponse {
+  nspass.common.v1.ApiResponse result = 1;
+  bool is_reachable = 2;               // 是否可达
+  optional int32 latency_ms = 3;       // 延迟(毫秒)
+  optional string error_message = 4;   // 错误信息
+}
+
+// 线路管理服务
+service RouteManagementService {
+  // 创建线路
+  rpc CreateRoute(CreateRouteRequest) returns (CreateRouteResponse);
+  
+  // 获取线路
+  rpc GetRoute(GetRouteRequest) returns (GetRouteResponse);
+  
+  // 更新线路
+  rpc UpdateRoute(UpdateRouteRequest) returns (UpdateRouteResponse);
+  
+  // 删除线路
+  rpc DeleteRoute(DeleteRouteRequest) returns (DeleteRouteResponse);
+  
+  // 批量删除线路
+  rpc BatchDeleteRoutes(BatchDeleteRoutesRequest) returns (BatchDeleteRoutesResponse);
+  
+  // 列出线路
+  rpc ListRoutes(ListRoutesRequest) returns (ListRoutesResponse);
+  
+  // 搜索线路
+  rpc SearchRoutes(SearchRoutesRequest) returns (SearchRoutesResponse);
+  
+  // 更新线路状态
+  rpc UpdateRouteStatus(UpdateRouteStatusRequest) returns (UpdateRouteStatusResponse);
+  
+  // 批量更新线路状态
+  rpc BatchUpdateRouteStatus(BatchUpdateRouteStatusRequest) returns (BatchUpdateRouteStatusResponse);
+  
+  // 生成线路配置
+  rpc GenerateRouteConfig(GenerateRouteConfigRequest) returns (GenerateRouteConfigResponse);
+  
+  // 验证线路连通性
+  rpc ValidateRouteConnectivity(ValidateRouteConnectivityRequest) returns (ValidateRouteConnectivityResponse);
+} 
