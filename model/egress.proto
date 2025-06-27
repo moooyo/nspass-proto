@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package nspass.model.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/model;nspassmodel";
+
+// 出口模式枚举
+enum EgressMode {
+  EGRESS_MODE_UNSPECIFIED = 0;
+  EGRESS_MODE_DIRECT = 1;
+  EGRESS_MODE_IPTABLES = 2;
+  EGRESS_MODE_SS2022 = 3;
+}
+
+// 转发类型枚举
+enum ForwardType {
+  FORWARD_TYPE_UNSPECIFIED = 0;
+  FORWARD_TYPE_TCP = 1;
+  FORWARD_TYPE_UDP = 2;
+  FORWARD_TYPE_ALL = 3;
+} 

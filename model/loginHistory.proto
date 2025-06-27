@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package nspass.model.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/model;nspassmodel";
+
+// 登录历史
+message LoginHistory {
+  uint32 id = 1;
+  uint32 user_id = 2;
+  string ip = 3;
+  string user_agent = 4;
+  optional string location = 5;
+  bool success = 6;
+  int64 created_at = 7;
+} 

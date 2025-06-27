@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package nspass.api.servers.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/proto/api/servers;nspassapiservers";
+
+import "common.proto";
+
+// 获取服务器统计请求
+message GetServerStatsRequest {
+  string id = 1;
+}
+
+// 服务器统计数据
+message ServerStats {
+  int64 uptime = 1;
+  double cpuUsage = 2;
+  double memoryUsage = 3;
+  double diskUsage = 4;
+  double networkIn = 5;
+  double networkOut = 6;
+}
+
+// === 响应消息 ===
+
+message GetServerStatsResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional ServerStats data = 2;
+} 

@@ -1,0 +1,119 @@
+syntax = "proto3";
+
+package nspass.api.users.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/api/users;nspassapiusers";
+
+import "common.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+// 用户配置信息
+message UserConfig {
+  string user_id = 1;
+  string config_key = 2;
+  string config_value = 3;
+  string description = 4;
+  string updated_time = 5;
+}
+
+// 获取用户配置请求
+message GetUserConfigRequest {
+  string user_id = 1;    // 路径参数
+  string config_key = 2; // 路径参数
+}
+
+// 获取用户所有配置请求
+message GetUserConfigsRequest {
+  string user_id = 1;    // 路径参数
+}
+
+// 更新用户配置请求
+message UpdateUserConfigRequest {
+  string user_id = 1;       // 路径参数
+  string config_key = 2;    // 路径参数
+  string config_value = 3;  // 请求体
+  string description = 4;   // 请求体
+}
+
+// 删除用户配置请求
+message DeleteUserConfigRequest {
+  string user_id = 1;    // 路径参数
+  string config_key = 2; // 路径参数
+}
+
+// === 响应消息 ===
+
+message GetUserConfigResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional UserConfig data = 2;
+}
+
+message GetUserConfigsResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  repeated UserConfig data = 2;
+}
+
+message UpdateUserConfigResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional UserConfig data = 2;
+}
+
+message DeleteUserConfigResponse {
+  nspass.common.v1.ApiResponse base = 1;
+}
+
+// === 服务定义 ===
+
+service UserConfigService {
+  // 获取指定用户的所有配置
+  rpc GetUserConfigs(GetUserConfigsRequest) returns (GetUserConfigsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/users/{user_id}/configs"
+      //                   ^^^^^^^^ 路径参数
+    };
+  }
+
+  // 获取指定用户的特定配置
+  rpc GetUserConfig(GetUserConfigRequest) returns (GetUserConfigResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/users/{user_id}/configs/{config_key}"
+      //                   ^^^^^^^^           ^^^^^^^^^^^^ 两个路径参数
+    };
+  }
+
+  // 更新指定用户的特定配置
+  rpc UpdateUserConfig(UpdateUserConfigRequest) returns (UpdateUserConfigResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/users/{user_id}/configs/{config_key}"
+      body: "*"  // 整个请求体，但路径参数会自动排除
+    };
+  }
+
+  // 删除指定用户的特定配置
+  rpc DeleteUserConfig(DeleteUserConfigRequest) returns (DeleteUserConfigResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/users/{user_id}/configs/{config_key}"
+    };
+  }
+
+  // 更复杂的路径参数示例
+  rpc GetUserConfigHistory(GetUserConfigHistoryRequest) returns (GetUserConfigHistoryResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/users/{user_id}/configs/{config_key}/history/{version}"
+      //                   ^^^^^^^^           ^^^^^^^^^^^        ^^^^^^^^^ 三个路径参数
+    };
+  }
+}
+
+// 配置历史请求
+message GetUserConfigHistoryRequest {
+  string user_id = 1;
+  string config_key = 2;
+  string version = 3;
+}
+
+message GetUserConfigHistoryResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional UserConfig data = 2;
+} 

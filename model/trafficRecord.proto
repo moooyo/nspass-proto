@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package nspass.model.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/model;nspassmodel";
+
+// 流量记录
+message TrafficRecord {
+  uint32 id = 1;                      // 主键ID
+  uint32 user_id = 2;                 // 用户ID
+  optional uint32 forward_rule_id = 3; // 转发规则ID
+  uint32 server_id = 4;               // 服务器ID
+  int64 upload = 5;                   // 上传流量
+  int64 download = 6;                 // 下载流量
+  int64 date = 7;                     // 日期（Unix时间戳）
+  int64 created_at = 8;               // 创建时间（Unix时间戳）
+} 

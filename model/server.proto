@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package nspass.model.v1;
+
+import "model/node.proto";
+
+option go_package = "github.com/moooyo/nspass-backend/generated/model;nspassmodel";
+
+
+
+// 服务器信息
+message Server {
+  uint32 id = 1;                      // 主键ID
+  string node_id = 2;                 // 节点ID
+  string name = 3;                    // 服务器名称
+  string hostname = 4;                // 主机名
+  string ipv4 = 5;                    // IPv4地址
+  optional string ipv6 = 6;           // IPv6地址
+  NodeType type = 7;                  // 节点类型
+  string region = 8;                  // 地区
+  NodeStatus status = 9;              // 状态
+  optional string version = 10;       // 版本
+  double cpu = 11;                    // CPU使用率
+  double memory = 12;                 // 内存使用率
+  double disk = 13;                   // 磁盘使用率
+  int32 connections = 14;             // 连接数
+  int64 last_heartbeat = 15;          // 最后心跳时间（Unix时间戳）
+  int64 created_at = 16;              // 创建时间（Unix时间戳）
+  int64 updated_at = 17;              // 更新时间（Unix时间戳）
+}
+
+// 服务器能力
+message ServerCapability {
+  uint32 id = 1;
+  uint32 server_id = 2;
+  string key = 3;
+  string value = 4;
+}
+
+
+
+ 

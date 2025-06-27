@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package nspass.model.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/model;nspassmodel";
+
+// 流量统计数据
+message TrafficStat {
+  int64 timestamp = 1; // Unix timestamp in seconds
+  double upload = 2; // Bytes
+  double download = 3; // Bytes
+}
+
+// 用户流量记录
+message UserTrafficRecord {
+  string userId = 1;
+  double upload = 2; // Bytes
+  double download = 3; // Bytes
+  int64 timestamp = 4;
+} 

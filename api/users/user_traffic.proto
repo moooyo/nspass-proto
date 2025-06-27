@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package nspass.api.users.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/api/users;nspassapiusers";
+
+import "common.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+// 流量使用项
+message TrafficUsageItem {
+  string date = 1;
+  double upload = 2;   // MB
+  double download = 3; // MB
+  double total = 4;    // MB
+}
+
+// 流量统计数据
+message TrafficStats {
+  double totalUsed = 1;     // 总使用量（MB）
+  double totalLimit = 2;    // 总限制（MB）
+  string resetDate = 3;     // 重置日期
+  double usagePercent = 4;  // 使用百分比
+  repeated TrafficUsageItem dailyUsage = 5; // 每日使用情况
+}
+
+// 获取流量统计请求
+message GetTrafficStatsRequest {
+  optional int32 days = 1; // 统计天数，默认30天
+}
+
+// 重置流量请求（空请求体）
+message ResetTrafficRequest {
+  // 可以为空，或者添加确认字段
+  optional string confirm = 1; // 确认字符串
+}
+
+// === 响应消息 ===
+
+message GetTrafficStatsResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional TrafficStats data = 2;
+}
+
+message ResetTrafficResponse {
+  nspass.common.v1.ApiResponse base = 1;
+}
+
+// === 服务定义 ===
+
+service UserTrafficService {
+  // 获取用户流量统计
+  rpc GetTrafficStats(GetTrafficStatsRequest) returns (GetTrafficStatsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/user/traffic"
+      // 查询参数days会自动映射
+    };
+  }
+
+  // 重置用户流量
+  rpc ResetTraffic(ResetTrafficRequest) returns (ResetTrafficResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/user/traffic/reset"
+      body: "*"
+    };
+  }
+} 

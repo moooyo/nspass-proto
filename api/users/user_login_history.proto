@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package nspass.api.users.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/api/users;nspassapiusers";
+
+import "common.proto";
+import "google/api/annotations.proto";
+
+// 登录历史项
+message LoginHistoryItem {
+  string loginTime = 1;
+  string ip = 2;
+  string userAgent = 3;
+  string location = 4;
+  bool success = 5;
+}
+
+// 获取登录历史请求
+message GetLoginHistoryRequest {
+  optional int32 page = 1;
+  optional int32 pageSize = 2;
+}
+
+// === 响应消息 ===
+
+message GetLoginHistoryResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  repeated LoginHistoryItem data = 2;
+}
+
+// === 服务定义 ===
+
+service UserLoginHistoryService {
+  // 获取登录历史
+  rpc GetLoginHistory(GetLoginHistoryRequest) returns (GetLoginHistoryResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/user/login-history"
+    };
+  }
+} 

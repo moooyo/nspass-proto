@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package nspass.api.servers.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/proto/api/servers;nspassapiservers";
+
+import "common.proto";
+
+// 区域选项
+message RegionOption {
+  string label = 1;
+  string value = 2;
+}
+
+// === 响应消息 ===
+
+message GetRegionsResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  repeated RegionOption data = 2;
+} 

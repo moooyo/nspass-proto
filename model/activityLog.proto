@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package nspass.model.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/model;nspassmodel";
+
+// 活动日志
+message ActivityLog {
+  uint32 id = 1;
+  uint32 user_id = 2;
+  string action = 3;
+  optional string description = 4;
+  string ip = 5;
+  string user_agent = 6;
+  int64 created_at = 7;
+} 

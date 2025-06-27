@@ -1,0 +1,202 @@
+syntax = "proto3";
+
+package nspass.api.servers.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/proto/api/servers;nspassapiservers";
+
+import "common.proto";
+import "google/api/annotations.proto";
+
+// 服务器状态枚举
+enum ServerStatus {
+  SERVER_STATUS_UNSPECIFIED = 0;
+  SERVER_STATUS_ONLINE = 1;
+  SERVER_STATUS_OFFLINE = 2;
+}
+
+// 服务器项
+message ServerItem {
+  string id = 1;
+  string name = 2;
+  string ipv4 = 3;
+  optional string ipv6 = 4;
+  string region = 5;
+  string group = 6;
+  string registerTime = 7;
+  double uploadTraffic = 8; // MB
+  double downloadTraffic = 9; // MB
+  ServerStatus status = 10;
+}
+
+// 创建服务器请求
+message CreateServerRequest {
+  string name = 1;
+  string ipv4 = 2;
+  optional string ipv6 = 3;
+  string region = 4;
+  string group = 5;
+  string registerTime = 6;
+  optional double uploadTraffic = 7;
+  optional double downloadTraffic = 8;
+  optional ServerStatus status = 9;
+}
+
+// 更新服务器请求
+message UpdateServerRequest {
+  optional string name = 1;
+  optional string ipv4 = 2;
+  optional string ipv6 = 3;
+  optional string region = 4;
+  optional string group = 5;
+  optional string registerTime = 6;
+  optional double uploadTraffic = 7;
+  optional double downloadTraffic = 8;
+  optional ServerStatus status = 9;
+}
+
+// 服务器列表查询参数
+message GetServersRequest {
+  optional int32 page = 1;
+  optional int32 pageSize = 2;
+  optional string name = 3;
+  optional ServerStatus status = 4;
+  optional string region = 5;
+}
+
+// 获取服务器详情请求
+message GetServerByIdRequest {
+  string id = 1;
+}
+
+// 更新服务器请求（带ID）
+message UpdateServerByIdRequest {
+  string id = 1;
+  UpdateServerRequest data = 2;
+}
+
+// 删除服务器请求
+message DeleteServerRequest {
+  string id = 1;
+}
+
+// 批量删除服务器请求
+message BatchDeleteServersRequest {
+  repeated string ids = 1;
+}
+
+// 重启服务器请求
+message RestartServerRequest {
+  string id = 1;
+}
+
+// === 响应消息 ===
+
+message GetServersResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  repeated ServerItem data = 2;
+}
+
+message CreateServerResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional ServerItem data = 2;
+}
+
+message GetServerByIdResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional ServerItem data = 2;
+}
+
+message UpdateServerResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional ServerItem data = 2;
+}
+
+message DeleteServerResponse {
+  nspass.common.v1.ApiResponse base = 1;
+}
+
+message BatchDeleteServersResponse {
+  nspass.common.v1.ApiResponse base = 1;
+}
+
+message RestartServerResponse {
+  nspass.common.v1.ApiResponse base = 1;
+}
+
+// === 服务定义 ===
+
+// 服务器管理服务
+service ServerManagementService {
+  // 获取服务器列表
+  // 
+  // 支持分页查询和多种过滤条件，包括服务器名称、状态和地区。
+  // 可用于管理界面显示服务器概览信息。
+  rpc GetServers(GetServersRequest) returns (GetServersResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/servers"
+    };
+  }
+
+  // 创建服务器
+  // 
+  // 添加新的服务器到系统中。需要提供服务器的基本信息，
+  // 包括名称、IP地址、地区和组别等。
+  rpc CreateServer(CreateServerRequest) returns (CreateServerResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/servers"
+      body: "*"
+    };
+  }
+
+  // 获取服务器详情
+  // 
+  // 根据服务器ID获取完整的服务器信息，
+  // 包括流量统计和当前状态。
+  rpc GetServerById(GetServerByIdRequest) returns (GetServerByIdResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/servers/{id}"
+    };
+  }
+
+  // 更新服务器
+  // 
+  // 修改现有服务器的配置信息。
+  // 可以更新服务器的名称、地址、状态等属性。
+  rpc UpdateServer(UpdateServerByIdRequest) returns (UpdateServerResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/servers/{id}"
+      body: "data"
+    };
+  }
+
+  // 删除服务器
+  // 
+  // 从系统中移除指定的服务器。
+  // 此操作不可逆，请谨慎使用。
+  rpc DeleteServer(DeleteServerRequest) returns (DeleteServerResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/servers/{id}"
+    };
+  }
+
+  // 批量删除服务器
+  // 
+  // 一次性删除多个服务器。
+  // 适用于批量清理或管理操作。
+  rpc BatchDeleteServers(BatchDeleteServersRequest) returns (BatchDeleteServersResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/servers/batch-delete"
+      body: "*"
+    };
+  }
+
+  // 重启服务器
+  // 
+  // 重启指定的服务器服务。
+  // 用于解决服务器运行异常或应用配置更改。
+  rpc RestartServer(RestartServerRequest) returns (RestartServerResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/servers/{id}/restart"
+    };
+  }
+} 

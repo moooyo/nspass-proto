@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package nspass.api.users.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/api/users;nspassapiusers";
+
+import "common.proto";
+import "google/api/annotations.proto";
+
+// 用户注册请求
+message RegisterRequest {
+  string name = 1;
+  string email = 2;
+  string password = 3;
+}
+
+// 用户登录请求
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+// 用户基本信息
+message UserBasicInfo {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  string role = 4;
+}
+
+// 登录响应数据
+message LoginData {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  string role = 4;
+  string token = 5;
+  int32 expires = 6; // 过期时间（小时）
+}
+
+// === 响应消息 ===
+
+message RegisterResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional UserBasicInfo data = 2;
+}
+
+message LoginResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional LoginData data = 2;
+}
+
+// === 服务定义 ===
+
+// 用户认证服务
+service UserAuthService {
+  // 用户注册
+  // 
+  // 创建新用户账户。需要提供用户名、邮箱和密码。
+  // 邮箱必须是有效格式且未被使用，密码最少8位。
+  // 成功注册后返回用户基本信息。
+  rpc Register(RegisterRequest) returns (RegisterResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/register"
+      body: "*"
+    };
+  }
+
+  // 用户登录
+  // 
+  // 验证用户凭据并返回JWT认证令牌。
+  // 使用邮箱和密码进行身份验证。
+  // 成功登录后返回用户信息和访问令牌。
+  rpc Login(LoginRequest) returns (LoginResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/login"
+      body: "*"
+    };
+  }
+} 

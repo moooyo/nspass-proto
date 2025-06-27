@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package nspass.model.v1;
+
+import "model/egress.proto";
+
+option go_package = "github.com/moooyo/nspass-backend/generated/model;nspassmodel";
+
+// 出口项目消息
+message EgressItem {
+  string id = 1;
+  string egressId = 2;
+  string serverId = 3;
+  EgressMode egressMode = 4;
+  string egressConfig = 5;
+  
+  // 直出模式字段
+  optional string targetAddress = 6;
+  
+  // iptables模式字段
+  optional ForwardType forwardType = 7;
+  optional string destAddress = 8;
+  optional string destPort = 9;
+  
+  // shadowsocks-2022模式字段
+  optional string password = 10;
+  optional bool supportUdp = 11;
+} 

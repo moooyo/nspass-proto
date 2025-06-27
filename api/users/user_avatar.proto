@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package nspass.api.users.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/api/users;nspassapiusers";
+
+import "common.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+// 上传头像响应数据
+message UploadAvatarData {
+  string avatarUrl = 1;
+}
+
+// === 响应消息 ===
+
+message UploadAvatarResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional UploadAvatarData data = 2;
+}
+
+// === 服务定义 ===
+
+service UserAvatarService {
+  // 上传头像
+  rpc UploadAvatar(google.protobuf.Empty) returns (UploadAvatarResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/user/avatar"
+    };
+  }
+} 

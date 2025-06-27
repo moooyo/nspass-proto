@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package nspass.api.users.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/api/users;nspassapiusers";
+
+import "common.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+// 用户信息
+message UserInfo {
+  int32 id = 1;
+  string name = 2;
+  string role = 3;
+  repeated int32 userGroup = 4;
+  string traffic = 5;
+  string trafficResetDate = 6;
+  string forwardRuleConfigLimit = 7;
+  optional string email = 8;
+  optional string phone = 9;
+  optional string avatar = 10;
+  string createTime = 11;
+  string lastLoginTime = 12;
+}
+
+// 更新用户信息请求
+message UpdateUserInfoRequest {
+  optional string name = 1;
+  optional string email = 2;
+  optional string phone = 3;
+  optional string avatar = 4;
+}
+
+// === 响应消息 ===
+
+message GetCurrentUserInfoResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional UserInfo data = 2;
+}
+
+message UpdateCurrentUserInfoResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional UserInfo data = 2;
+}
+
+// === 服务定义 ===
+
+service UserProfileService {
+  // 获取当前用户信息
+  rpc GetCurrentUserInfo(google.protobuf.Empty) returns (GetCurrentUserInfoResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/users/me"
+    };
+  }
+
+  // 更新当前用户信息
+  rpc UpdateCurrentUserInfo(UpdateUserInfoRequest) returns (UpdateCurrentUserInfoResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/users/me"
+      body: "*"
+    };
+  }
+} 

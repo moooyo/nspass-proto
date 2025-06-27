@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package nspass.model.v1;
+
+import "model/egress.proto";
+
+option go_package = "github.com/moooyo/nspass-backend/generated/model;nspassmodel";
+
+// 转发规则类型枚举
+enum ForwardRuleType {
+  FORWARD_RULE_TYPE_UNSPECIFIED = 0;
+  FORWARD_RULE_TYPE_TCP = 1;
+  FORWARD_RULE_TYPE_UDP = 2;
+  FORWARD_RULE_TYPE_ALL = 3;
+}
+
+// 转发规则
+message ForwardRule {
+  uint32 id = 1;                      // 主键ID
+  uint32 user_id = 2;                 // 用户ID
+  string name = 3;                    // 规则名称
+  uint32 server_id = 4;               // 服务器ID
+  EgressMode egress_mode = 5;         // 出口模式
+  ForwardRuleType forward_type = 6;   // 转发类型
+  int32 source_port = 7;              // 源端口
+  optional string target_address = 8; // 目标地址
+  int32 target_port = 9;              // 目标端口
+  optional string password = 10;      // 密码
+  bool support_udp = 11;              // 支持UDP
+  string status = 12;                 // 状态
+  int64 traffic_up = 13;              // 上行流量
+  int64 traffic_down = 14;            // 下行流量
+  int64 last_active_time = 15;        // 最后活跃时间（Unix时间戳）
+  int64 created_at = 16;              // 创建时间（Unix时间戳）
+  int64 updated_at = 17;              // 更新时间（Unix时间戳）
+} 

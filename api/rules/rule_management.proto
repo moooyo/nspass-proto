@@ -1,0 +1,240 @@
+syntax = "proto3";
+
+package nspass.api.rules.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/api/rules;nspassapirules";
+
+import "common.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+// 规则类型枚举
+enum ForwardRuleType {
+  FORWARD_RULE_TYPE_UNSPECIFIED = 0;
+  FORWARD_RULE_TYPE_TCP = 1;
+  FORWARD_RULE_TYPE_UDP = 2;
+  FORWARD_RULE_TYPE_HTTP = 3;
+}
+
+// 出口模式枚举
+enum EgressMode {
+  EGRESS_MODE_UNSPECIFIED = 0;
+  EGRESS_MODE_DIRECT = 1;
+  EGRESS_MODE_PROXY = 2;
+}
+
+// 规则状态枚举
+enum RuleStatus {
+  RULE_STATUS_UNSPECIFIED = 0;
+  RULE_STATUS_ACTIVE = 1;
+  RULE_STATUS_INACTIVE = 2;
+  RULE_STATUS_ERROR = 3;
+}
+
+// 转发规则信息
+message ForwardRule {
+  int32 id = 1;
+  int32 userId = 2;
+  int32 serverId = 3;
+  string name = 4;
+  EgressMode egressMode = 5;
+  ForwardRuleType type = 6;
+  int32 sourcePort = 7;
+  string targetAddress = 8;
+  int32 targetPort = 9;
+  string password = 10;
+  bool supportUDP = 11;
+  RuleStatus status = 12;
+  string createTime = 13;
+  string updateTime = 14;
+  double uploadTraffic = 15;  // MB
+  double downloadTraffic = 16; // MB
+}
+
+// 规则流量统计
+message RuleTrafficStats {
+  int32 ruleId = 1;
+  string ruleName = 2;
+  double uploadTraffic = 3;
+  double downloadTraffic = 4;
+  double totalTraffic = 5;
+  repeated TrafficDataPoint dailyStats = 6;
+}
+
+// 流量数据点
+message TrafficDataPoint {
+  string date = 1;
+  double upload = 2;
+  double download = 3;
+}
+
+// === 请求消息 ===
+
+// 获取规则列表请求
+message GetRulesRequest {
+  optional int32 page = 1;
+  optional int32 pageSize = 2;
+  optional string name = 3;      // 按名称筛选
+  optional RuleStatus status = 4; // 按状态筛选
+}
+
+// 创建规则请求
+message CreateRuleRequest {
+  string name = 1;
+  int32 sourcePort = 2;
+  string targetAddress = 3;
+  int32 targetPort = 4;
+  int32 serverId = 5;
+  optional string password = 6;
+  optional bool supportUDP = 7;
+  optional EgressMode egressMode = 8;
+  optional ForwardRuleType type = 9;
+}
+
+// 获取单个规则请求
+message GetRuleRequest {
+  int32 id = 1;
+}
+
+// 更新规则请求
+message UpdateRuleRequest {
+  int32 id = 1;
+  optional string name = 2;
+  optional int32 sourcePort = 3;
+  optional string targetAddress = 4;
+  optional int32 targetPort = 5;
+  optional string password = 6;
+  optional bool supportUDP = 7;
+  optional EgressMode egressMode = 8;
+  optional ForwardRuleType type = 9;
+}
+
+// 删除规则请求
+message DeleteRuleRequest {
+  int32 id = 1;
+}
+
+// 批量删除规则请求
+message BatchDeleteRulesRequest {
+  repeated int32 ids = 1;
+}
+
+// 启用/禁用规则请求
+message ToggleRuleRequest {
+  int32 id = 1;
+  bool enabled = 2;
+}
+
+// 获取规则流量统计请求
+message GetRuleTrafficStatsRequest {
+  int32 id = 1;
+  optional int32 days = 2; // 统计天数，默认7天
+}
+
+// === 响应消息 ===
+
+message GetRulesResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  repeated ForwardRule data = 2;
+  int32 total = 3;
+  int32 page = 4;
+  int32 pageSize = 5;
+}
+
+message CreateRuleResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional ForwardRule data = 2;
+}
+
+message GetRuleResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional ForwardRule data = 2;
+}
+
+message UpdateRuleResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional ForwardRule data = 2;
+}
+
+message DeleteRuleResponse {
+  nspass.common.v1.ApiResponse base = 1;
+}
+
+message BatchDeleteRulesResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  int32 deletedCount = 2;
+}
+
+message ToggleRuleResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional ForwardRule data = 2;
+}
+
+message GetRuleTrafficStatsResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional RuleTrafficStats data = 2;
+}
+
+// === 规则管理服务 ===
+
+service RuleManagementService {
+  // 获取用户的转发规则列表
+  rpc GetRules(GetRulesRequest) returns (GetRulesResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/rules"
+    };
+  }
+
+  // 创建新的转发规则
+  rpc CreateRule(CreateRuleRequest) returns (CreateRuleResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/rules"
+      body: "*"
+    };
+  }
+
+  // 获取单个转发规则详情
+  rpc GetRule(GetRuleRequest) returns (GetRuleResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/rules/{id}"
+    };
+  }
+
+  // 更新转发规则
+  rpc UpdateRule(UpdateRuleRequest) returns (UpdateRuleResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/rules/{id}"
+      body: "*"
+    };
+  }
+
+  // 删除转发规则
+  rpc DeleteRule(DeleteRuleRequest) returns (DeleteRuleResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/rules/{id}"
+    };
+  }
+
+  // 批量删除转发规则
+  rpc BatchDeleteRules(BatchDeleteRulesRequest) returns (BatchDeleteRulesResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/rules/batch-delete"
+      body: "*"
+    };
+  }
+
+  // 启用/禁用转发规则
+  rpc ToggleRule(ToggleRuleRequest) returns (ToggleRuleResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/rules/{id}/toggle"
+      body: "*"
+    };
+  }
+
+  // 获取规则流量统计
+  rpc GetRuleTrafficStats(GetRuleTrafficStatsRequest) returns (GetRuleTrafficStatsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/rules/{id}/traffic-stats"
+    };
+  }
+} 

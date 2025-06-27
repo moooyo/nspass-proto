@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package nspass.model.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/model;nspassmodel";
+
+// 二步验证
+message TwoFactorAuth {
+  uint32 id = 1;
+  uint32 user_id = 2;
+  string secret = 3;
+  bool enabled = 4;
+  optional string backup_codes = 5; // 备份码，以逗号分隔
+} 

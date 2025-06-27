@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package nspass.api.users.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/api/users;nspassapiusers";
+
+import "common.proto";
+import "google/api/annotations.proto";
+
+// 活动日志项
+message ActivityLogItem {
+  string timestamp = 1;
+  string action = 2;
+  string description = 3;
+  string ip = 4;
+  string userAgent = 5;
+}
+
+// 获取活动日志请求
+message GetActivityLogsRequest {
+  optional int32 page = 1;
+  optional int32 pageSize = 2;
+}
+
+// === 响应消息 ===
+
+message GetActivityLogsResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  repeated ActivityLogItem data = 2;
+}
+
+// === 服务定义 ===
+
+service UserActivityService {
+  // 获取活动日志
+  rpc GetActivityLogs(GetActivityLogsRequest) returns (GetActivityLogsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/user/activity-logs"
+    };
+  }
+} 
