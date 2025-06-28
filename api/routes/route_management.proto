@@ -4,6 +4,7 @@ package nspass.api.routes.v1;
 
 option go_package = "github.com/moooyo/nspass-backend/generated/api/routes;nspassroutes";
 
+import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 import "common.proto";
@@ -163,35 +164,85 @@ message ValidateRouteConnectivityResponse {
 // 线路管理服务
 service RouteManagementService {
   // 创建线路
-  rpc CreateRoute(CreateRouteRequest) returns (CreateRouteResponse);
+  rpc CreateRoute(CreateRouteRequest) returns (CreateRouteResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/routes"
+      body: "*"
+    };
+  }
   
   // 获取线路
-  rpc GetRoute(GetRouteRequest) returns (GetRouteResponse);
+  rpc GetRoute(GetRouteRequest) returns (GetRouteResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/routes/{id}"
+    };
+  }
   
   // 更新线路
-  rpc UpdateRoute(UpdateRouteRequest) returns (UpdateRouteResponse);
+  rpc UpdateRoute(UpdateRouteRequest) returns (UpdateRouteResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/routes/{id}"
+      body: "*"
+    };
+  }
   
   // 删除线路
-  rpc DeleteRoute(DeleteRouteRequest) returns (DeleteRouteResponse);
+  rpc DeleteRoute(DeleteRouteRequest) returns (DeleteRouteResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/routes/{id}"
+    };
+  }
   
   // 批量删除线路
-  rpc BatchDeleteRoutes(BatchDeleteRoutesRequest) returns (BatchDeleteRoutesResponse);
+  rpc BatchDeleteRoutes(BatchDeleteRoutesRequest) returns (BatchDeleteRoutesResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/routes/batch/delete"
+      body: "*"
+    };
+  }
   
   // 列出线路
-  rpc ListRoutes(ListRoutesRequest) returns (ListRoutesResponse);
+  rpc ListRoutes(ListRoutesRequest) returns (ListRoutesResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/routes"
+    };
+  }
   
   // 搜索线路
-  rpc SearchRoutes(SearchRoutesRequest) returns (SearchRoutesResponse);
+  rpc SearchRoutes(SearchRoutesRequest) returns (SearchRoutesResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/routes/search"
+    };
+  }
   
   // 更新线路状态
-  rpc UpdateRouteStatus(UpdateRouteStatusRequest) returns (UpdateRouteStatusResponse);
+  rpc UpdateRouteStatus(UpdateRouteStatusRequest) returns (UpdateRouteStatusResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/routes/{id}/status"
+      body: "*"
+    };
+  }
   
   // 批量更新线路状态
-  rpc BatchUpdateRouteStatus(BatchUpdateRouteStatusRequest) returns (BatchUpdateRouteStatusResponse);
+  rpc BatchUpdateRouteStatus(BatchUpdateRouteStatusRequest) returns (BatchUpdateRouteStatusResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/routes/batch/status"
+      body: "*"
+    };
+  }
   
   // 生成线路配置
-  rpc GenerateRouteConfig(GenerateRouteConfigRequest) returns (GenerateRouteConfigResponse);
+  rpc GenerateRouteConfig(GenerateRouteConfigRequest) returns (GenerateRouteConfigResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/routes/{id}/config"
+    };
+  }
   
   // 验证线路连通性
-  rpc ValidateRouteConnectivity(ValidateRouteConnectivityRequest) returns (ValidateRouteConnectivityResponse);
+  rpc ValidateRouteConnectivity(ValidateRouteConnectivityRequest) returns (ValidateRouteConnectivityResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/routes/{id}/validate"
+      body: "*"
+    };
+  }
 } 
