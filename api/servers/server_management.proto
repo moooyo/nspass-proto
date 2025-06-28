@@ -12,33 +12,32 @@ enum ServerStatus {
   SERVER_STATUS_UNSPECIFIED = 0;
   SERVER_STATUS_ONLINE = 1;
   SERVER_STATUS_OFFLINE = 2;
+  SERVER_STATUS_PENDING_INSTALL = 3;
+  SERVER_STATUS_UNKNOWN = 4;
 }
 
 // 服务器项
 message ServerItem {
   string id = 1;
   string name = 2;
-  string ipv4 = 3;
+  optional string ipv4 = 3;
   optional string ipv6 = 4;
-  string region = 5;
-  string group = 6;
-  string registerTime = 7;
-  double uploadTraffic = 8; // MB
-  double downloadTraffic = 9; // MB
+  optional string country = 5;
+  optional string group = 6;
+  optional string registerTime = 7;
+  optional double uploadTraffic = 8; // MB
+  optional double downloadTraffic = 9; // MB
   ServerStatus status = 10;
 }
 
 // 创建服务器请求
 message CreateServerRequest {
   string name = 1;
-  string ipv4 = 2;
-  optional string ipv6 = 3;
-  string region = 4;
-  string group = 5;
-  string registerTime = 6;
-  optional double uploadTraffic = 7;
-  optional double downloadTraffic = 8;
-  optional ServerStatus status = 9;
+  optional string country = 2;
+  optional string group = 3;
+  optional string registerTime = 4;
+  optional double uploadTraffic = 5;
+  optional double downloadTraffic = 6;
 }
 
 // 更新服务器请求
@@ -46,7 +45,7 @@ message UpdateServerRequest {
   optional string name = 1;
   optional string ipv4 = 2;
   optional string ipv6 = 3;
-  optional string region = 4;
+  optional string country = 4;
   optional string group = 5;
   optional string registerTime = 6;
   optional double uploadTraffic = 7;
@@ -60,7 +59,7 @@ message GetServersRequest {
   optional int32 pageSize = 2;
   optional string name = 3;
   optional ServerStatus status = 4;
-  optional string region = 5;
+  optional string country = 5;
 }
 
 // 获取服务器详情请求
