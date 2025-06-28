@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package nspass.model.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/model;nspassmodel";
+
+// DNS配置信息
+message DnsConfig {
+  uint32 id = 1;                    // 主键ID
+  string config_name = 2;           // 配置名称
+  DnsProvider provider = 3;         // DNS提供商
+  string domain = 4;                // 域名
+  string config_params = 5;         // 配置参数（JSON格式）
+  int64 created_at = 6;             // 创建时间（Unix时间戳）
+  int64 updated_at = 7;             // 更新时间（Unix时间戳）
+}
+
+// DNS提供商枚举
+enum DnsProvider {
+  DNS_PROVIDER_UNSPECIFIED = 0;
+  DNS_PROVIDER_CLOUDFLARE = 1;
+} 

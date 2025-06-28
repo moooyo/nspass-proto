@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package nspass.api.dns.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/api/dns;nspassapidns";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "common.proto";
+import "model/dnsConfig.proto";
+
+// DNS配置管理服务
+service DnsConfigService {
+  // 获取DNS配置列表
+  rpc GetDnsConfigs(GetDnsConfigsRequest) returns (GetDnsConfigsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/dns/configs"
+    };
+  }
+
+  // 创建DNS配置
+  rpc CreateDnsConfig(CreateDnsConfigRequest) returns (CreateDnsConfigResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/dns/configs"
+      body: "*"
+    };
+  }
+
+  // 更新DNS配置
+  rpc UpdateDnsConfig(UpdateDnsConfigRequest) returns (UpdateDnsConfigResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/dns/configs/{id}"
+      body: "*"
+    };
+  }
+
+  // 删除DNS配置
+  rpc DeleteDnsConfig(DeleteDnsConfigRequest) returns (DeleteDnsConfigResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/dns/configs/{id}"
+    };
+  }
+}
+
+// 获取DNS配置列表请求
+message GetDnsConfigsRequest {
+  optional string config_name = 1;           // 配置名筛选
+  optional nspass.model.v1.DnsProvider provider = 2;  // provider筛选
+  optional uint32 page = 3;                  // 页码
+  optional uint32 page_size = 4;             // 每页大小
+}
+
+// 获取DNS配置列表响应
+message GetDnsConfigsResponse {
+  repeated nspass.model.v1.DnsConfig configs = 1;
+  nspass.common.v1.Pagination pagination = 2;
+}
+
+// 创建DNS配置请求
+message CreateDnsConfigRequest {
+  string config_name = 1;                    // 配置名称
+  nspass.model.v1.DnsProvider provider = 2;  // DNS提供商
+  string domain = 3;                         // 域名
+  string config_params = 4;                  // 配置参数（JSON格式）
+}
+
+// 创建DNS配置响应
+message CreateDnsConfigResponse {
+  nspass.model.v1.DnsConfig config = 1;
+}
+
+// 更新DNS配置请求
+message UpdateDnsConfigRequest {
+  uint32 id = 1;                             // 配置ID
+  optional string config_name = 2;           // 配置名称
+  optional nspass.model.v1.DnsProvider provider = 3; // DNS提供商
+  optional string domain = 4;                // 域名
+  optional string config_params = 5;         // 配置参数（JSON格式）
+}
+
+// 更新DNS配置响应
+message UpdateDnsConfigResponse {
+  nspass.model.v1.DnsConfig config = 1;
+}
+
+// 删除DNS配置请求
+message DeleteDnsConfigRequest {
+  uint32 id = 1;                             // 配置ID
+}
+
+// 删除DNS配置响应
+message DeleteDnsConfigResponse {
+  bool success = 1;
+} 
