@@ -1,0 +1,221 @@
+syntax = "proto3";
+
+package nspass.api.users.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/api/users;nspassapiusers";
+
+import "common.proto";
+import "google/api/annotations.proto";
+
+// === Passkey 数据模型 ===
+
+// Passkey凭据信息
+message PasskeyCredential {
+  string id = 1;                    // 凭据ID
+  string userId = 2;                // 用户ID
+  string name = 3;                  // 凭据名称（如"iPhone Touch ID"）
+  string deviceType = 4;            // 设备类型（mobile/desktop/security_key）
+  string createdAt = 5;             // 创建时间
+  string lastUsedAt = 6;            // 最后使用时间
+  bool isActive = 7;                // 是否激活状态
+}
+
+// === 注册相关 ===
+
+// Passkey注册选项
+message PasskeyRegistrationOptions {
+  string challenge = 1;             // 挑战值（base64编码）
+  string rpId = 2;                  // 依赖方ID
+  string rpName = 3;                // 依赖方名称
+  PasskeyUser user = 4;             // 用户信息
+  repeated string excludeCredentials = 5; // 排除的凭据
+  string userVerification = 6;      // 用户验证要求
+  int32 timeout = 7;               // 超时时间（毫秒）
+}
+
+// Passkey用户信息
+message PasskeyUser {
+  string id = 1;                    // 用户ID（base64编码）
+  string name = 2;                  // 用户名
+  string displayName = 3;           // 显示名称
+}
+
+// Passkey注册请求
+message PasskeyRegistrationRequest {
+  string credentialId = 1;          // 凭据ID
+  string publicKey = 2;             // 公钥（base64编码）
+  string attestationObject = 3;     // 认证对象（base64编码）
+  string clientDataJSON = 4;        // 客户端数据JSON（base64编码）
+  string credentialName = 5;        // 凭据名称
+  string deviceType = 6;            // 设备类型
+}
+
+// === 认证相关 ===
+
+// Passkey认证选项
+message PasskeyAuthenticationOptions {
+  string challenge = 1;             // 挑战值（base64编码）
+  string rpId = 2;                  // 依赖方ID
+  repeated string allowCredentials = 3; // 允许的凭据列表
+  string userVerification = 4;      // 用户验证要求
+  int32 timeout = 5;               // 超时时间（毫秒）
+}
+
+// Passkey认证请求
+message PasskeyAuthenticationRequest {
+  string credentialId = 1;          // 凭据ID
+  string authenticatorData = 2;     // 认证器数据（base64编码）
+  string signature = 3;             // 签名（base64编码）
+  string clientDataJSON = 4;        // 客户端数据JSON（base64编码）
+  optional string userHandle = 5;   // 用户句柄（base64编码）
+}
+
+// 认证成功后的用户数据
+message PasskeyLoginData {
+  int32 id = 1;                     // 用户ID
+  string name = 2;                  // 用户名
+  string email = 3;                 // 邮箱
+  string role = 4;                  // 角色
+  string token = 5;                 // 访问令牌
+  string refreshToken = 6;          // 刷新令牌
+  int32 expiresIn = 7;             // 过期时间（秒）
+  string credentialName = 8;        // 使用的凭据名称
+}
+
+// === 管理相关 ===
+
+// 获取用户Passkey列表请求
+message GetPasskeyListRequest {
+  nspass.common.v1.PaginationRequest pagination = 1;
+}
+
+// Passkey列表数据
+message PasskeyListData {
+  repeated PasskeyCredential credentials = 1;
+  nspass.common.v1.PaginationResponse pagination = 2;
+}
+
+// 删除Passkey请求
+message DeletePasskeyRequest {
+  string credentialId = 1;
+}
+
+// 重命名Passkey请求
+message RenamePasskeyRequest {
+  string credentialId = 1;
+  string newName = 2;
+}
+
+// === 响应消息 ===
+
+message PasskeyRegistrationOptionsResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional PasskeyRegistrationOptions data = 2;
+}
+
+message PasskeyRegistrationResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional PasskeyCredential data = 2;
+}
+
+message PasskeyAuthenticationOptionsResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional PasskeyAuthenticationOptions data = 2;
+}
+
+message PasskeyAuthenticationResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional PasskeyLoginData data = 2;
+}
+
+message PasskeyListResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional PasskeyListData data = 2;
+}
+
+message DeletePasskeyResponse {
+  nspass.common.v1.ApiResponse base = 1;
+}
+
+message RenamePasskeyResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional PasskeyCredential data = 2;
+}
+
+// === 服务定义 ===
+
+// Passkey认证服务
+service PasskeyService {
+  // 获取Passkey注册选项
+  // 
+  // 生成注册新Passkey凭据所需的挑战和选项。
+  // 用户在注册Passkey前必须先调用此接口获取注册选项。
+  rpc GetRegistrationOptions(nspass.common.v1.ApiResponse) returns (PasskeyRegistrationOptionsResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/passkey/registration/options"
+    };
+  }
+
+  // 注册Passkey凭据
+  // 
+  // 完成Passkey凭据的注册。客户端使用WebAuthn API
+  // 生成凭据后，将结果发送到此接口完成注册。
+  rpc RegisterPasskey(PasskeyRegistrationRequest) returns (PasskeyRegistrationResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/passkey/registration/verify"
+      body: "*"
+    };
+  }
+
+  // 获取Passkey认证选项
+  // 
+  // 生成Passkey登录认证所需的挑战和选项。
+  // 用户点击Passkey登录时首先调用此接口。
+  rpc GetAuthenticationOptions(nspass.common.v1.ApiResponse) returns (PasskeyAuthenticationOptionsResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/passkey/authentication/options"
+    };
+  }
+
+  // Passkey登录认证
+  // 
+  // 验证Passkey认证结果并完成登录。
+  // 成功认证后返回用户信息和访问令牌。
+  rpc AuthenticatePasskey(PasskeyAuthenticationRequest) returns (PasskeyAuthenticationResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/passkey/authentication/verify"
+      body: "*"
+    };
+  }
+
+  // 获取用户的Passkey列表
+  // 
+  // 获取当前用户所有已注册的Passkey凭据列表。
+  // 支持分页查询和基本信息展示。
+  rpc GetPasskeyList(GetPasskeyListRequest) returns (PasskeyListResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/user/passkeys"
+    };
+  }
+
+  // 删除Passkey凭据
+  // 
+  // 删除指定的Passkey凭据。用户可以管理自己的
+  // Passkey凭据，删除不再使用的认证器。
+  rpc DeletePasskey(DeletePasskeyRequest) returns (DeletePasskeyResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/user/passkeys/{credentialId}"
+    };
+  }
+
+  // 重命名Passkey凭据
+  // 
+  // 修改Passkey凭据的显示名称，便于用户识别
+  // 不同的认证器设备。
+  rpc RenamePasskey(RenamePasskeyRequest) returns (RenamePasskeyResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/user/passkeys/{credentialId}/name"
+      body: "*"
+    };
+  }
+} 
