@@ -35,7 +35,7 @@ service UserLoginHistoryService {
   // 获取登录历史
   rpc GetLoginHistory(GetLoginHistoryRequest) returns (GetLoginHistoryResponse) {
     option (google.api.http) = {
-      get: "/api/v1/user/login-history"
+      get: "/v1/user/login-history"
     };
   }
 } 

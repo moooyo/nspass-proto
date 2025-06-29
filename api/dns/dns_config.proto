@@ -13,14 +13,14 @@ service DnsConfigService {
   // 获取DNS配置列表
   rpc GetDnsConfigs(GetDnsConfigsRequest) returns (GetDnsConfigsResponse) {
     option (google.api.http) = {
-      get: "/api/v1/dns/configs"
+      get: "/v1/dns/configs"
     };
   }
 
   // 创建DNS配置
   rpc CreateDnsConfig(CreateDnsConfigRequest) returns (CreateDnsConfigResponse) {
     option (google.api.http) = {
-      post: "/api/v1/dns/configs"
+      post: "/v1/dns/configs"
       body: "*"
     };
   }
@@ -28,7 +28,7 @@ service DnsConfigService {
   // 更新DNS配置
   rpc UpdateDnsConfig(UpdateDnsConfigRequest) returns (UpdateDnsConfigResponse) {
     option (google.api.http) = {
-      put: "/api/v1/dns/configs/{id}"
+      put: "/v1/dns/configs/{id}"
       body: "*"
     };
   }
@@ -36,7 +36,7 @@ service DnsConfigService {
   // 删除DNS配置
   rpc DeleteDnsConfig(DeleteDnsConfigRequest) returns (DeleteDnsConfigResponse) {
     option (google.api.http) = {
-      delete: "/api/v1/dns/configs/{id}"
+      delete: "/v1/dns/configs/{id}"
     };
   }
 }

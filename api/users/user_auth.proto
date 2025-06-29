@@ -61,7 +61,7 @@ service UserAuthService {
   // 成功注册后返回用户基本信息。
   rpc Register(RegisterRequest) returns (RegisterResponse) {
     option (google.api.http) = {
-      post: "/api/v1/auth/register"
+      post: "/v1/auth/register"
       body: "*"
     };
   }
@@ -73,7 +73,7 @@ service UserAuthService {
   // 成功登录后返回用户信息和访问令牌。
   rpc Login(LoginRequest) returns (LoginResponse) {
     option (google.api.http) = {
-      post: "/api/v1/auth/login"
+      post: "/v1/auth/login"
       body: "*"
     };
   }

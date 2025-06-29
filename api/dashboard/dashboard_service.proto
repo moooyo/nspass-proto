@@ -255,7 +255,7 @@ service DashboardService {
   // 获取系统的基本统计信息，包括用户数、服务器数、规则数和月度流量等。
   rpc GetSystemOverview(google.protobuf.Empty) returns (GetSystemOverviewResponse) {
     option (google.api.http) = {
-      get: "/api/v1/dashboard/overview"
+      get: "/v1/dashboard/overview"
     };
   }
 
@@ -264,7 +264,7 @@ service DashboardService {
   // 检查系统各组件的运行状态，包括数据库、缓存、网络等。
   rpc GetSystemHealth(google.protobuf.Empty) returns (GetSystemHealthResponse) {
     option (google.api.http) = {
-      get: "/api/v1/dashboard/health"
+      get: "/v1/dashboard/health"
     };
   }
 
@@ -273,7 +273,7 @@ service DashboardService {
   // 获取指定时间范围内的流量趋势数据，用于图表展示。
   rpc GetTrafficTrend(GetTrafficTrendRequest) returns (GetTrafficTrendResponse) {
     option (google.api.http) = {
-      get: "/api/v1/dashboard/traffic-trend"
+      get: "/v1/dashboard/traffic-trend"
     };
   }
 
@@ -282,7 +282,7 @@ service DashboardService {
   // 统计不同地区的流量使用情况，用于地理分布图。
   rpc GetTrafficByRegion(google.protobuf.Empty) returns (GetTrafficByRegionResponse) {
     option (google.api.http) = {
-      get: "/api/v1/dashboard/traffic-by-region"
+      get: "/v1/dashboard/traffic-by-region"
     };
   }
 
@@ -291,7 +291,7 @@ service DashboardService {
   // 获取当前的实时流量数据，包括上传、下载速度和连接数。
   rpc GetRealTimeTraffic(google.protobuf.Empty) returns (GetRealTimeTrafficResponse) {
     option (google.api.http) = {
-      get: "/api/v1/dashboard/real-time-traffic"
+      get: "/v1/dashboard/real-time-traffic"
     };
   }
 
@@ -300,7 +300,7 @@ service DashboardService {
   // 获取系统的性能指标，如CPU、内存、磁盘使用率等。
   rpc GetSystemPerformance(google.protobuf.Empty) returns (GetSystemPerformanceResponse) {
     option (google.api.http) = {
-      get: "/api/v1/dashboard/performance"
+      get: "/v1/dashboard/performance"
     };
   }
 
@@ -309,7 +309,7 @@ service DashboardService {
   // 获取当前的系统警报和通知信息。
   rpc GetSystemAlerts(google.protobuf.Empty) returns (GetSystemAlertsResponse) {
     option (google.api.http) = {
-      get: "/api/v1/dashboard/alerts"
+      get: "/v1/dashboard/alerts"
     };
   }
 
@@ -318,7 +318,7 @@ service DashboardService {
   // 获取流量使用最多的转发规则排行榜。
   rpc GetTopRules(GetTopRulesRequest) returns (GetTopRulesResponse) {
     option (google.api.http) = {
-      get: "/api/v1/dashboard/top-rules"
+      get: "/v1/dashboard/top-rules"
     };
   }
 
@@ -327,7 +327,7 @@ service DashboardService {
   // 统计不同状态的规则数量分布。
   rpc GetRuleStatus(google.protobuf.Empty) returns (GetRuleStatusStatsResponse) {
     option (google.api.http) = {
-      get: "/api/v1/dashboard/rule-status"
+      get: "/v1/dashboard/rule-status"
     };
   }
 
@@ -336,7 +336,7 @@ service DashboardService {
   // 统计不同状态的服务器数量分布。
   rpc GetServerStatus(google.protobuf.Empty) returns (GetServerStatusStatsResponse) {
     option (google.api.http) = {
-      get: "/api/v1/dashboard/server-status"
+      get: "/v1/dashboard/server-status"
     };
   }
 
@@ -345,7 +345,7 @@ service DashboardService {
   // 获取用户流量使用的统计信息。
   rpc GetUserTrafficStats(GetUserTrafficStatsRequest) returns (GetUserTrafficStatsResponse) {
     option (google.api.http) = {
-      get: "/api/v1/dashboard/user-traffic-stats"
+      get: "/v1/dashboard/user-traffic-stats"
     };
   }
 
@@ -354,7 +354,7 @@ service DashboardService {
   // 获取系统日志的摘要信息，包括错误、警告等。
   rpc GetLogSummary(GetLogSummaryRequest) returns (GetLogSummaryResponse) {
     option (google.api.http) = {
-      get: "/api/v1/dashboard/log-summary"
+      get: "/v1/dashboard/log-summary"
     };
   }
 
@@ -363,7 +363,7 @@ service DashboardService {
   // 强制刷新仪表板的所有数据缓存。
   rpc RefreshDashboard(google.protobuf.Empty) returns (RefreshDashboardResponse) {
     option (google.api.http) = {
-      post: "/api/v1/dashboard/refresh"
+      post: "/v1/dashboard/refresh"
     };
   }
 } 

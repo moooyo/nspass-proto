@@ -24,7 +24,7 @@ service UserAccountService {
   // 注销账户
   rpc DeleteAccount(DeleteAccountRequest) returns (DeleteAccountResponse) {
     option (google.api.http) = {
-      post: "/api/v1/user/account/delete"
+      post: "/v1/user/account/delete"
       body: "*"
     };
   }

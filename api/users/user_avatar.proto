@@ -26,7 +26,7 @@ service UserAvatarService {
   // 上传头像
   rpc UploadAvatar(google.protobuf.Empty) returns (UploadAvatarResponse) {
     option (google.api.http) = {
-      post: "/api/v1/user/avatar"
+      post: "/v1/user/avatar"
     };
   }
 } 

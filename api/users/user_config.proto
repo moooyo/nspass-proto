@@ -68,7 +68,7 @@ service UserConfigService {
   // 获取指定用户的所有配置
   rpc GetUserConfigs(GetUserConfigsRequest) returns (GetUserConfigsResponse) {
     option (google.api.http) = {
-      get: "/api/v1/users/{user_id}/configs"
+      get: "/v1/users/{user_id}/configs"
       //                   ^^^^^^^^ 路径参数
     };
   }
@@ -76,7 +76,7 @@ service UserConfigService {
   // 获取指定用户的特定配置
   rpc GetUserConfig(GetUserConfigRequest) returns (GetUserConfigResponse) {
     option (google.api.http) = {
-      get: "/api/v1/users/{user_id}/configs/{config_key}"
+      get: "/v1/users/{user_id}/configs/{config_key}"
       //                   ^^^^^^^^           ^^^^^^^^^^^^ 两个路径参数
     };
   }
@@ -84,7 +84,7 @@ service UserConfigService {
   // 更新指定用户的特定配置
   rpc UpdateUserConfig(UpdateUserConfigRequest) returns (UpdateUserConfigResponse) {
     option (google.api.http) = {
-      put: "/api/v1/users/{user_id}/configs/{config_key}"
+      put: "/v1/users/{user_id}/configs/{config_key}"
       body: "*"  // 整个请求体，但路径参数会自动排除
     };
   }
@@ -92,14 +92,14 @@ service UserConfigService {
   // 删除指定用户的特定配置
   rpc DeleteUserConfig(DeleteUserConfigRequest) returns (DeleteUserConfigResponse) {
     option (google.api.http) = {
-      delete: "/api/v1/users/{user_id}/configs/{config_key}"
+      delete: "/v1/users/{user_id}/configs/{config_key}"
     };
   }
 
   // 更复杂的路径参数示例
   rpc GetUserConfigHistory(GetUserConfigHistoryRequest) returns (GetUserConfigHistoryResponse) {
     option (google.api.http) = {
-      get: "/api/v1/users/{user_id}/configs/{config_key}/history/{version}"
+      get: "/v1/users/{user_id}/configs/{config_key}/history/{version}"
       //                   ^^^^^^^^           ^^^^^^^^^^^        ^^^^^^^^^ 三个路径参数
     };
   }

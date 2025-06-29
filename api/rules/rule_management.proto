@@ -180,14 +180,14 @@ service RuleManagementService {
   // 获取用户的转发规则列表
   rpc GetRules(GetRulesRequest) returns (GetRulesResponse) {
     option (google.api.http) = {
-      get: "/api/v1/rules"
+      get: "/v1/rules"
     };
   }
 
   // 创建新的转发规则
   rpc CreateRule(CreateRuleRequest) returns (CreateRuleResponse) {
     option (google.api.http) = {
-      post: "/api/v1/rules"
+      post: "/v1/rules"
       body: "*"
     };
   }
@@ -195,14 +195,14 @@ service RuleManagementService {
   // 获取单个转发规则详情
   rpc GetRule(GetRuleRequest) returns (GetRuleResponse) {
     option (google.api.http) = {
-      get: "/api/v1/rules/{id}"
+      get: "/v1/rules/{id}"
     };
   }
 
   // 更新转发规则
   rpc UpdateRule(UpdateRuleRequest) returns (UpdateRuleResponse) {
     option (google.api.http) = {
-      put: "/api/v1/rules/{id}"
+      put: "/v1/rules/{id}"
       body: "*"
     };
   }
@@ -210,14 +210,14 @@ service RuleManagementService {
   // 删除转发规则
   rpc DeleteRule(DeleteRuleRequest) returns (DeleteRuleResponse) {
     option (google.api.http) = {
-      delete: "/api/v1/rules/{id}"
+      delete: "/v1/rules/{id}"
     };
   }
 
   // 批量删除转发规则
   rpc BatchDeleteRules(BatchDeleteRulesRequest) returns (BatchDeleteRulesResponse) {
     option (google.api.http) = {
-      post: "/api/v1/rules/batch-delete"
+      post: "/v1/rules/batch-delete"
       body: "*"
     };
   }
@@ -225,7 +225,7 @@ service RuleManagementService {
   // 启用/禁用转发规则
   rpc ToggleRule(ToggleRuleRequest) returns (ToggleRuleResponse) {
     option (google.api.http) = {
-      post: "/api/v1/rules/{id}/toggle"
+      post: "/v1/rules/{id}/toggle"
       body: "*"
     };
   }
@@ -233,7 +233,7 @@ service RuleManagementService {
   // 获取规则流量统计
   rpc GetRuleTrafficStats(GetRuleTrafficStatsRequest) returns (GetRuleTrafficStatsResponse) {
     option (google.api.http) = {
-      get: "/api/v1/rules/{id}/traffic-stats"
+      get: "/v1/rules/{id}/traffic-stats"
     };
   }
 } 

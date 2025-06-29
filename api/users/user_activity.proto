@@ -35,7 +35,7 @@ service UserActivityService {
   // 获取活动日志
   rpc GetActivityLogs(GetActivityLogsRequest) returns (GetActivityLogsResponse) {
     option (google.api.http) = {
-      get: "/api/v1/user/activity-logs"
+      get: "/v1/user/activity-logs"
     };
   }
 } 

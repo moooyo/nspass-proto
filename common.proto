@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package nspass.common.v1;
 
-option go_package = "github.com/moooyo/nspass-backend/generated/common;nspasscommon";
+option go_package = "github.com/moooyo/nspass-backend/generated;nspasscommon";
 
 // 通用分页请求
 message PaginationRequest {

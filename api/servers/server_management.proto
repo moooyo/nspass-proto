@@ -132,7 +132,7 @@ service ServerManagementService {
   // 可用于管理界面显示服务器概览信息。
   rpc GetServers(GetServersRequest) returns (GetServersResponse) {
     option (google.api.http) = {
-      get: "/api/v1/servers"
+      get: "/v1/servers"
     };
   }
 
@@ -142,7 +142,7 @@ service ServerManagementService {
   // 包括名称、IP地址、地区和组别等。
   rpc CreateServer(CreateServerRequest) returns (CreateServerResponse) {
     option (google.api.http) = {
-      post: "/api/v1/servers"
+      post: "/v1/servers"
       body: "*"
     };
   }
@@ -153,7 +153,7 @@ service ServerManagementService {
   // 包括流量统计和当前状态。
   rpc GetServerById(GetServerByIdRequest) returns (GetServerByIdResponse) {
     option (google.api.http) = {
-      get: "/api/v1/servers/{id}"
+      get: "/v1/servers/{id}"
     };
   }
 
@@ -163,7 +163,7 @@ service ServerManagementService {
   // 可以更新服务器的名称、地址、状态等属性。
   rpc UpdateServer(UpdateServerByIdRequest) returns (UpdateServerResponse) {
     option (google.api.http) = {
-      put: "/api/v1/servers/{id}"
+      put: "/v1/servers/{id}"
       body: "data"
     };
   }
@@ -174,7 +174,7 @@ service ServerManagementService {
   // 此操作不可逆，请谨慎使用。
   rpc DeleteServer(DeleteServerRequest) returns (DeleteServerResponse) {
     option (google.api.http) = {
-      delete: "/api/v1/servers/{id}"
+      delete: "/v1/servers/{id}"
     };
   }
 
@@ -184,7 +184,7 @@ service ServerManagementService {
   // 适用于批量清理或管理操作。
   rpc BatchDeleteServers(BatchDeleteServersRequest) returns (BatchDeleteServersResponse) {
     option (google.api.http) = {
-      post: "/api/v1/servers/batch-delete"
+      post: "/v1/servers/batch-delete"
       body: "*"
     };
   }
@@ -195,7 +195,7 @@ service ServerManagementService {
   // 用于解决服务器运行异常或应用配置更改。
   rpc RestartServer(RestartServerRequest) returns (RestartServerResponse) {
     option (google.api.http) = {
-      post: "/api/v1/servers/{id}/restart"
+      post: "/v1/servers/{id}/restart"
     };
   }
 } 

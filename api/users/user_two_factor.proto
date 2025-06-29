@@ -46,7 +46,7 @@ service UserTwoFactorService {
   // 启用/禁用二步验证
   rpc ToggleTwoFactorAuth(ToggleTwoFactorAuthRequest) returns (ToggleTwoFactorAuthResponse) {
     option (google.api.http) = {
-      post: "/api/v1/user/two-factor/toggle"
+      post: "/v1/user/two-factor/toggle"
       body: "*"
     };
   }
@@ -54,7 +54,7 @@ service UserTwoFactorService {
   // 验证二步验证码
   rpc VerifyTwoFactorAuth(VerifyTwoFactorAuthRequest) returns (VerifyTwoFactorAuthResponse) {
     option (google.api.http) = {
-      post: "/api/v1/user/two-factor/verify"
+      post: "/v1/user/two-factor/verify"
       body: "*"
     };
   }

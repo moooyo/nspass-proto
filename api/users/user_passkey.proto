@@ -152,7 +152,7 @@ service PasskeyService {
   // 用户在注册Passkey前必须先调用此接口获取注册选项。
   rpc GetRegistrationOptions(nspass.common.v1.ApiResponse) returns (PasskeyRegistrationOptionsResponse) {
     option (google.api.http) = {
-      post: "/api/v1/auth/passkey/registration/options"
+      post: "/v1/auth/passkey/registration/options"
     };
   }
 
@@ -162,7 +162,7 @@ service PasskeyService {
   // 生成凭据后，将结果发送到此接口完成注册。
   rpc RegisterPasskey(PasskeyRegistrationRequest) returns (PasskeyRegistrationResponse) {
     option (google.api.http) = {
-      post: "/api/v1/auth/passkey/registration/verify"
+      post: "/v1/auth/passkey/registration/verify"
       body: "*"
     };
   }
@@ -173,7 +173,7 @@ service PasskeyService {
   // 用户点击Passkey登录时首先调用此接口。
   rpc GetAuthenticationOptions(nspass.common.v1.ApiResponse) returns (PasskeyAuthenticationOptionsResponse) {
     option (google.api.http) = {
-      post: "/api/v1/auth/passkey/authentication/options"
+      post: "/v1/auth/passkey/authentication/options"
     };
   }
 
@@ -183,7 +183,7 @@ service PasskeyService {
   // 成功认证后返回用户信息和访问令牌。
   rpc AuthenticatePasskey(PasskeyAuthenticationRequest) returns (PasskeyAuthenticationResponse) {
     option (google.api.http) = {
-      post: "/api/v1/auth/passkey/authentication/verify"
+      post: "/v1/auth/passkey/authentication/verify"
       body: "*"
     };
   }
@@ -194,7 +194,7 @@ service PasskeyService {
   // 支持分页查询和基本信息展示。
   rpc GetPasskeyList(GetPasskeyListRequest) returns (PasskeyListResponse) {
     option (google.api.http) = {
-      get: "/api/v1/user/passkeys"
+      get: "/v1/user/passkeys"
     };
   }
 
@@ -204,7 +204,7 @@ service PasskeyService {
   // Passkey凭据，删除不再使用的认证器。
   rpc DeletePasskey(DeletePasskeyRequest) returns (DeletePasskeyResponse) {
     option (google.api.http) = {
-      delete: "/api/v1/user/passkeys/{credentialId}"
+      delete: "/v1/user/passkeys/{credentialId}"
     };
   }
 
@@ -214,7 +214,7 @@ service PasskeyService {
   // 不同的认证器设备。
   rpc RenamePasskey(RenamePasskeyRequest) returns (RenamePasskeyResponse) {
     option (google.api.http) = {
-      put: "/api/v1/user/passkeys/{credentialId}/name"
+      put: "/v1/user/passkeys/{credentialId}/name"
       body: "*"
     };
   }

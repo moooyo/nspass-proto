@@ -52,7 +52,7 @@ service UserTrafficService {
   // 获取用户流量统计
   rpc GetTrafficStats(GetTrafficStatsRequest) returns (GetTrafficStatsResponse) {
     option (google.api.http) = {
-      get: "/api/v1/user/traffic"
+      get: "/v1/user/traffic"
       // 查询参数days会自动映射
     };
   }
@@ -60,7 +60,7 @@ service UserTrafficService {
   // 重置用户流量
   rpc ResetTraffic(ResetTrafficRequest) returns (ResetTrafficResponse) {
     option (google.api.http) = {
-      post: "/api/v1/user/traffic/reset"
+      post: "/v1/user/traffic/reset"
       body: "*"
     };
   }

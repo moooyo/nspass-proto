@@ -165,7 +165,7 @@ service RouteManagementService {
   // 创建线路
   rpc CreateRoute(CreateRouteRequest) returns (CreateRouteResponse) {
     option (google.api.http) = {
-      post: "/api/v1/routes"
+      post: "/v1/routes"
       body: "*"
     };
   }
@@ -173,14 +173,14 @@ service RouteManagementService {
   // 获取线路
   rpc GetRoute(GetRouteRequest) returns (GetRouteResponse) {
     option (google.api.http) = {
-      get: "/api/v1/routes/{id}"
+      get: "/v1/routes/{id}"
     };
   }
   
   // 更新线路
   rpc UpdateRoute(UpdateRouteRequest) returns (UpdateRouteResponse) {
     option (google.api.http) = {
-      put: "/api/v1/routes/{id}"
+      put: "/v1/routes/{id}"
       body: "*"
     };
   }
@@ -188,14 +188,14 @@ service RouteManagementService {
   // 删除线路
   rpc DeleteRoute(DeleteRouteRequest) returns (DeleteRouteResponse) {
     option (google.api.http) = {
-      delete: "/api/v1/routes/{id}"
+      delete: "/v1/routes/{id}"
     };
   }
   
   // 批量删除线路
   rpc BatchDeleteRoutes(BatchDeleteRoutesRequest) returns (BatchDeleteRoutesResponse) {
     option (google.api.http) = {
-      post: "/api/v1/routes/batch/delete"
+      post: "/v1/routes/batch/delete"
       body: "*"
     };
   }
@@ -203,21 +203,21 @@ service RouteManagementService {
   // 列出线路
   rpc ListRoutes(ListRoutesRequest) returns (ListRoutesResponse) {
     option (google.api.http) = {
-      get: "/api/v1/routes"
+      get: "/v1/routes"
     };
   }
   
   // 搜索线路
   rpc SearchRoutes(SearchRoutesRequest) returns (SearchRoutesResponse) {
     option (google.api.http) = {
-      get: "/api/v1/routes/search"
+      get: "/v1/routes/search"
     };
   }
   
   // 更新线路状态
   rpc UpdateRouteStatus(UpdateRouteStatusRequest) returns (UpdateRouteStatusResponse) {
     option (google.api.http) = {
-      put: "/api/v1/routes/{id}/status"
+      put: "/v1/routes/{id}/status"
       body: "*"
     };
   }
@@ -225,7 +225,7 @@ service RouteManagementService {
   // 批量更新线路状态
   rpc BatchUpdateRouteStatus(BatchUpdateRouteStatusRequest) returns (BatchUpdateRouteStatusResponse) {
     option (google.api.http) = {
-      post: "/api/v1/routes/batch/status"
+      post: "/v1/routes/batch/status"
       body: "*"
     };
   }
@@ -233,14 +233,14 @@ service RouteManagementService {
   // 生成线路配置
   rpc GenerateRouteConfig(GenerateRouteConfigRequest) returns (GenerateRouteConfigResponse) {
     option (google.api.http) = {
-      get: "/api/v1/routes/{id}/config"
+      get: "/v1/routes/{id}/config"
     };
   }
   
   // 验证线路连通性
   rpc ValidateRouteConnectivity(ValidateRouteConnectivityRequest) returns (ValidateRouteConnectivityResponse) {
     option (google.api.http) = {
-      post: "/api/v1/routes/{id}/validate"
+      post: "/v1/routes/{id}/validate"
       body: "*"
     };
   }
