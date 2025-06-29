@@ -12,7 +12,7 @@ import "google/protobuf/empty.proto";
 message UserInfo {
   int32 id = 1;
   string name = 2;
-  string role = 3;
+  int32 role = 3;
   repeated int32 userGroup = 4;
   string traffic = 5;
   string trafficResetDate = 6;
