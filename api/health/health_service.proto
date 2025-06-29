@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package nspass.api.health.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/api/health;nspassapihealth";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+// 健康检查响应
+message HealthResponse {
+  string status = 1;      // 健康状态，通常为 "healthy" 或 "unhealthy"
+  string message = 2;     // 可选的状态消息
+  int64 timestamp = 3;    // 检查时间戳（Unix时间）
+  string version = 4;     // 可选的服务版本信息
+}
+
+// 健康检查服务
+service HealthService {
+  // 健康检查
+  // 
+  // 简单的健康检查端点，返回服务是否正常运行
+  rpc HealthCheck(google.protobuf.Empty) returns (HealthResponse) {
+    option (google.api.http) = {
+      get: "/health"
+    };
+  }
+} 
