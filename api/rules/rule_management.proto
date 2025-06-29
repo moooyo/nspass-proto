@@ -6,7 +6,6 @@ option go_package = "github.com/moooyo/nspass-backend/generated/api/rules;nspass
 
 import "common.proto";
 import "google/api/annotations.proto";
-import "google/protobuf/empty.proto";
 
 // 规则类型枚举
 enum ForwardRuleType {

@@ -5,7 +5,6 @@ package nspass.api.dns.v1;
 option go_package = "github.com/moooyo/nspass-backend/generated/api/dns;nspassapidns";
 
 import "google/api/annotations.proto";
-import "google/protobuf/empty.proto";
 import "common.proto";
 import "model/dnsConfig.proto";
 

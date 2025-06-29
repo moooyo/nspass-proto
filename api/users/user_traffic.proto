@@ -6,7 +6,6 @@ option go_package = "github.com/moooyo/nspass-backend/generated/api/users;nspass
 
 import "common.proto";
 import "google/api/annotations.proto";
-import "google/protobuf/empty.proto";
 
 // 流量使用项
 message TrafficUsageItem {
