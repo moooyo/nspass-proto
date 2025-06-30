@@ -71,6 +71,11 @@ message UpdateUserRequest {
   optional string status = 9;
 }
 
+// 获取用户详情请求
+message GetUserDetailRequest {
+  int32 id = 1;
+}
+
 // 删除用户请求
 message DeleteUserRequest {
   int32 id = 1;
@@ -133,7 +138,7 @@ service UserManagementService {
   }
 
   // 获取用户详情（管理员专用）
-  rpc GetUserDetail(DeleteUserRequest) returns (GetUserDetailResponse) {
+  rpc GetUserDetail(GetUserDetailRequest) returns (GetUserDetailResponse) {
     option (google.api.http) = {
       get: "/v1/users/{id}"
     };
