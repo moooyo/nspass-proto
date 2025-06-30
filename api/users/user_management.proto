@@ -1,0 +1,182 @@
+syntax = "proto3";
+
+package nspass.api.users.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/api/users;nspassapiusers";
+
+import "common.proto";
+import "google/api/annotations.proto";
+
+// 用户列表项
+message UserListItem {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  int32 role = 4;
+  string traffic = 5;
+  string trafficResetDate = 6;
+  string createTime = 7;
+  string lastLoginTime = 8;
+  string status = 9;
+}
+
+// 获取用户列表请求
+message GetUsersRequest {
+  optional int32 page = 1;
+  optional int32 pageSize = 2;
+  optional string name = 3;      // 按名称筛选
+  optional int32 role = 4;       // 按角色筛选
+  optional string status = 5;    // 按状态筛选
+}
+
+// 用户详细信息
+message UserDetail {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  optional string phone = 4;
+  int32 role = 5;
+  repeated int32 userGroup = 6;
+  string traffic = 7;
+  string trafficResetDate = 8;
+  string forwardRuleConfigLimit = 9;
+  optional string avatar = 10;
+  string createTime = 11;
+  string lastLoginTime = 12;
+  string status = 13;
+}
+
+// 创建用户请求
+message CreateUserRequest {
+  string name = 1;
+  string email = 2;
+  string password = 3;
+  optional string phone = 4;
+  optional int32 role = 5;
+  optional string traffic = 6;
+  optional int32 trafficResetDay = 7;
+  optional int32 ruleConfigLimit = 8;
+}
+
+// 更新用户请求
+message UpdateUserRequest {
+  int32 id = 1;
+  optional string name = 2;
+  optional string email = 3;
+  optional string phone = 4;
+  optional int32 role = 5;
+  optional string traffic = 6;
+  optional int32 trafficResetDay = 7;
+  optional int32 ruleConfigLimit = 8;
+  optional string status = 9;
+}
+
+// 删除用户请求
+message DeleteUserRequest {
+  int32 id = 1;
+}
+
+// 重置用户密码请求
+message ResetUserPasswordRequest {
+  int32 id = 1;
+  string newPassword = 2;
+}
+
+// 重置用户流量请求
+message ResetUserTrafficRequest {
+  int32 id = 1;
+}
+
+// === 响应消息 ===
+
+message GetUsersResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  repeated UserListItem data = 2;
+  int32 total = 3;
+  int32 page = 4;
+  int32 pageSize = 5;
+}
+
+message GetUserDetailResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional UserDetail data = 2;
+}
+
+message CreateUserResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional UserDetail data = 2;
+}
+
+message UpdateUserResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional UserDetail data = 2;
+}
+
+message DeleteUserResponse {
+  nspass.common.v1.ApiResponse base = 1;
+}
+
+message ResetUserPasswordResponse {
+  nspass.common.v1.ApiResponse base = 1;
+}
+
+message ResetUserTrafficResponse {
+  nspass.common.v1.ApiResponse base = 1;
+}
+
+// === 服务定义 ===
+
+service UserManagementService {
+  // 获取用户列表（管理员专用）
+  rpc GetUsers(GetUsersRequest) returns (GetUsersResponse) {
+    option (google.api.http) = {
+      get: "/v1/users"
+    };
+  }
+
+  // 获取用户详情（管理员专用）
+  rpc GetUserDetail(DeleteUserRequest) returns (GetUserDetailResponse) {
+    option (google.api.http) = {
+      get: "/v1/users/{id}"
+    };
+  }
+
+  // 创建用户（管理员专用）
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
+    option (google.api.http) = {
+      post: "/v1/users"
+      body: "*"
+    };
+  }
+
+  // 更新用户（管理员专用）
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {
+    option (google.api.http) = {
+      put: "/v1/users/{id}"
+      body: "*"
+    };
+  }
+
+  // 删除用户（管理员专用）
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {
+    option (google.api.http) = {
+      delete: "/v1/users/{id}"
+    };
+  }
+
+  // 重置用户密码（管理员专用）
+  rpc ResetUserPassword(ResetUserPasswordRequest) returns (ResetUserPasswordResponse) {
+    option (google.api.http) = {
+      post: "/v1/users/{id}/reset-password"
+      body: "*"
+    };
+  }
+
+  // 重置用户流量（管理员专用）
+  rpc ResetUserTraffic(ResetUserTrafficRequest) returns (ResetUserTrafficResponse) {
+    option (google.api.http) = {
+      post: "/v1/users/{id}/reset-traffic"
+      body: "*"
+    };
+  }
+} 

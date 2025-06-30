@@ -1,0 +1,216 @@
+syntax = "proto3";
+
+package nspass.api.egress.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/api/egress;nspassapiegress";
+
+import "common.proto";
+import "google/api/annotations.proto";
+import "model/egress.proto";
+import "model/egressItem.proto";
+
+// 创建出口请求
+message CreateEgressRequest {
+  optional string egressId = 1;
+  string serverId = 2;
+  nspass.model.v1.EgressMode egressMode = 3;
+  
+  // 直出模式字段
+  optional string targetAddress = 4;
+  
+  // iptables模式字段
+  optional nspass.model.v1.ForwardType forwardType = 5;
+  optional string destAddress = 6;
+  optional string destPort = 7;
+  
+  // shadowsocks-2022模式字段
+  optional string password = 8;
+  optional bool supportUdp = 9;
+}
+
+// 更新出口请求
+message UpdateEgressRequest {
+  string id = 1;
+  optional string egressId = 2;
+  optional string serverId = 3;
+  optional nspass.model.v1.EgressMode egressMode = 4;
+  optional string targetAddress = 5;
+  optional nspass.model.v1.ForwardType forwardType = 6;
+  optional string destAddress = 7;
+  optional string destPort = 8;
+  optional string password = 9;
+  optional bool supportUdp = 10;
+}
+
+// 获取出口详情请求
+message GetEgressRequest {
+  string id = 1;
+}
+
+// 删除出口请求
+message DeleteEgressRequest {
+  string id = 1;
+}
+
+// 出口列表查询参数
+message GetEgressListRequest {
+  optional int32 page = 1;
+  optional int32 pageSize = 2;
+  optional string egressId = 3;
+  optional string serverId = 4;
+  optional nspass.model.v1.EgressMode egressMode = 5;
+}
+
+// 测试出口连接请求
+message TestEgressConnectionRequest {
+  string id = 1;
+  optional int32 timeout = 2;  // 超时时间（秒）
+}
+
+// 获取出口统计请求
+message GetEgressStatsRequest {
+  string id = 1;
+  optional int32 days = 2;  // 统计天数
+}
+
+// 获取可用服务器列表请求
+message GetAvailableServersRequest {}
+
+// 验证出口配置请求
+message ValidateEgressConfigRequest {
+  nspass.model.v1.EgressMode egressMode = 1;
+  string targetAddress = 2;
+  optional nspass.model.v1.ForwardType forwardType = 3;
+  optional string destAddress = 4;
+  optional string destPort = 5;
+}
+
+// === 响应消息 ===
+
+message CreateEgressResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional nspass.model.v1.EgressItem data = 2;
+}
+
+message GetEgressResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional nspass.model.v1.EgressItem data = 2;
+}
+
+message UpdateEgressResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional nspass.model.v1.EgressItem data = 2;
+}
+
+message DeleteEgressResponse {
+  nspass.common.v1.ApiResponse base = 1;
+}
+
+message GetEgressListResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  repeated nspass.model.v1.EgressItem data = 2;
+  int32 total = 3;
+  int32 page = 4;
+  int32 pageSize = 5;
+}
+
+message TestEgressConnectionResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  bool success = 2;
+  optional int32 latency = 3;
+  optional string error = 4;
+}
+
+message GetEgressStatsResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  int32 connectionsCount = 2;
+  int64 bytesTransferred = 3;
+  string lastActivity = 4;
+}
+
+message AvailableServerItem {
+  string label = 1;
+  string value = 2;
+}
+
+message GetAvailableServersResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  repeated AvailableServerItem data = 2;
+}
+
+message ValidateEgressConfigResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  bool valid = 2;
+  repeated string errors = 3;
+}
+
+// === 服务定义 ===
+
+service EgressManagementService {
+  // 创建出口
+  rpc CreateEgress(CreateEgressRequest) returns (CreateEgressResponse) {
+    option (google.api.http) = {
+      post: "/v1/egress"
+      body: "*"
+    };
+  }
+
+  // 获取出口列表
+  rpc GetEgressList(GetEgressListRequest) returns (GetEgressListResponse) {
+    option (google.api.http) = {
+      get: "/v1/egress"
+    };
+  }
+
+  // 获取出口详情
+  rpc GetEgress(GetEgressRequest) returns (GetEgressResponse) {
+    option (google.api.http) = {
+      get: "/v1/egress/{id}"
+    };
+  }
+
+  // 更新出口
+  rpc UpdateEgress(UpdateEgressRequest) returns (UpdateEgressResponse) {
+    option (google.api.http) = {
+      put: "/v1/egress/{id}"
+      body: "*"
+    };
+  }
+
+  // 删除出口
+  rpc DeleteEgress(DeleteEgressRequest) returns (DeleteEgressResponse) {
+    option (google.api.http) = {
+      delete: "/v1/egress/{id}"
+    };
+  }
+
+  // 测试出口连接
+  rpc TestEgressConnection(TestEgressConnectionRequest) returns (TestEgressConnectionResponse) {
+    option (google.api.http) = {
+      post: "/v1/egress/{id}/test"
+      body: "*"
+    };
+  }
+
+  // 获取出口统计
+  rpc GetEgressStats(GetEgressStatsRequest) returns (GetEgressStatsResponse) {
+    option (google.api.http) = {
+      get: "/v1/egress/{id}/stats"
+    };
+  }
+
+  // 获取可用服务器列表
+  rpc GetAvailableServers(GetAvailableServersRequest) returns (GetAvailableServersResponse) {
+    option (google.api.http) = {
+      get: "/v1/egress/available-servers"
+    };
+  }
+
+  // 验证出口配置
+  rpc ValidateEgressConfig(ValidateEgressConfigRequest) returns (ValidateEgressConfigResponse) {
+    option (google.api.http) = {
+      post: "/v1/egress/validate-config"
+      body: "*"
+    };
+  }
+} 

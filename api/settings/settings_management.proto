@@ -1,0 +1,136 @@
+syntax = "proto3";
+
+package nspass.api.settings.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/api/settings;nspassapisettings";
+
+import "common.proto";
+import "google/api/annotations.proto";
+
+// 设置项
+message SettingItem {
+  string key = 1;
+  string value = 2;
+  string description = 3;
+  string type = 4;           // 类型：string, number, boolean, json
+  bool isSystem = 5;         // 是否为系统设置
+  string updatedAt = 6;
+  string updatedBy = 7;
+}
+
+// 获取设置列表请求
+message GetSettingsRequest {
+  optional string category = 1;    // 按分类筛选
+  optional bool isSystem = 2;      // 是否为系统设置
+}
+
+// 获取单个设置请求
+message GetSettingRequest {
+  string key = 1;
+}
+
+// 更新设置请求
+message UpdateSettingRequest {
+  string key = 1;
+  string value = 2;
+  optional string description = 3;
+}
+
+// 创建设置请求
+message CreateSettingRequest {
+  string key = 1;
+  string value = 2;
+  string description = 3;
+  string type = 4;
+  optional bool isSystem = 5;
+}
+
+// 删除设置请求
+message DeleteSettingRequest {
+  string key = 1;
+}
+
+// 批量更新设置请求
+message BatchUpdateSettingsRequest {
+  repeated UpdateSettingRequest settings = 1;
+}
+
+// === 响应消息 ===
+
+message GetSettingsResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  repeated SettingItem data = 2;
+}
+
+message GetSettingResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional SettingItem data = 2;
+}
+
+message UpdateSettingResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional SettingItem data = 2;
+}
+
+message CreateSettingResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  optional SettingItem data = 2;
+}
+
+message DeleteSettingResponse {
+  nspass.common.v1.ApiResponse base = 1;
+}
+
+message BatchUpdateSettingsResponse {
+  nspass.common.v1.ApiResponse base = 1;
+  repeated SettingItem data = 2;
+}
+
+// === 服务定义 ===
+
+service SettingsManagementService {
+  // 获取设置列表
+  rpc GetSettings(GetSettingsRequest) returns (GetSettingsResponse) {
+    option (google.api.http) = {
+      get: "/v1/settings"
+    };
+  }
+
+  // 获取单个设置
+  rpc GetSetting(GetSettingRequest) returns (GetSettingResponse) {
+    option (google.api.http) = {
+      get: "/v1/settings/{key}"
+    };
+  }
+
+  // 创建设置
+  rpc CreateSetting(CreateSettingRequest) returns (CreateSettingResponse) {
+    option (google.api.http) = {
+      post: "/v1/settings"
+      body: "*"
+    };
+  }
+
+  // 更新设置
+  rpc UpdateSetting(UpdateSettingRequest) returns (UpdateSettingResponse) {
+    option (google.api.http) = {
+      put: "/v1/settings/{key}"
+      body: "*"
+    };
+  }
+
+  // 删除设置
+  rpc DeleteSetting(DeleteSettingRequest) returns (DeleteSettingResponse) {
+    option (google.api.http) = {
+      delete: "/v1/settings/{key}"
+    };
+  }
+
+  // 批量更新设置
+  rpc BatchUpdateSettings(BatchUpdateSettingsRequest) returns (BatchUpdateSettingsResponse) {
+    option (google.api.http) = {
+      post: "/v1/settings/batch"
+      body: "*"
+    };
+  }
+} 
