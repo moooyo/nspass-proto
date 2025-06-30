@@ -24,7 +24,7 @@ message CreateRouteRequest {
 // 创建线路响应
 message CreateRouteResponse {
   nspass.common.v1.ApiResponse result = 1;
-  optional nspass.model.v1.Route route = 2;
+  optional nspass.model.v1.Route data = 2;
 }
 
 // 获取线路请求
@@ -35,7 +35,7 @@ message GetRouteRequest {
 // 获取线路响应
 message GetRouteResponse {
   nspass.common.v1.ApiResponse result = 1;
-  optional nspass.model.v1.Route route = 2;
+  optional nspass.model.v1.Route data = 2;
 }
 
 // 更新线路请求
@@ -55,7 +55,7 @@ message UpdateRouteRequest {
 // 更新线路响应
 message UpdateRouteResponse {
   nspass.common.v1.ApiResponse result = 1;
-  optional nspass.model.v1.Route route = 2;
+  optional nspass.model.v1.Route data = 2;
 }
 
 // 删除线路请求
@@ -91,7 +91,7 @@ message ListRoutesRequest {
 // 列出线路响应
 message ListRoutesResponse {
   nspass.common.v1.ApiResponse result = 1;
-  repeated nspass.model.v1.Route routes = 2;
+  repeated nspass.model.v1.Route data = 2;
   nspass.common.v1.PaginationResponse pagination = 3;
 }
 
@@ -106,7 +106,7 @@ message SearchRoutesRequest {
 // 搜索线路响应
 message SearchRoutesResponse {
   nspass.common.v1.ApiResponse result = 1;
-  repeated nspass.model.v1.Route routes = 2;
+  repeated nspass.model.v1.Route data = 2;
   nspass.common.v1.PaginationResponse pagination = 3;
 }
 
@@ -119,7 +119,7 @@ message UpdateRouteStatusRequest {
 // 更新线路状态响应
 message UpdateRouteStatusResponse {
   nspass.common.v1.ApiResponse result = 1;
-  optional nspass.model.v1.Route route = 2;
+  optional nspass.model.v1.Route data = 2;
 }
 
 // 批量更新线路状态请求

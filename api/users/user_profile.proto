@@ -35,12 +35,12 @@ message UpdateUserInfoRequest {
 // === 响应消息 ===
 
 message GetCurrentUserInfoResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
   optional UserInfo data = 2;
 }
 
 message UpdateCurrentUserInfoResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
   optional UserInfo data = 2;
 }
 

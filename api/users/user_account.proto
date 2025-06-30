@@ -15,7 +15,7 @@ message DeleteAccountRequest {
 // === 响应消息 ===
 
 message DeleteAccountResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
 }
 
 // === 服务定义 ===

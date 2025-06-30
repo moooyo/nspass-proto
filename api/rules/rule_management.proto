@@ -133,44 +133,42 @@ message GetRuleTrafficStatsRequest {
 // === 响应消息 ===
 
 message GetRulesResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
   repeated ForwardRule data = 2;
-  int32 total = 3;
-  int32 page = 4;
-  int32 pageSize = 5;
+  nspass.common.v1.PaginationResponse pagination = 3;
 }
 
 message CreateRuleResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
   optional ForwardRule data = 2;
 }
 
 message GetRuleResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
   optional ForwardRule data = 2;
 }
 
 message UpdateRuleResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
   optional ForwardRule data = 2;
 }
 
 message DeleteRuleResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
 }
 
 message BatchDeleteRulesResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
   int32 deletedCount = 2;
 }
 
 message ToggleRuleResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
   optional ForwardRule data = 2;
 }
 
 message GetRuleTrafficStatsResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
   optional RuleTrafficStats data = 2;
 }
 

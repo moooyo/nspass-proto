@@ -24,6 +24,6 @@ message ServerStats {
 // === 响应消息 ===
 
 message GetServerStatsResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
   optional ServerStats data = 2;
 } 

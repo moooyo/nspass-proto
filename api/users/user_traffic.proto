@@ -38,12 +38,12 @@ message ResetTrafficRequest {
 // === 响应消息 ===
 
 message GetTrafficStatsResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
   optional TrafficStats data = 2;
 }
 
 message ResetTrafficResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
 }
 
 // === 服务定义 ===

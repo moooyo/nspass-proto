@@ -109,36 +109,36 @@ message RenamePasskeyRequest {
 // === 响应消息 ===
 
 message PasskeyRegistrationOptionsResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
   optional PasskeyRegistrationOptions data = 2;
 }
 
 message PasskeyRegistrationResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
   optional PasskeyCredential data = 2;
 }
 
 message PasskeyAuthenticationOptionsResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
   optional PasskeyAuthenticationOptions data = 2;
 }
 
 message PasskeyAuthenticationResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
   optional PasskeyLoginData data = 2;
 }
 
 message PasskeyListResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
   optional PasskeyListData data = 2;
 }
 
 message DeletePasskeyResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
 }
 
 message RenamePasskeyResponse {
-  nspass.common.v1.ApiResponse base = 1;
+  nspass.common.v1.ApiResponse result = 1;
   optional PasskeyCredential data = 2;
 }
 
