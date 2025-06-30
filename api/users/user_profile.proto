@@ -50,14 +50,14 @@ service UserProfileService {
   // 获取当前用户信息
   rpc GetCurrentUserInfo(google.protobuf.Empty) returns (GetCurrentUserInfoResponse) {
     option (google.api.http) = {
-      get: "/v1/users/me"
+      get: "/v1/profile"
     };
   }
 
   // 更新当前用户信息
   rpc UpdateCurrentUserInfo(UpdateUserInfoRequest) returns (UpdateCurrentUserInfoResponse) {
     option (google.api.http) = {
-      put: "/v1/users/me"
+      put: "/v1/profile"
       body: "*"
     };
   }
