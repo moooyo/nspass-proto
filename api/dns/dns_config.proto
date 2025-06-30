@@ -51,7 +51,7 @@ message GetDnsConfigsRequest {
 
 // 获取DNS配置列表响应
 message GetDnsConfigsResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   repeated nspass.model.v1.DnsConfig data = 2;
   nspass.common.v1.PaginationResponse pagination = 3;
 }
@@ -66,7 +66,7 @@ message CreateDnsConfigRequest {
 
 // 创建DNS配置响应
 message CreateDnsConfigResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   nspass.model.v1.DnsConfig data = 2;
 }
 
@@ -81,7 +81,7 @@ message UpdateDnsConfigRequest {
 
 // 更新DNS配置响应
 message UpdateDnsConfigResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   nspass.model.v1.DnsConfig data = 2;
 }
 
@@ -92,5 +92,5 @@ message DeleteDnsConfigRequest {
 
 // 删除DNS配置响应
 message DeleteDnsConfigResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
 } 

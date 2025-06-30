@@ -58,31 +58,31 @@ message BatchUpdateSettingsRequest {
 // === 响应消息 ===
 
 message GetSettingsResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   repeated SettingItem data = 2;
 }
 
 message GetSettingResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   optional SettingItem data = 2;
 }
 
 message UpdateSettingResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   optional SettingItem data = 2;
 }
 
 message CreateSettingResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   optional SettingItem data = 2;
 }
 
 message DeleteSettingResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
 }
 
 message BatchUpdateSettingsResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   repeated SettingItem data = 2;
 }
 

@@ -88,39 +88,39 @@ message ValidateEgressConfigRequest {
 // === 响应消息 ===
 
 message CreateEgressResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   optional nspass.model.v1.EgressItem data = 2;
 }
 
 message GetEgressResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   optional nspass.model.v1.EgressItem data = 2;
 }
 
 message UpdateEgressResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   optional nspass.model.v1.EgressItem data = 2;
 }
 
 message DeleteEgressResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
 }
 
 message GetEgressListResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   repeated nspass.model.v1.EgressItem data = 2;
   nspass.common.v1.PaginationResponse pagination = 3;
 }
 
 message TestEgressConnectionResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   bool success = 2;
   optional int32 latency = 3;
   optional string error = 4;
 }
 
 message GetEgressStatsResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   int32 connectionsCount = 2;
   int64 bytesTransferred = 3;
   string lastActivity = 4;
@@ -132,12 +132,12 @@ message AvailableServerItem {
 }
 
 message GetAvailableServersResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   repeated AvailableServerItem data = 2;
 }
 
 message ValidateEgressConfigResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   bool valid = 2;
   repeated string errors = 3;
 }

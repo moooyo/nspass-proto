@@ -91,36 +91,36 @@ message RestartServerRequest {
 // === 响应消息 ===
 
 message GetServersResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   repeated ServerItem data = 2;
   nspass.common.v1.PaginationResponse pagination = 3;
 }
 
 message CreateServerResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   optional ServerItem data = 2;
 }
 
 message GetServerByIdResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   optional ServerItem data = 2;
 }
 
 message UpdateServerResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   optional ServerItem data = 2;
 }
 
 message DeleteServerResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
 }
 
 message BatchDeleteServersResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
 }
 
 message RestartServerResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
 }
 
 // === 服务定义 ===

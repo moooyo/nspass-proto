@@ -15,6 +15,6 @@ message RegionOption {
 // === 响应消息 ===
 
 message GetRegionsResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   repeated RegionOption data = 2;
 } 

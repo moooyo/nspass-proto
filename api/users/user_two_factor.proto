@@ -31,12 +31,12 @@ message VerifyTwoFactorAuthRequest {
 // === 响应消息 ===
 
 message ToggleTwoFactorAuthResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   optional TwoFactorAuthData data = 2;
 }
 
 message VerifyTwoFactorAuthResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   optional VerifyTwoFactorAuthData data = 2;
 }
 

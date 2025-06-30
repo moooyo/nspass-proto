@@ -185,67 +185,67 @@ message GetLogSummaryRequest {
 // === 响应消息 ===
 
 message GetSystemOverviewResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   optional SystemOverview data = 2;
 }
 
 message GetSystemHealthResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   optional SystemHealth data = 2;
 }
 
 message GetTrafficTrendResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   repeated TrafficTrendItem data = 2;
 }
 
 message GetTrafficByRegionResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   repeated TrafficByRegion data = 2;
 }
 
 message GetRealTimeTrafficResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   repeated RealTimeTraffic data = 2;
 }
 
 message GetSystemPerformanceResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   optional SystemPerformance data = 2;
 }
 
 message GetSystemAlertsResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   repeated SystemAlert data = 2;
 }
 
 message GetTopRulesResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   repeated TopRule data = 2;
 }
 
 message GetRuleStatusStatsResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   optional RuleStatusStats data = 2;
 }
 
 message GetServerStatusStatsResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   repeated ServerStatusItem data = 2;
 }
 
 message GetUserTrafficStatsResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   repeated UserTrafficItem data = 2;
 }
 
 message GetLogSummaryResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
   optional LogSummary data = 2;
 }
 
 message RefreshDashboardResponse {
-  nspass.common.v1.ApiResponse result = 1;
+  nspass.common.v1.ApiResponse status = 1;
 }
 
 // 仪表板服务
