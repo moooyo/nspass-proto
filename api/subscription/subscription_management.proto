@@ -1,0 +1,197 @@
+syntax = "proto3";
+
+package nspass.api.subscription.v1;
+
+option go_package = "github.com/moooyo/nspass-backend/generated/api/subscription;nspassapisubscription";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "common.proto";
+import "model/subscription.proto";
+
+// 获取订阅内容请求
+message GetSubscriptionRequest {
+  string subscription_id = 1;                     // 订阅ID (128-256位字符串)
+  optional string user_agent = 2;                 // 客户端User-Agent
+  optional string client_ip = 3;                  // 客户端IP (由网关填充)
+}
+
+// 获取订阅内容响应（纯文本格式）
+message GetSubscriptionResponse {
+  string content = 1;                              // 配置文件内容（纯文本）
+  string content_type = 2;                         // 内容类型，如 "text/plain; charset=utf-8"
+  optional string etag = 3;                        // ETag用于缓存
+}
+
+// 创建订阅请求
+message CreateSubscriptionRequest {
+  int32 user_id = 1;                               // 用户ID
+  nspass.model.v1.SubscriptionType type = 2;       // 订阅类型
+  string name = 3;                                 // 订阅名称
+  optional string description = 4;                 // 描述
+  optional bool include_auto_routes = 5;           // 是否包含自动生成的线路，默认true
+  optional bool include_manual_routes = 6;         // 是否包含手动添加的线路，默认true
+  repeated string included_route_ids = 7;          // 仅包含的线路ID列表 (为空表示包含所有)
+  repeated string excluded_route_ids = 8;          // 排除的线路ID列表
+  optional google.protobuf.Timestamp expires_at = 9; // 过期时间，为空则永不过期
+}
+
+// 创建订阅响应
+message CreateSubscriptionResponse {
+  nspass.common.v1.ApiResponse status = 1;
+  optional SubscriptionData data = 2;
+}
+
+// 订阅数据
+message SubscriptionData {
+  string subscription_id = 1;                      // 生成的订阅ID
+  int32 user_id = 2;                               // 用户ID
+  nspass.model.v1.SubscriptionType type = 3;       // 订阅类型
+  string name = 4;                                 // 订阅名称
+  string description = 5;                          // 描述
+  bool include_auto_routes = 6;                    // 是否包含自动生成的线路
+  bool include_manual_routes = 7;                  // 是否包含手动添加的线路
+  repeated string included_route_ids = 8;          // 仅包含的线路ID列表
+  repeated string excluded_route_ids = 9;          // 排除的线路ID列表
+  google.protobuf.Timestamp created_at = 10;       // 创建时间
+  optional google.protobuf.Timestamp expires_at = 11; // 过期时间
+  bool is_active = 12;                             // 是否激活
+  int32 request_count = 13;                        // 请求次数
+  optional google.protobuf.Timestamp last_used_at = 14; // 最后使用时间
+  string access_url = 15;                          // 访问URL
+}
+
+// 获取用户订阅列表请求
+message GetSubscriptionsRequest {
+  nspass.common.v1.PaginationRequest pagination = 1;
+}
+
+// 获取用户订阅列表响应
+message GetSubscriptionsResponse {
+  nspass.common.v1.ApiResponse status = 1;
+  repeated SubscriptionData data = 2;
+  nspass.common.v1.PaginationResponse pagination = 3;
+}
+
+// 更新订阅请求
+message UpdateSubscriptionRequest {
+  string subscription_id = 1;                      // 订阅ID
+  optional string name = 2;                        // 订阅名称
+  optional string description = 3;                 // 描述
+  optional bool include_auto_routes = 4;           // 是否包含自动生成的线路
+  optional bool include_manual_routes = 5;         // 是否包含手动添加的线路
+  repeated string included_route_ids = 6;          // 仅包含的线路ID列表
+  repeated string excluded_route_ids = 7;          // 排除的线路ID列表
+  optional bool is_active = 8;                     // 是否激活
+}
+
+// 更新订阅响应
+message UpdateSubscriptionResponse {
+  nspass.common.v1.ApiResponse status = 1;
+  optional SubscriptionData data = 2;
+}
+
+// 删除订阅请求
+message DeleteSubscriptionRequest {
+  string subscription_id = 1;                      // 要删除的订阅ID
+}
+
+// 删除订阅响应
+message DeleteSubscriptionResponse {
+  nspass.common.v1.ApiResponse status = 1;
+}
+
+// 获取订阅统计请求
+message GetSubscriptionStatsRequest {
+  optional string start_date = 1;                  // 开始日期 YYYY-MM-DD
+  optional string end_date = 2;                    // 结束日期 YYYY-MM-DD
+  optional nspass.model.v1.SubscriptionType type = 3; // 按类型过滤
+}
+
+// 获取订阅统计响应
+message GetSubscriptionStatsResponse {
+  nspass.common.v1.ApiResponse status = 1;
+  optional SubscriptionStats data = 2;
+}
+
+// 订阅统计数据
+message SubscriptionStats {
+  int32 total_requests = 1;                        // 总请求数
+  int32 unique_users = 2;                          // 独立用户数
+  repeated TypeStats type_stats = 3;               // 按类型统计
+  repeated DailyStats daily_stats = 4;             // 按日统计
+}
+
+// 按类型统计
+message TypeStats {
+  nspass.model.v1.SubscriptionType type = 1;
+  int32 requests = 2;
+  int32 users = 3;
+}
+
+// 按日统计
+message DailyStats {
+  string date = 1;                                 // YYYY-MM-DD
+  int32 requests = 2;
+  int32 users = 3;
+}
+
+// 订阅管理服务
+service SubscriptionManagementService {
+  // 获取订阅内容
+  // 
+  // 根据订阅ID返回对应格式的订阅配置文件内容（纯文本格式）。
+  // 支持Surge、Shadowsocks、QuantumultX、Loon、Stash等多种格式。
+  rpc GetSubscription(GetSubscriptionRequest) returns (GetSubscriptionResponse) {
+    option (google.api.http) = {
+      get: "/s/{subscription_id}"
+    };
+  }
+
+  // 创建订阅
+  // 
+  // 为用户创建新的订阅配置，返回生成的订阅ID和访问URL。
+  rpc CreateSubscription(CreateSubscriptionRequest) returns (CreateSubscriptionResponse) {
+    option (google.api.http) = {
+      post: "/v1/subscriptions"
+      body: "*"
+    };
+  }
+
+  // 获取用户订阅列表
+  // 
+  // 获取当前用户的所有订阅配置。
+  rpc GetSubscriptions(GetSubscriptionsRequest) returns (GetSubscriptionsResponse) {
+    option (google.api.http) = {
+      get: "/v1/subscriptions"
+    };
+  }
+
+  // 更新订阅
+  // 
+  // 更新指定的订阅配置。
+  rpc UpdateSubscription(UpdateSubscriptionRequest) returns (UpdateSubscriptionResponse) {
+    option (google.api.http) = {
+      put: "/v1/subscriptions/{subscription_id}"
+      body: "*"
+    };
+  }
+
+  // 删除订阅
+  // 
+  // 删除指定的订阅配置，删除后该订阅ID将无法再用于访问内容。
+  rpc DeleteSubscription(DeleteSubscriptionRequest) returns (DeleteSubscriptionResponse) {
+    option (google.api.http) = {
+      delete: "/v1/subscriptions/{subscription_id}"
+    };
+  }
+
+  // 获取订阅统计
+  // 
+  // 获取订阅使用的统计信息，包括请求数、用户数等。
+  rpc GetSubscriptionStats(GetSubscriptionStatsRequest) returns (GetSubscriptionStatsResponse) {
+    option (google.api.http) = {
+      get: "/v1/subscriptions/stats"
+    };
+  }
+} 

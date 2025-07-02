@@ -22,6 +22,255 @@
     "application/json"
   ],
   "paths": {
+    "/s/{subscriptionId}": {
+      "get": {
+        "summary": "获取订阅内容",
+        "description": "根据订阅ID返回对应格式的订阅配置文件内容（纯文本格式）。\n支持Surge、Shadowsocks、QuantumultX、Loon、Stash等多种格式。",
+        "operationId": "SubscriptionManagementService_GetSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetSubscriptionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "description": "订阅ID (128-256位字符串)",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userAgent",
+            "description": "客户端User-Agent",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "clientIp",
+            "description": "客户端IP (由网关填充)",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "SubscriptionManagementService"
+        ]
+      }
+    },
+    "/v1/subscriptions": {
+      "get": {
+        "summary": "获取用户订阅列表",
+        "description": "获取当前用户的所有订阅配置。",
+        "operationId": "SubscriptionManagementService_GetSubscriptions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetSubscriptionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pagination.page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pagination.pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "SubscriptionManagementService"
+        ]
+      },
+      "post": {
+        "summary": "创建订阅",
+        "description": "为用户创建新的订阅配置，返回生成的订阅ID和访问URL。",
+        "operationId": "SubscriptionManagementService_CreateSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateSubscriptionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateSubscriptionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SubscriptionManagementService"
+        ]
+      }
+    },
+    "/v1/subscriptions/stats": {
+      "get": {
+        "summary": "获取订阅统计",
+        "description": "获取订阅使用的统计信息，包括请求数、用户数等。",
+        "operationId": "SubscriptionManagementService_GetSubscriptionStats",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetSubscriptionStatsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "startDate",
+            "description": "开始日期 YYYY-MM-DD",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "endDate",
+            "description": "结束日期 YYYY-MM-DD",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "description": "按类型过滤\n\n - SUBSCRIPTION_TYPE_SURGE: Surge格式\n - SUBSCRIPTION_TYPE_SHADOWSOCKS: Shadowsocks格式\n - SUBSCRIPTION_TYPE_QUANTUMULT_X: QuantumultX格式\n - SUBSCRIPTION_TYPE_LOON: Loon格式\n - SUBSCRIPTION_TYPE_STASH: Stash格式\n - SUBSCRIPTION_TYPE_CLASH: Clash格式\n - SUBSCRIPTION_TYPE_V2RAY: V2Ray格式",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "SUBSCRIPTION_TYPE_UNSPECIFIED",
+              "SUBSCRIPTION_TYPE_SURGE",
+              "SUBSCRIPTION_TYPE_SHADOWSOCKS",
+              "SUBSCRIPTION_TYPE_QUANTUMULT_X",
+              "SUBSCRIPTION_TYPE_LOON",
+              "SUBSCRIPTION_TYPE_STASH",
+              "SUBSCRIPTION_TYPE_CLASH",
+              "SUBSCRIPTION_TYPE_V2RAY"
+            ],
+            "default": "SUBSCRIPTION_TYPE_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "SubscriptionManagementService"
+        ]
+      }
+    },
+    "/v1/subscriptions/{subscriptionId}": {
+      "delete": {
+        "summary": "删除订阅",
+        "description": "删除指定的订阅配置，删除后该订阅ID将无法再用于访问内容。",
+        "operationId": "SubscriptionManagementService_DeleteSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteSubscriptionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "description": "要删除的订阅ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "SubscriptionManagementService"
+        ]
+      },
+      "put": {
+        "summary": "更新订阅",
+        "description": "更新指定的订阅配置。",
+        "operationId": "SubscriptionManagementService_UpdateSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateSubscriptionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "description": "订阅ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubscriptionManagementServiceUpdateSubscriptionBody"
+            }
+          }
+        ],
+        "tags": [
+          "SubscriptionManagementService"
+        ]
+      }
+    },
     "/v1/dashboard/alerts": {
       "get": {
         "summary": "获取系统警报",
@@ -3310,6 +3559,46 @@
     }
   },
   "definitions": {
+    "SubscriptionManagementServiceUpdateSubscriptionBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "订阅名称"
+        },
+        "description": {
+          "type": "string",
+          "title": "描述"
+        },
+        "includeAutoRoutes": {
+          "type": "boolean",
+          "title": "是否包含自动生成的线路"
+        },
+        "includeManualRoutes": {
+          "type": "boolean",
+          "title": "是否包含手动添加的线路"
+        },
+        "includedRouteIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "仅包含的线路ID列表"
+        },
+        "excludedRouteIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "排除的线路ID列表"
+        },
+        "isActive": {
+          "type": "boolean",
+          "title": "是否激活"
+        }
+      },
+      "title": "更新订阅请求"
+    },
     "googlerpcStatus": {
       "type": "object",
       "properties": {
@@ -3338,17 +3627,6 @@
       },
       "additionalProperties": {}
     },
-    "v1AlertType": {
-      "type": "string",
-      "enum": [
-        "ALERT_TYPE_UNSPECIFIED",
-        "ALERT_TYPE_INFO",
-        "ALERT_TYPE_WARNING",
-        "ALERT_TYPE_ERROR"
-      ],
-      "default": "ALERT_TYPE_UNSPECIFIED",
-      "title": "告警类型枚举"
-    },
     "v1ApiResponse": {
       "type": "object",
       "properties": {
@@ -3363,6 +3641,345 @@
         }
       },
       "title": "通用API响应封装"
+    },
+    "v1CreateSubscriptionRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int32",
+          "title": "用户ID"
+        },
+        "type": {
+          "$ref": "#/definitions/v1SubscriptionType",
+          "title": "订阅类型"
+        },
+        "name": {
+          "type": "string",
+          "title": "订阅名称"
+        },
+        "description": {
+          "type": "string",
+          "title": "描述"
+        },
+        "includeAutoRoutes": {
+          "type": "boolean",
+          "title": "是否包含自动生成的线路，默认true"
+        },
+        "includeManualRoutes": {
+          "type": "boolean",
+          "title": "是否包含手动添加的线路，默认true"
+        },
+        "includedRouteIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "仅包含的线路ID列表 (为空表示包含所有)"
+        },
+        "excludedRouteIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "排除的线路ID列表"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "过期时间，为空则永不过期"
+        }
+      },
+      "title": "创建订阅请求"
+    },
+    "v1CreateSubscriptionResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1SubscriptionData"
+        }
+      },
+      "title": "创建订阅响应"
+    },
+    "v1DailyStats": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "title": "YYYY-MM-DD"
+        },
+        "requests": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "users": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "按日统计"
+    },
+    "v1DeleteSubscriptionResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        }
+      },
+      "title": "删除订阅响应"
+    },
+    "v1GetSubscriptionResponse": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "title": "配置文件内容（纯文本）"
+        },
+        "contentType": {
+          "type": "string",
+          "title": "内容类型，如 \"text/plain; charset=utf-8\""
+        },
+        "etag": {
+          "type": "string",
+          "title": "ETag用于缓存"
+        }
+      },
+      "title": "获取订阅内容响应（纯文本格式）"
+    },
+    "v1GetSubscriptionStatsResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1SubscriptionStats"
+        }
+      },
+      "title": "获取订阅统计响应"
+    },
+    "v1GetSubscriptionsResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1SubscriptionData"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/v1PaginationResponse"
+        }
+      },
+      "title": "获取用户订阅列表响应"
+    },
+    "v1PaginationRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "通用分页请求"
+    },
+    "v1PaginationResponse": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "通用分页响应"
+    },
+    "v1SubscriptionData": {
+      "type": "object",
+      "properties": {
+        "subscriptionId": {
+          "type": "string",
+          "title": "生成的订阅ID"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int32",
+          "title": "用户ID"
+        },
+        "type": {
+          "$ref": "#/definitions/v1SubscriptionType",
+          "title": "订阅类型"
+        },
+        "name": {
+          "type": "string",
+          "title": "订阅名称"
+        },
+        "description": {
+          "type": "string",
+          "title": "描述"
+        },
+        "includeAutoRoutes": {
+          "type": "boolean",
+          "title": "是否包含自动生成的线路"
+        },
+        "includeManualRoutes": {
+          "type": "boolean",
+          "title": "是否包含手动添加的线路"
+        },
+        "includedRouteIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "仅包含的线路ID列表"
+        },
+        "excludedRouteIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "排除的线路ID列表"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "创建时间"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "过期时间"
+        },
+        "isActive": {
+          "type": "boolean",
+          "title": "是否激活"
+        },
+        "requestCount": {
+          "type": "integer",
+          "format": "int32",
+          "title": "请求次数"
+        },
+        "lastUsedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "最后使用时间"
+        },
+        "accessUrl": {
+          "type": "string",
+          "title": "访问URL"
+        }
+      },
+      "title": "订阅数据"
+    },
+    "v1SubscriptionStats": {
+      "type": "object",
+      "properties": {
+        "totalRequests": {
+          "type": "integer",
+          "format": "int32",
+          "title": "总请求数"
+        },
+        "uniqueUsers": {
+          "type": "integer",
+          "format": "int32",
+          "title": "独立用户数"
+        },
+        "typeStats": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1TypeStats"
+          },
+          "title": "按类型统计"
+        },
+        "dailyStats": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1DailyStats"
+          },
+          "title": "按日统计"
+        }
+      },
+      "title": "订阅统计数据"
+    },
+    "v1SubscriptionType": {
+      "type": "string",
+      "enum": [
+        "SUBSCRIPTION_TYPE_UNSPECIFIED",
+        "SUBSCRIPTION_TYPE_SURGE",
+        "SUBSCRIPTION_TYPE_SHADOWSOCKS",
+        "SUBSCRIPTION_TYPE_QUANTUMULT_X",
+        "SUBSCRIPTION_TYPE_LOON",
+        "SUBSCRIPTION_TYPE_STASH",
+        "SUBSCRIPTION_TYPE_CLASH",
+        "SUBSCRIPTION_TYPE_V2RAY"
+      ],
+      "default": "SUBSCRIPTION_TYPE_UNSPECIFIED",
+      "description": "- SUBSCRIPTION_TYPE_SURGE: Surge格式\n - SUBSCRIPTION_TYPE_SHADOWSOCKS: Shadowsocks格式\n - SUBSCRIPTION_TYPE_QUANTUMULT_X: QuantumultX格式\n - SUBSCRIPTION_TYPE_LOON: Loon格式\n - SUBSCRIPTION_TYPE_STASH: Stash格式\n - SUBSCRIPTION_TYPE_CLASH: Clash格式\n - SUBSCRIPTION_TYPE_V2RAY: V2Ray格式",
+      "title": "订阅类型枚举"
+    },
+    "v1TypeStats": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/v1SubscriptionType"
+        },
+        "requests": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "users": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "按类型统计"
+    },
+    "v1UpdateSubscriptionResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1SubscriptionData"
+        }
+      },
+      "title": "更新订阅响应"
+    },
+    "v1AlertType": {
+      "type": "string",
+      "enum": [
+        "ALERT_TYPE_UNSPECIFIED",
+        "ALERT_TYPE_INFO",
+        "ALERT_TYPE_WARNING",
+        "ALERT_TYPE_ERROR"
+      ],
+      "default": "ALERT_TYPE_UNSPECIFIED",
+      "title": "告警类型枚举"
     },
     "v1ComponentStatus": {
       "type": "string",
@@ -3995,28 +4612,6 @@
         }
       },
       "title": "获取DNS配置列表响应"
-    },
-    "v1PaginationResponse": {
-      "type": "object",
-      "properties": {
-        "total": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "page": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "totalPages": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "title": "通用分页响应"
     },
     "v1UpdateDnsConfigResponse": {
       "type": "object",
@@ -4791,20 +5386,6 @@
           "$ref": "#/definitions/v1ApiResponse"
         }
       }
-    },
-    "v1PaginationRequest": {
-      "type": "object",
-      "properties": {
-        "page": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "title": "通用分页请求"
     },
     "v1PasskeyAuthenticationOptions": {
       "type": "object",
@@ -6755,6 +7336,9 @@
     }
   },
   "tags": [
+    {
+      "name": "SubscriptionManagementService"
+    },
     {
       "name": "DashboardService"
     },
