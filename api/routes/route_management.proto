@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package nspass.api.routes.v1;
 
-option go_package = "github.com/moooyo/nspass-backend/generated/api/routes;nspassroutes";
+option go_package = "github.com/nspass/nspass-agent/generated/api/routes;nspassroutes";
 
 import "google/api/annotations.proto";
 import "google/protobuf/field_mask.proto";

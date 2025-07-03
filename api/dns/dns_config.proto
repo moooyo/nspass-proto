@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package nspass.api.dns.v1;
 
-option go_package = "github.com/moooyo/nspass-backend/generated/api/dns;nspassapidns";
+option go_package = "github.com/nspass/nspass-agent/generated/api/dns;nspassapidns";
 
 import "google/api/annotations.proto";
 import "common.proto";

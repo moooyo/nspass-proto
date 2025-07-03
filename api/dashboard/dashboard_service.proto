@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package nspass.api.dashboard.v1;
 
-option go_package = "github.com/moooyo/nspass-backend/generated/api/dashboard;nspassapidashboard";
+option go_package = "github.com/nspass/nspass-agent/generated/api/dashboard;nspassapidashboard";
 
 import "common.proto";
 import "google/api/annotations.proto";
