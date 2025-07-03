@@ -27,6 +27,7 @@ message Server {
   int64 last_heartbeat = 15;          // 最后心跳时间（Unix时间戳）
   int64 created_at = 16;              // 创建时间（Unix时间戳）
   int64 updated_at = 17;              // 更新时间（Unix时间戳）
+  string token = 18;                  // 服务器认证令牌
 }
 
 // 服务器能力
