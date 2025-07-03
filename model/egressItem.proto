@@ -4,7 +4,7 @@ package nspass.model.v1;
 
 import "model/egress.proto";
 
-option go_package = "github.com/moooyo/nspass-backend/generated/model;nspassmodel";
+option go_package = "github.com/nspass/nspass-agent/generated/model;nspassmodel";
 
 // 出口项目消息
 message EgressItem {
