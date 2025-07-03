@@ -6167,6 +6167,9 @@
         "downloadTraffic": {
           "type": "number",
           "format": "double"
+        },
+        "status": {
+          "$ref": "#/definitions/v1ServerStatus"
         }
       },
       "title": "创建服务器请求"

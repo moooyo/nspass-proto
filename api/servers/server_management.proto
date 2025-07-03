@@ -38,6 +38,7 @@ message CreateServerRequest {
   optional string registerTime = 4;
   optional double uploadTraffic = 5;
   optional double downloadTraffic = 6;
+  optional ServerStatus status = 7;
 }
 
 // 更新服务器请求
