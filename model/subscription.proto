@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package nspass.model.v1;
 
-option go_package = "github.com/nspass/nspass-agent/generated/model;nspassmodel";
+option go_package = "github.com/nspass/nspass-agent/generated/model;model";
 
 import "google/protobuf/timestamp.proto";
 

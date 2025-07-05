@@ -4,7 +4,7 @@ package nspass.model.v1;
 
 import "model/egress.proto";
 
-option go_package = "github.com/nspass/nspass-agent/generated/model;nspassmodel";
+option go_package = "github.com/nspass/nspass-agent/generated/model;model";
 
 // 转发规则类型枚举
 enum ForwardRuleType {

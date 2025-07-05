@@ -4,7 +4,7 @@ package nspass.model.v1;
 
 import "model/node.proto";
 
-option go_package = "github.com/nspass/nspass-agent/generated/model;nspassmodel";
+option go_package = "github.com/nspass/nspass-agent/generated/model;model";
 
 
 
