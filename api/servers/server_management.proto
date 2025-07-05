@@ -28,6 +28,7 @@ message ServerItem {
   optional double uploadTraffic = 8; // MB
   optional double downloadTraffic = 9; // MB
   ServerStatus status = 10;
+  optional string token = 11; // 服务器认证令牌
 }
 
 // 创建服务器请求
@@ -39,6 +40,7 @@ message CreateServerRequest {
   optional double uploadTraffic = 5;
   optional double downloadTraffic = 6;
   optional ServerStatus status = 7;
+  optional string token = 8; // 服务器认证令牌
 }
 
 // 更新服务器请求
@@ -52,6 +54,7 @@ message UpdateServerRequest {
   optional double uploadTraffic = 7;
   optional double downloadTraffic = 8;
   optional ServerStatus status = 9;
+  optional string token = 10; // 服务器认证令牌
 }
 
 // 服务器列表查询参数
