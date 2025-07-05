@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package nspass.api.servers.v1;
 
-option go_package = "github.com/nspass/nspass-agent/generated/proto/api/servers;nspassapiservers";
+option go_package = "github.com/moooyo/nspass-proto/generated/proto/api/servers;nspassapiservers";
 
 import "common.proto";
 

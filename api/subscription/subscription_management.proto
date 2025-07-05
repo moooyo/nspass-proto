@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package nspass.api.subscription.v1;
 
-option go_package = "github.com/nspass/nspass-agent/generated/api/subscription;nspassapisubscription";
+option go_package = "github.com/moooyo/nspass-proto/generated/api/subscription;nspassapisubscription";
 
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";

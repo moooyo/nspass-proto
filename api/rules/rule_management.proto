@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package nspass.api.rules.v1;
 
-option go_package = "github.com/nspass/nspass-agent/generated/api/rules;nspassapirules";
+option go_package = "github.com/moooyo/nspass-proto/generated/api/rules;nspassapirules";
 
 import "common.proto";
 import "google/api/annotations.proto";

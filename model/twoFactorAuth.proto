@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package nspass.model.v1;
 
-option go_package = "github.com/nspass/nspass-agent/generated/model;model";
+option go_package = "github.com/moooyo/nspass-proto/generated/model;model";
 
 // 二步验证
 message TwoFactorAuth {

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package nspass.api.egress.v1;
 
-option go_package = "github.com/nspass/nspass-agent/generated/api/egress;nspassapiegress";
+option go_package = "github.com/moooyo/nspass-proto/generated/api/egress;nspassapiegress";
 
 import "common.proto";
 import "google/api/annotations.proto";

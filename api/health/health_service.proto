@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package nspass.api.health.v1;
 
-option go_package = "github.com/nspass/nspass-agent/generated/api/health;nspassapihealth";
+option go_package = "github.com/moooyo/nspass-proto/generated/api/health;nspassapihealth";
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
