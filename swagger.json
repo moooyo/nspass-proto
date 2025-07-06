@@ -1207,6 +1207,478 @@
         ]
       }
     },
+    "/api/v1/forward-path-rules": {
+      "get": {
+        "summary": "获取转发路径规则列表",
+        "operationId": "ForwardPathRuleService_GetForwardPathRules",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetForwardPathRulesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ruleId",
+            "description": "规则ID过滤",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "description": "类型过滤",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FORWARD_PATH_RULE_TYPE_UNSPECIFIED",
+              "FORWARD_PATH_RULE_TYPE_HTTP",
+              "FORWARD_PATH_RULE_TYPE_TCP",
+              "FORWARD_PATH_RULE_TYPE_UDP",
+              "FORWARD_PATH_RULE_TYPE_ALL"
+            ],
+            "default": "FORWARD_PATH_RULE_TYPE_UNSPECIFIED"
+          },
+          {
+            "name": "status",
+            "description": "状态过滤\n\n - FORWARD_PATH_RULE_STATUS_ACTIVE: 运行中\n - FORWARD_PATH_RULE_STATUS_INACTIVE: 已暂停\n - FORWARD_PATH_RULE_STATUS_ERROR: 错误",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FORWARD_PATH_RULE_STATUS_UNSPECIFIED",
+              "FORWARD_PATH_RULE_STATUS_ACTIVE",
+              "FORWARD_PATH_RULE_STATUS_INACTIVE",
+              "FORWARD_PATH_RULE_STATUS_ERROR"
+            ],
+            "default": "FORWARD_PATH_RULE_STATUS_UNSPECIFIED"
+          },
+          {
+            "name": "page",
+            "description": "页码",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "description": "每页大小",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "ForwardPathRuleService"
+        ]
+      },
+      "post": {
+        "summary": "创建转发路径规则",
+        "operationId": "ForwardPathRuleService_CreateForwardPathRule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateForwardPathRuleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateForwardPathRuleRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ForwardPathRuleService"
+        ]
+      }
+    },
+    "/api/v1/forward-path-rules/{id}": {
+      "get": {
+        "summary": "获取单个转发路径规则",
+        "operationId": "ForwardPathRuleService_GetForwardPathRule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetForwardPathRuleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "规则ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ForwardPathRuleService"
+        ]
+      },
+      "delete": {
+        "summary": "删除转发路径规则",
+        "operationId": "ForwardPathRuleService_DeleteForwardPathRule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteForwardPathRuleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "规则ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ForwardPathRuleService"
+        ]
+      },
+      "put": {
+        "summary": "更新转发路径规则",
+        "operationId": "ForwardPathRuleService_UpdateForwardPathRule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateForwardPathRuleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "规则ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ForwardPathRuleServiceUpdateForwardPathRuleBody"
+            }
+          }
+        ],
+        "tags": [
+          "ForwardPathRuleService"
+        ]
+      }
+    },
+    "/api/v1/forward-path-rules/{id}/disable": {
+      "post": {
+        "summary": "禁用转发路径规则",
+        "operationId": "ForwardPathRuleService_DisableForwardPathRule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DisableForwardPathRuleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "规则ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ForwardPathRuleServiceDisableForwardPathRuleBody"
+            }
+          }
+        ],
+        "tags": [
+          "ForwardPathRuleService"
+        ]
+      }
+    },
+    "/api/v1/forward-path-rules/{id}/enable": {
+      "post": {
+        "summary": "启用转发路径规则",
+        "operationId": "ForwardPathRuleService_EnableForwardPathRule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1EnableForwardPathRuleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "规则ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ForwardPathRuleServiceEnableForwardPathRuleBody"
+            }
+          }
+        ],
+        "tags": [
+          "ForwardPathRuleService"
+        ]
+      }
+    },
+    "/api/v1/forward-path-rules/{id}/traffic": {
+      "get": {
+        "summary": "获取转发路径规则流量统计",
+        "operationId": "ForwardPathRuleService_GetForwardPathRuleTraffic",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetForwardPathRuleTrafficResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "规则ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "days",
+            "description": "统计天数，默认7天",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "ForwardPathRuleService"
+        ]
+      }
+    },
+    "/api/v1/forward-path-rules/{ruleId}/iptables": {
+      "get": {
+        "summary": "获取转发路径规则相关的iptables配置（只读）",
+        "operationId": "ForwardPathRuleService_GetForwardPathRuleIptables",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetForwardPathRuleIptablesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ruleId",
+            "description": "规则ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ForwardPathRuleService"
+        ]
+      }
+    },
+    "/api/v1/forward-path-rules/{ruleId}/iptables/rebuild": {
+      "post": {
+        "summary": "重建转发路径规则iptables配置",
+        "operationId": "ForwardPathRuleService_RebuildForwardPathRuleIptables",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RebuildForwardPathRuleIptablesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ruleId",
+            "description": "规则ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ForwardPathRuleServiceRebuildForwardPathRuleIptablesBody"
+            }
+          }
+        ],
+        "tags": [
+          "ForwardPathRuleService"
+        ]
+      }
+    },
+    "/api/v1/servers/{serverId}/iptables": {
+      "get": {
+        "summary": "获取服务器iptables配置（只读，用于前端查询）",
+        "operationId": "ForwardPathRuleService_GetServerIptablesConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetServerIptablesConfigResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverId",
+            "description": "服务器ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ForwardPathRuleService"
+        ]
+      }
+    },
+    "/api/v1/servers/{serverId}/iptables/rebuild": {
+      "post": {
+        "summary": "重建服务器iptables配置",
+        "operationId": "IptablesConfigService_RebuildServerIptables",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RebuildServerIptablesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverId",
+            "description": "服务器ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IptablesConfigServiceRebuildServerIptablesBody"
+            }
+          }
+        ],
+        "tags": [
+          "IptablesConfigService"
+        ]
+      }
+    },
     "/v1/auth/login": {
       "post": {
         "summary": "用户登录",
@@ -2665,6 +3137,408 @@
         ],
         "tags": [
           "RuleManagementService"
+        ]
+      }
+    },
+    "/api/v1/iptables/batch-rebuild": {
+      "post": {
+        "summary": "批量重建多个服务器iptables配置",
+        "operationId": "IptablesConfigService_BatchRebuildServersIptables",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1BatchRebuildServersIptablesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1BatchRebuildServersIptablesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "IptablesConfigService"
+        ]
+      }
+    },
+    "/api/v1/iptables/rebuild-tasks/{taskId}": {
+      "get": {
+        "summary": "获取重建任务状态",
+        "operationId": "IptablesConfigService_GetRebuildTaskStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetRebuildTaskStatusResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "taskId",
+            "description": "任务ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "IptablesConfigService"
+        ]
+      }
+    },
+    "/api/v1/servers/{serverId}/iptables/cleanup": {
+      "post": {
+        "summary": "清理服务器iptables配置",
+        "operationId": "IptablesConfigService_CleanupServerIptables",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CleanupServerIptablesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverId",
+            "description": "服务器ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IptablesConfigServiceCleanupServerIptablesBody"
+            }
+          }
+        ],
+        "tags": [
+          "IptablesConfigService"
+        ]
+      }
+    },
+    "/api/v1/servers/{serverId}/iptables/configs": {
+      "get": {
+        "summary": "获取服务器iptables配置列表",
+        "operationId": "IptablesConfigService_GetServerIptablesConfigs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetServerIptablesConfigsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverId",
+            "description": "服务器ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tableType",
+            "description": "表类型过滤\n\n - IPTABLES_TABLE_TYPE_FILTER: filter表\n - IPTABLES_TABLE_TYPE_NAT: nat表\n - IPTABLES_TABLE_TYPE_MANGLE: mangle表\n - IPTABLES_TABLE_TYPE_RAW: raw表",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "IPTABLES_TABLE_TYPE_UNSPECIFIED",
+              "IPTABLES_TABLE_TYPE_FILTER",
+              "IPTABLES_TABLE_TYPE_NAT",
+              "IPTABLES_TABLE_TYPE_MANGLE",
+              "IPTABLES_TABLE_TYPE_RAW"
+            ],
+            "default": "IPTABLES_TABLE_TYPE_UNSPECIFIED"
+          },
+          {
+            "name": "chainType",
+            "description": "链类型过滤\n\n - IPTABLES_CHAIN_TYPE_INPUT: INPUT链\n - IPTABLES_CHAIN_TYPE_OUTPUT: OUTPUT链\n - IPTABLES_CHAIN_TYPE_FORWARD: FORWARD链\n - IPTABLES_CHAIN_TYPE_PREROUTING: PREROUTING链\n - IPTABLES_CHAIN_TYPE_POSTROUTING: POSTROUTING链",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "IPTABLES_CHAIN_TYPE_UNSPECIFIED",
+              "IPTABLES_CHAIN_TYPE_INPUT",
+              "IPTABLES_CHAIN_TYPE_OUTPUT",
+              "IPTABLES_CHAIN_TYPE_FORWARD",
+              "IPTABLES_CHAIN_TYPE_PREROUTING",
+              "IPTABLES_CHAIN_TYPE_POSTROUTING"
+            ],
+            "default": "IPTABLES_CHAIN_TYPE_UNSPECIFIED"
+          },
+          {
+            "name": "protocol",
+            "description": "协议过滤\n\n - IPTABLES_PROTOCOL_TCP: TCP协议\n - IPTABLES_PROTOCOL_UDP: UDP协议\n - IPTABLES_PROTOCOL_ICMP: ICMP协议\n - IPTABLES_PROTOCOL_ALL: 所有协议",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "IPTABLES_PROTOCOL_UNSPECIFIED",
+              "IPTABLES_PROTOCOL_TCP",
+              "IPTABLES_PROTOCOL_UDP",
+              "IPTABLES_PROTOCOL_ICMP",
+              "IPTABLES_PROTOCOL_ALL"
+            ],
+            "default": "IPTABLES_PROTOCOL_UNSPECIFIED"
+          },
+          {
+            "name": "isEnabled",
+            "description": "是否启用过滤",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "page",
+            "description": "页码",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "description": "每页大小",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "IptablesConfigService"
+        ]
+      }
+    },
+    "/api/v1/servers/{serverId}/iptables/configs/{configName}": {
+      "get": {
+        "summary": "获取单个iptables配置",
+        "operationId": "IptablesConfigService_GetIptablesConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetIptablesConfigResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverId",
+            "description": "服务器ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "configName",
+            "description": "配置名称",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "IptablesConfigService"
+        ]
+      }
+    },
+    "/api/v1/servers/{serverId}/iptables/overview": {
+      "get": {
+        "summary": "获取服务器iptables概览",
+        "operationId": "IptablesConfigService_GetServerIptablesOverview",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetServerIptablesOverviewResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverId",
+            "description": "服务器ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "IptablesConfigService"
+        ]
+      }
+    },
+    "/api/v1/servers/{serverId}/iptables/rules": {
+      "get": {
+        "summary": "获取服务器iptables生成的规则",
+        "operationId": "IptablesConfigService_GetServerIptablesRules",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetServerIptablesRulesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverId",
+            "description": "服务器ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "onlyEnabled",
+            "description": "仅包含启用的配置",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "IptablesConfigService"
+        ]
+      }
+    },
+    "/api/v1/servers/{serverId}/iptables/script": {
+      "get": {
+        "summary": "获取服务器iptables脚本",
+        "operationId": "IptablesConfigService_GetServerIptablesScript",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetServerIptablesScriptResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverId",
+            "description": "服务器ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "onlyEnabled",
+            "description": "仅包含启用的配置",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "format",
+            "description": "脚本格式 (bash/shell)",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "IptablesConfigService"
+        ]
+      }
+    },
+    "/api/v1/servers/{serverId}/iptables/validate": {
+      "post": {
+        "summary": "验证服务器iptables配置",
+        "operationId": "IptablesConfigService_ValidateServerIptables",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ValidateServerIptablesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverId",
+            "description": "服务器ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IptablesConfigServiceValidateServerIptablesBody"
+            }
+          }
+        ],
+        "tags": [
+          "IptablesConfigService"
         ]
       }
     },
@@ -4990,6 +5864,543 @@
       },
       "title": "用户流量占比项"
     },
+    "ForwardPathRuleServiceDisableForwardPathRuleBody": {
+      "type": "object",
+      "title": "禁用转发路径规则请求"
+    },
+    "ForwardPathRuleServiceEnableForwardPathRuleBody": {
+      "type": "object",
+      "title": "启用转发路径规则请求"
+    },
+    "ForwardPathRuleServiceRebuildForwardPathRuleIptablesBody": {
+      "type": "object",
+      "properties": {
+        "forceRebuild": {
+          "type": "boolean",
+          "title": "强制重建"
+        },
+        "backupExisting": {
+          "type": "boolean",
+          "title": "备份现有配置"
+        }
+      },
+      "title": "重建转发路径规则iptables配置请求"
+    },
+    "ForwardPathRuleServiceRebuildServerIptablesBody": {
+      "type": "object",
+      "properties": {
+        "forceRebuild": {
+          "type": "boolean",
+          "title": "强制重建"
+        },
+        "backupExisting": {
+          "type": "boolean",
+          "title": "备份现有配置"
+        },
+        "includeConfigs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "包含的配置名称（空则全部）"
+        },
+        "excludeConfigs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "排除的配置名称"
+        }
+      },
+      "title": "重建服务器iptables配置请求"
+    },
+    "ForwardPathRuleServiceUpdateForwardPathRuleBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "规则名称"
+        },
+        "type": {
+          "$ref": "#/definitions/v1ForwardPathRuleType",
+          "title": "转发类型"
+        },
+        "status": {
+          "$ref": "#/definitions/v1ForwardPathRuleStatus",
+          "title": "状态"
+        },
+        "pathServerIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "路径服务器ID列表"
+        },
+        "egressServerId": {
+          "type": "string",
+          "title": "出口服务器ID (端口从出口服务器配置中获取)"
+        }
+      },
+      "title": "更新转发路径规则请求"
+    },
+    "v1CreateForwardPathRuleRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "规则名称"
+        },
+        "type": {
+          "$ref": "#/definitions/v1ForwardPathRuleType",
+          "title": "转发类型"
+        },
+        "pathServerIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "路径服务器ID列表"
+        },
+        "egressServerId": {
+          "type": "string",
+          "title": "出口服务器ID (端口从出口服务器配置中获取)"
+        }
+      },
+      "title": "创建转发路径规则请求"
+    },
+    "v1CreateForwardPathRuleResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "rule": {
+          "$ref": "#/definitions/v1ForwardPathRule"
+        }
+      },
+      "title": "创建转发路径规则响应"
+    },
+    "v1DeleteForwardPathRuleResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        }
+      },
+      "title": "删除转发路径规则响应"
+    },
+    "v1DisableForwardPathRuleResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        }
+      },
+      "title": "禁用转发路径规则响应"
+    },
+    "v1EnableForwardPathRuleResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        }
+      },
+      "title": "启用转发路径规则响应"
+    },
+    "v1ForwardPathNode": {
+      "type": "object",
+      "properties": {
+        "serverId": {
+          "type": "string",
+          "title": "服务器ID"
+        },
+        "serverName": {
+          "type": "string",
+          "title": "服务器名称（用于显示）"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "title": "在此服务器上使用的端口"
+        },
+        "order": {
+          "type": "integer",
+          "format": "int32",
+          "title": "在路径中的顺序"
+        }
+      },
+      "title": "转发路径中的单个节点"
+    },
+    "v1ForwardPathRule": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "规则ID"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "title": "用户ID"
+        },
+        "name": {
+          "type": "string",
+          "title": "规则名称"
+        },
+        "type": {
+          "$ref": "#/definitions/v1ForwardPathRuleType",
+          "title": "转发类型"
+        },
+        "status": {
+          "$ref": "#/definitions/v1ForwardPathRuleStatus",
+          "title": "状态"
+        },
+        "path": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1ForwardPathNode"
+          },
+          "title": "转发路径节点列表"
+        },
+        "egressServerId": {
+          "type": "string",
+          "title": "出口服务器ID"
+        },
+        "egressServerName": {
+          "type": "string",
+          "title": "出口服务器名称（用于显示）"
+        },
+        "trafficUp": {
+          "type": "string",
+          "format": "int64",
+          "title": "上行流量（字节）"
+        },
+        "trafficDown": {
+          "type": "string",
+          "format": "int64",
+          "title": "下行流量（字节）"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建时间（Unix时间戳）"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "更新时间（Unix时间戳）"
+        }
+      },
+      "title": "转发路径规则"
+    },
+    "v1ForwardPathRuleStatus": {
+      "type": "string",
+      "enum": [
+        "FORWARD_PATH_RULE_STATUS_UNSPECIFIED",
+        "FORWARD_PATH_RULE_STATUS_ACTIVE",
+        "FORWARD_PATH_RULE_STATUS_INACTIVE",
+        "FORWARD_PATH_RULE_STATUS_ERROR"
+      ],
+      "default": "FORWARD_PATH_RULE_STATUS_UNSPECIFIED",
+      "description": "- FORWARD_PATH_RULE_STATUS_ACTIVE: 运行中\n - FORWARD_PATH_RULE_STATUS_INACTIVE: 已暂停\n - FORWARD_PATH_RULE_STATUS_ERROR: 错误",
+      "title": "转发路径规则状态枚举"
+    },
+    "v1ForwardPathRuleType": {
+      "type": "string",
+      "enum": [
+        "FORWARD_PATH_RULE_TYPE_UNSPECIFIED",
+        "FORWARD_PATH_RULE_TYPE_HTTP",
+        "FORWARD_PATH_RULE_TYPE_TCP",
+        "FORWARD_PATH_RULE_TYPE_UDP",
+        "FORWARD_PATH_RULE_TYPE_ALL"
+      ],
+      "default": "FORWARD_PATH_RULE_TYPE_UNSPECIFIED",
+      "title": "转发路径规则类型枚举"
+    },
+    "v1GetForwardPathRuleIptablesResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "configs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1IptablesConfigInfo"
+          }
+        }
+      },
+      "title": "获取转发路径规则iptables配置响应"
+    },
+    "v1GetForwardPathRuleResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "rule": {
+          "$ref": "#/definitions/v1ForwardPathRule"
+        }
+      },
+      "title": "获取单个转发路径规则响应"
+    },
+    "v1GetForwardPathRuleTrafficResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "totalUpload": {
+          "type": "string",
+          "format": "int64",
+          "title": "总上行流量"
+        },
+        "totalDownload": {
+          "type": "string",
+          "format": "int64",
+          "title": "总下行流量"
+        },
+        "dailyStats": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1TrafficDataPoint"
+          },
+          "title": "每日统计"
+        }
+      },
+      "title": "转发路径规则流量统计响应"
+    },
+    "v1GetForwardPathRulesResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1ForwardPathRule"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/v1PaginationResponse"
+        }
+      },
+      "title": "获取转发路径规则列表响应"
+    },
+    "v1GetServerIptablesConfigResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "configs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1IptablesConfigInfo"
+          }
+        }
+      },
+      "title": "获取服务器iptables配置响应（简化版，用于转发路径规则接口）"
+    },
+    "v1IptablesConfigInfo": {
+      "type": "object",
+      "properties": {
+        "serverId": {
+          "type": "string",
+          "title": "服务器ID"
+        },
+        "serverName": {
+          "type": "string",
+          "title": "服务器名称"
+        },
+        "configName": {
+          "type": "string",
+          "title": "配置名称"
+        },
+        "tableName": {
+          "type": "string",
+          "title": "表名"
+        },
+        "chainName": {
+          "type": "string",
+          "title": "链名"
+        },
+        "ruleAction": {
+          "type": "string",
+          "title": "规则动作"
+        },
+        "sourceIp": {
+          "type": "string",
+          "title": "源IP"
+        },
+        "sourcePort": {
+          "type": "string",
+          "title": "源端口"
+        },
+        "destIp": {
+          "type": "string",
+          "title": "目标IP"
+        },
+        "destPort": {
+          "type": "string",
+          "title": "目标端口"
+        },
+        "protocol": {
+          "type": "string",
+          "title": "协议"
+        },
+        "ruleComment": {
+          "type": "string",
+          "title": "规则注释"
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32",
+          "title": "优先级"
+        },
+        "isEnabled": {
+          "type": "boolean",
+          "title": "是否启用"
+        },
+        "generatedRule": {
+          "type": "string",
+          "title": "生成的规则"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建时间"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "更新时间"
+        }
+      },
+      "title": "iptables配置信息（用于前端显示）"
+    },
+    "v1IptablesRebuildStatus": {
+      "type": "string",
+      "enum": [
+        "IPTABLES_REBUILD_STATUS_UNSPECIFIED",
+        "IPTABLES_REBUILD_STATUS_PENDING",
+        "IPTABLES_REBUILD_STATUS_RUNNING",
+        "IPTABLES_REBUILD_STATUS_SUCCESS",
+        "IPTABLES_REBUILD_STATUS_FAILED"
+      ],
+      "default": "IPTABLES_REBUILD_STATUS_UNSPECIFIED",
+      "description": "- IPTABLES_REBUILD_STATUS_PENDING: 等待中\n - IPTABLES_REBUILD_STATUS_RUNNING: 执行中\n - IPTABLES_REBUILD_STATUS_SUCCESS: 成功\n - IPTABLES_REBUILD_STATUS_FAILED: 失败",
+      "title": "iptables重建操作状态"
+    },
+    "v1IptablesRebuildTask": {
+      "type": "object",
+      "properties": {
+        "taskId": {
+          "type": "string",
+          "title": "任务ID"
+        },
+        "serverId": {
+          "type": "string",
+          "title": "服务器ID"
+        },
+        "status": {
+          "$ref": "#/definitions/v1IptablesRebuildStatus",
+          "title": "重建状态"
+        },
+        "totalRules": {
+          "type": "integer",
+          "format": "int32",
+          "title": "总规则数"
+        },
+        "processedRules": {
+          "type": "integer",
+          "format": "int32",
+          "title": "已处理规则数"
+        },
+        "failedRules": {
+          "type": "integer",
+          "format": "int32",
+          "title": "失败规则数"
+        },
+        "errorMessage": {
+          "type": "string",
+          "title": "错误信息"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "开始时间"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "完成时间"
+        }
+      },
+      "title": "iptables重建任务"
+    },
+    "v1RebuildForwardPathRuleIptablesResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "task": {
+          "$ref": "#/definitions/v1IptablesRebuildTask"
+        }
+      },
+      "title": "重建转发路径规则iptables配置响应"
+    },
+    "v1RebuildServerIptablesResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "task": {
+          "$ref": "#/definitions/v1IptablesRebuildTask"
+        }
+      },
+      "title": "重建服务器iptables配置响应"
+    },
+    "v1TrafficDataPoint": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "title": "日期"
+        },
+        "upload": {
+          "type": "string",
+          "format": "int64",
+          "title": "上行流量"
+        },
+        "download": {
+          "type": "string",
+          "format": "int64",
+          "title": "下行流量"
+        }
+      },
+      "title": "流量数据点"
+    },
+    "v1UpdateForwardPathRuleResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "rule": {
+          "$ref": "#/definitions/v1ForwardPathRule"
+        }
+      },
+      "title": "更新转发路径规则响应"
+    },
     "v1LoginData": {
       "type": "object",
       "properties": {
@@ -6410,23 +7821,6 @@
         }
       }
     },
-    "v1TrafficDataPoint": {
-      "type": "object",
-      "properties": {
-        "date": {
-          "type": "string"
-        },
-        "upload": {
-          "type": "number",
-          "format": "double"
-        },
-        "download": {
-          "type": "number",
-          "format": "double"
-        }
-      },
-      "title": "流量数据点"
-    },
     "v1UpdateRuleResponse": {
       "type": "object",
       "properties": {
@@ -6437,6 +7831,475 @@
           "$ref": "#/definitions/v1ForwardRule"
         }
       }
+    },
+    "IptablesConfigServiceCleanupServerIptablesBody": {
+      "type": "object",
+      "properties": {
+        "removeDisabled": {
+          "type": "boolean",
+          "title": "移除禁用配置"
+        },
+        "removeOutdated": {
+          "type": "boolean",
+          "title": "移除过时配置"
+        },
+        "daysThreshold": {
+          "type": "integer",
+          "format": "int32",
+          "title": "天数阈值"
+        }
+      },
+      "title": "清理服务器iptables配置请求"
+    },
+    "IptablesConfigServiceRebuildServerIptablesBody": {
+      "type": "object",
+      "properties": {
+        "forceRebuild": {
+          "type": "boolean",
+          "title": "强制重建"
+        },
+        "backupExisting": {
+          "type": "boolean",
+          "title": "备份现有配置"
+        },
+        "includeConfigs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "包含的配置名称（空则全部）"
+        },
+        "excludeConfigs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "排除的配置名称"
+        }
+      },
+      "title": "重建服务器iptables配置请求"
+    },
+    "IptablesConfigServiceValidateServerIptablesBody": {
+      "type": "object",
+      "properties": {
+        "dryRun": {
+          "type": "boolean",
+          "title": "仅验证不执行"
+        }
+      },
+      "title": "验证服务器iptables配置请求"
+    },
+    "v1BatchRebuildServersIptablesRequest": {
+      "type": "object",
+      "properties": {
+        "serverIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "服务器ID列表"
+        },
+        "forceRebuild": {
+          "type": "boolean",
+          "title": "强制重建"
+        },
+        "backupExisting": {
+          "type": "boolean",
+          "title": "备份现有配置"
+        }
+      },
+      "title": "批量重建多个服务器iptables配置请求"
+    },
+    "v1BatchRebuildServersIptablesResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "tasks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1IptablesRebuildTask"
+          }
+        }
+      },
+      "title": "批量重建多个服务器iptables配置响应"
+    },
+    "v1CleanupServerIptablesResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "removedConfigs": {
+          "type": "integer",
+          "format": "int32",
+          "title": "移除的配置数"
+        },
+        "removedConfigNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "移除的配置名称"
+        }
+      },
+      "title": "清理服务器iptables配置响应"
+    },
+    "v1GetIptablesConfigResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "config": {
+          "$ref": "#/definitions/v1IptablesConfig"
+        }
+      },
+      "title": "获取单个iptables配置响应"
+    },
+    "v1GetRebuildTaskStatusResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "task": {
+          "$ref": "#/definitions/v1IptablesRebuildTask"
+        }
+      },
+      "title": "获取重建任务状态响应"
+    },
+    "v1GetServerIptablesConfigsResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "configs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1IptablesConfig"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/v1PaginationResponse"
+        }
+      },
+      "title": "获取服务器iptables配置列表响应"
+    },
+    "v1GetServerIptablesOverviewResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "overview": {
+          "$ref": "#/definitions/v1IptablesServerConfig"
+        }
+      },
+      "title": "获取服务器iptables概览响应"
+    },
+    "v1GetServerIptablesRulesResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1IptablesGeneratedRule"
+          }
+        },
+        "totalRules": {
+          "type": "integer",
+          "format": "int32",
+          "title": "总规则数"
+        },
+        "validRules": {
+          "type": "integer",
+          "format": "int32",
+          "title": "有效规则数"
+        },
+        "invalidRules": {
+          "type": "integer",
+          "format": "int32",
+          "title": "无效规则数"
+        }
+      },
+      "title": "获取服务器iptables生成的规则响应"
+    },
+    "v1GetServerIptablesScriptResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "script": {
+          "$ref": "#/definitions/v1IptablesScript"
+        }
+      },
+      "title": "获取服务器iptables脚本响应"
+    },
+    "v1IptablesChainType": {
+      "type": "string",
+      "enum": [
+        "IPTABLES_CHAIN_TYPE_UNSPECIFIED",
+        "IPTABLES_CHAIN_TYPE_INPUT",
+        "IPTABLES_CHAIN_TYPE_OUTPUT",
+        "IPTABLES_CHAIN_TYPE_FORWARD",
+        "IPTABLES_CHAIN_TYPE_PREROUTING",
+        "IPTABLES_CHAIN_TYPE_POSTROUTING"
+      ],
+      "default": "IPTABLES_CHAIN_TYPE_UNSPECIFIED",
+      "description": "- IPTABLES_CHAIN_TYPE_INPUT: INPUT链\n - IPTABLES_CHAIN_TYPE_OUTPUT: OUTPUT链\n - IPTABLES_CHAIN_TYPE_FORWARD: FORWARD链\n - IPTABLES_CHAIN_TYPE_PREROUTING: PREROUTING链\n - IPTABLES_CHAIN_TYPE_POSTROUTING: POSTROUTING链",
+      "title": "iptables链类型枚举"
+    },
+    "v1IptablesConfig": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "title": "配置ID"
+        },
+        "serverId": {
+          "type": "string",
+          "title": "服务器ID"
+        },
+        "configName": {
+          "type": "string",
+          "title": "配置名称"
+        },
+        "tableName": {
+          "type": "string",
+          "title": "表名 (filter/nat/mangle/raw)"
+        },
+        "chainName": {
+          "type": "string",
+          "title": "链名"
+        },
+        "ruleAction": {
+          "type": "string",
+          "title": "规则动作"
+        },
+        "sourceIp": {
+          "type": "string",
+          "title": "源IP"
+        },
+        "sourcePort": {
+          "type": "string",
+          "title": "源端口"
+        },
+        "destIp": {
+          "type": "string",
+          "title": "目标IP"
+        },
+        "destPort": {
+          "type": "string",
+          "title": "目标端口"
+        },
+        "protocol": {
+          "type": "string",
+          "title": "协议 (tcp/udp/icmp/all)"
+        },
+        "interface": {
+          "type": "string",
+          "title": "网络接口"
+        },
+        "ruleComment": {
+          "type": "string",
+          "title": "规则注释"
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32",
+          "title": "优先级"
+        },
+        "isEnabled": {
+          "type": "boolean",
+          "title": "是否启用"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建时间（Unix时间戳）"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "更新时间（Unix时间戳）"
+        }
+      },
+      "title": "iptables配置信息"
+    },
+    "v1IptablesGeneratedRule": {
+      "type": "object",
+      "properties": {
+        "ruleCommand": {
+          "type": "string",
+          "title": "生成的iptables命令"
+        },
+        "configName": {
+          "type": "string",
+          "title": "对应的配置名称"
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32",
+          "title": "优先级"
+        },
+        "isValid": {
+          "type": "boolean",
+          "title": "是否有效"
+        },
+        "errorMessage": {
+          "type": "string",
+          "title": "错误信息（如果无效）"
+        }
+      },
+      "title": "iptables生成的规则"
+    },
+    "v1IptablesProtocol": {
+      "type": "string",
+      "enum": [
+        "IPTABLES_PROTOCOL_UNSPECIFIED",
+        "IPTABLES_PROTOCOL_TCP",
+        "IPTABLES_PROTOCOL_UDP",
+        "IPTABLES_PROTOCOL_ICMP",
+        "IPTABLES_PROTOCOL_ALL"
+      ],
+      "default": "IPTABLES_PROTOCOL_UNSPECIFIED",
+      "description": "- IPTABLES_PROTOCOL_TCP: TCP协议\n - IPTABLES_PROTOCOL_UDP: UDP协议\n - IPTABLES_PROTOCOL_ICMP: ICMP协议\n - IPTABLES_PROTOCOL_ALL: 所有协议",
+      "title": "iptables协议类型枚举"
+    },
+    "v1IptablesScript": {
+      "type": "object",
+      "properties": {
+        "serverId": {
+          "type": "string",
+          "title": "服务器ID"
+        },
+        "scriptContent": {
+          "type": "string",
+          "title": "脚本内容"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1IptablesGeneratedRule"
+          },
+          "title": "生成的规则列表"
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "生成时间"
+        }
+      },
+      "title": "iptables脚本"
+    },
+    "v1IptablesServerConfig": {
+      "type": "object",
+      "properties": {
+        "serverId": {
+          "type": "string",
+          "title": "服务器ID"
+        },
+        "serverName": {
+          "type": "string",
+          "title": "服务器名称"
+        },
+        "configs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1IptablesConfig"
+          },
+          "title": "配置列表"
+        },
+        "totalConfigs": {
+          "type": "integer",
+          "format": "int32",
+          "title": "配置总数"
+        },
+        "activeConfigs": {
+          "type": "integer",
+          "format": "int32",
+          "title": "活跃配置数"
+        },
+        "errorConfigs": {
+          "type": "integer",
+          "format": "int32",
+          "title": "错误配置数"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "int64",
+          "title": "最后更新时间"
+        }
+      },
+      "title": "iptables服务器配置概览"
+    },
+    "v1IptablesTableType": {
+      "type": "string",
+      "enum": [
+        "IPTABLES_TABLE_TYPE_UNSPECIFIED",
+        "IPTABLES_TABLE_TYPE_FILTER",
+        "IPTABLES_TABLE_TYPE_NAT",
+        "IPTABLES_TABLE_TYPE_MANGLE",
+        "IPTABLES_TABLE_TYPE_RAW"
+      ],
+      "default": "IPTABLES_TABLE_TYPE_UNSPECIFIED",
+      "description": "- IPTABLES_TABLE_TYPE_FILTER: filter表\n - IPTABLES_TABLE_TYPE_NAT: nat表\n - IPTABLES_TABLE_TYPE_MANGLE: mangle表\n - IPTABLES_TABLE_TYPE_RAW: raw表",
+      "title": "iptables表类型枚举"
+    },
+    "v1ValidateServerIptablesResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "isValid": {
+          "type": "boolean",
+          "title": "是否有效"
+        },
+        "validationErrors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "验证错误"
+        },
+        "validationWarnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "验证警告"
+        },
+        "totalRules": {
+          "type": "integer",
+          "format": "int32",
+          "title": "总规则数"
+        },
+        "validRules": {
+          "type": "integer",
+          "format": "int32",
+          "title": "有效规则数"
+        },
+        "invalidRules": {
+          "type": "integer",
+          "format": "int32",
+          "title": "无效规则数"
+        }
+      },
+      "title": "验证服务器iptables配置响应"
     },
     "DnsConfigServiceUpdateDnsConfigBody": {
       "type": "object",
@@ -7380,6 +9243,9 @@
       "name": "DashboardService"
     },
     {
+      "name": "ForwardPathRuleService"
+    },
+    {
       "name": "UserAuthService"
     },
     {
@@ -7417,6 +9283,9 @@
     },
     {
       "name": "RuleManagementService"
+    },
+    {
+      "name": "IptablesConfigService"
     },
     {
       "name": "DnsConfigService"

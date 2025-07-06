@@ -1,0 +1,213 @@
+syntax = "proto3";
+
+package nspass.api.forwardPath.v1;
+
+option go_package = "github.com/moooyo/nspass-proto/generated/api/forwardPath;nspassapiforwardpath";
+
+import "common.proto";
+import "google/api/annotations.proto";
+import "model/forwardPath.proto";
+import "api/iptables/iptables_config.proto";
+
+// 获取转发路径规则列表请求
+message GetForwardPathRulesRequest {
+  optional string rule_id = 1;             // 规则ID过滤
+  optional nspass.model.v1.ForwardPathRuleType type = 2; // 类型过滤
+  optional nspass.model.v1.ForwardPathRuleStatus status = 3; // 状态过滤
+  optional int32 page = 4;                 // 页码
+  optional int32 page_size = 5;            // 每页大小
+}
+
+// 获取转发路径规则列表响应
+message GetForwardPathRulesResponse {
+  nspass.common.v1.ApiResponse response = 1;
+  repeated nspass.model.v1.ForwardPathRule rules = 2;
+  nspass.common.v1.PaginationResponse pagination = 3;
+}
+
+// 创建转发路径规则请求
+message CreateForwardPathRuleRequest {
+  string name = 1;                         // 规则名称
+  nspass.model.v1.ForwardPathRuleType type = 2; // 转发类型
+  repeated string path_server_ids = 3;     // 路径服务器ID列表
+  string egress_server_id = 4;             // 出口服务器ID (端口从出口服务器配置中获取)
+}
+
+// 创建转发路径规则响应
+message CreateForwardPathRuleResponse {
+  nspass.common.v1.ApiResponse response = 1;
+  nspass.model.v1.ForwardPathRule rule = 2;
+}
+
+// 获取单个转发路径规则请求
+message GetForwardPathRuleRequest {
+  string id = 1;                           // 规则ID
+}
+
+// 获取单个转发路径规则响应
+message GetForwardPathRuleResponse {
+  nspass.common.v1.ApiResponse response = 1;
+  nspass.model.v1.ForwardPathRule rule = 2;
+}
+
+// 更新转发路径规则请求
+message UpdateForwardPathRuleRequest {
+  string id = 1;                           // 规则ID
+  optional string name = 2;                // 规则名称
+  optional nspass.model.v1.ForwardPathRuleType type = 3; // 转发类型
+  optional nspass.model.v1.ForwardPathRuleStatus status = 4; // 状态
+  repeated string path_server_ids = 5;     // 路径服务器ID列表
+  optional string egress_server_id = 6;    // 出口服务器ID (端口从出口服务器配置中获取)
+}
+
+// 更新转发路径规则响应
+message UpdateForwardPathRuleResponse {
+  nspass.common.v1.ApiResponse response = 1;
+  nspass.model.v1.ForwardPathRule rule = 2;
+}
+
+// 删除转发路径规则请求
+message DeleteForwardPathRuleRequest {
+  string id = 1;                           // 规则ID
+}
+
+// 删除转发路径规则响应
+message DeleteForwardPathRuleResponse {
+  nspass.common.v1.ApiResponse response = 1;
+}
+
+// 启用转发路径规则请求
+message EnableForwardPathRuleRequest {
+  string id = 1;                           // 规则ID
+}
+
+// 启用转发路径规则响应
+message EnableForwardPathRuleResponse {
+  nspass.common.v1.ApiResponse response = 1;
+}
+
+// 禁用转发路径规则请求
+message DisableForwardPathRuleRequest {
+  string id = 1;                           // 规则ID
+}
+
+// 禁用转发路径规则响应
+message DisableForwardPathRuleResponse {
+  nspass.common.v1.ApiResponse response = 1;
+}
+
+// 获取转发路径规则流量统计请求
+message GetForwardPathRuleTrafficRequest {
+  string id = 1;                           // 规则ID
+  optional int32 days = 2;                 // 统计天数，默认7天
+}
+
+// 转发路径规则流量统计响应
+message GetForwardPathRuleTrafficResponse {
+  nspass.common.v1.ApiResponse response = 1;
+  int64 total_upload = 2;                  // 总上行流量
+  int64 total_download = 3;                // 总下行流量
+  repeated TrafficDataPoint daily_stats = 4; // 每日统计
+}
+
+// 流量数据点
+message TrafficDataPoint {
+  string date = 1;                         // 日期
+  int64 upload = 2;                        // 上行流量
+  int64 download = 3;                      // 下行流量
+}
+
+// 转发路径规则管理服务
+service ForwardPathRuleService {
+  // 获取转发路径规则列表
+  rpc GetForwardPathRules(GetForwardPathRulesRequest) returns (GetForwardPathRulesResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/forward-path-rules"
+    };
+  }
+
+  // 创建转发路径规则
+  rpc CreateForwardPathRule(CreateForwardPathRuleRequest) returns (CreateForwardPathRuleResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/forward-path-rules"
+      body: "*"
+    };
+  }
+
+  // 获取单个转发路径规则
+  rpc GetForwardPathRule(GetForwardPathRuleRequest) returns (GetForwardPathRuleResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/forward-path-rules/{id}"
+    };
+  }
+
+  // 更新转发路径规则
+  rpc UpdateForwardPathRule(UpdateForwardPathRuleRequest) returns (UpdateForwardPathRuleResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/forward-path-rules/{id}"
+      body: "*"
+    };
+  }
+
+  // 删除转发路径规则
+  rpc DeleteForwardPathRule(DeleteForwardPathRuleRequest) returns (DeleteForwardPathRuleResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/forward-path-rules/{id}"
+    };
+  }
+
+  // 启用转发路径规则
+  rpc EnableForwardPathRule(EnableForwardPathRuleRequest) returns (EnableForwardPathRuleResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/forward-path-rules/{id}/enable"
+      body: "*"
+    };
+  }
+
+  // 禁用转发路径规则
+  rpc DisableForwardPathRule(DisableForwardPathRuleRequest) returns (DisableForwardPathRuleResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/forward-path-rules/{id}/disable"
+      body: "*"
+    };
+  }
+
+  // 获取转发路径规则流量统计
+  rpc GetForwardPathRuleTraffic(GetForwardPathRuleTrafficRequest) returns (GetForwardPathRuleTrafficResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/forward-path-rules/{id}/traffic"
+    };
+  }
+
+  // ================= iptables相关接口 =================
+
+  // 获取转发路径规则相关的iptables配置（只读）
+  rpc GetForwardPathRuleIptables(nspass.api.iptables.v1.GetForwardPathRuleIptablesRequest) returns (nspass.api.iptables.v1.GetForwardPathRuleIptablesResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/forward-path-rules/{rule_id}/iptables"
+    };
+  }
+
+  // 重建转发路径规则iptables配置
+  rpc RebuildForwardPathRuleIptables(nspass.api.iptables.v1.RebuildForwardPathRuleIptablesRequest) returns (nspass.api.iptables.v1.RebuildForwardPathRuleIptablesResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/forward-path-rules/{rule_id}/iptables/rebuild"
+      body: "*"
+    };
+  }
+
+  // 获取服务器iptables配置（只读，用于前端查询）
+  rpc GetServerIptablesConfig(nspass.api.iptables.v1.GetServerIptablesConfigRequest) returns (nspass.api.iptables.v1.GetServerIptablesConfigResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/servers/{server_id}/iptables"
+    };
+  }
+
+  // 重建服务器iptables配置（后端管理接口）
+  rpc RebuildServerIptables(nspass.api.iptables.v1.RebuildServerIptablesRequest) returns (nspass.api.iptables.v1.RebuildServerIptablesResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/servers/{server_id}/iptables/rebuild"
+      body: "*"
+    };
+  }
+}

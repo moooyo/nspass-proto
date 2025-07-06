@@ -1,0 +1,133 @@
+syntax = "proto3";
+
+package nspass.model.v1;
+
+option go_package = "github.com/moooyo/nspass-proto/generated/model;model";
+
+// iptables配置信息
+message IptablesConfig {
+  int32 id = 1;                         // 配置ID
+  string server_id = 2;                 // 服务器ID
+  string config_name = 3;               // 配置名称
+  string table_name = 4;                // 表名 (filter/nat/mangle/raw)
+  string chain_name = 5;                // 链名
+  string rule_action = 6;               // 规则动作
+  optional string source_ip = 7;        // 源IP
+  optional string source_port = 8;      // 源端口
+  optional string dest_ip = 9;          // 目标IP
+  optional string dest_port = 10;       // 目标端口
+  string protocol = 11;                 // 协议 (tcp/udp/icmp/all)
+  optional string interface = 12;       // 网络接口
+  optional string rule_comment = 13;    // 规则注释
+  int32 priority = 14;                  // 优先级
+  bool is_enabled = 15;                 // 是否启用
+  int64 created_at = 16;                // 创建时间（Unix时间戳）
+  int64 updated_at = 17;                // 更新时间（Unix时间戳）
+}
+
+// iptables规则状态枚举
+enum IptablesRuleStatus {
+  IPTABLES_RULE_STATUS_UNSPECIFIED = 0;
+  IPTABLES_RULE_STATUS_ACTIVE = 1;      // 活跃
+  IPTABLES_RULE_STATUS_INACTIVE = 2;    // 非活跃
+  IPTABLES_RULE_STATUS_ERROR = 3;       // 错误
+}
+
+// iptables表类型枚举
+enum IptablesTableType {
+  IPTABLES_TABLE_TYPE_UNSPECIFIED = 0;
+  IPTABLES_TABLE_TYPE_FILTER = 1;      // filter表
+  IPTABLES_TABLE_TYPE_NAT = 2;         // nat表
+  IPTABLES_TABLE_TYPE_MANGLE = 3;      // mangle表
+  IPTABLES_TABLE_TYPE_RAW = 4;         // raw表
+}
+
+// iptables链类型枚举
+enum IptablesChainType {
+  IPTABLES_CHAIN_TYPE_UNSPECIFIED = 0;
+  IPTABLES_CHAIN_TYPE_INPUT = 1;       // INPUT链
+  IPTABLES_CHAIN_TYPE_OUTPUT = 2;      // OUTPUT链
+  IPTABLES_CHAIN_TYPE_FORWARD = 3;     // FORWARD链
+  IPTABLES_CHAIN_TYPE_PREROUTING = 4;  // PREROUTING链
+  IPTABLES_CHAIN_TYPE_POSTROUTING = 5; // POSTROUTING链
+}
+
+// iptables协议类型枚举
+enum IptablesProtocol {
+  IPTABLES_PROTOCOL_UNSPECIFIED = 0;
+  IPTABLES_PROTOCOL_TCP = 1;           // TCP协议
+  IPTABLES_PROTOCOL_UDP = 2;           // UDP协议
+  IPTABLES_PROTOCOL_ICMP = 3;          // ICMP协议
+  IPTABLES_PROTOCOL_ALL = 4;           // 所有协议
+}
+
+// iptables服务器配置概览
+message IptablesServerConfig {
+  string server_id = 1;                // 服务器ID
+  string server_name = 2;              // 服务器名称
+  repeated IptablesConfig configs = 3; // 配置列表
+  int32 total_configs = 4;             // 配置总数
+  int32 active_configs = 5;            // 活跃配置数
+  int32 error_configs = 6;             // 错误配置数
+  int64 last_updated = 7;              // 最后更新时间
+}
+
+// iptables重建操作状态
+enum IptablesRebuildStatus {
+  IPTABLES_REBUILD_STATUS_UNSPECIFIED = 0;
+  IPTABLES_REBUILD_STATUS_PENDING = 1;     // 等待中
+  IPTABLES_REBUILD_STATUS_RUNNING = 2;     // 执行中
+  IPTABLES_REBUILD_STATUS_SUCCESS = 3;     // 成功
+  IPTABLES_REBUILD_STATUS_FAILED = 4;      // 失败
+}
+
+// iptables重建任务
+message IptablesRebuildTask {
+  string task_id = 1;                      // 任务ID
+  string server_id = 2;                    // 服务器ID
+  IptablesRebuildStatus status = 3;        // 重建状态
+  int32 total_rules = 4;                   // 总规则数
+  int32 processed_rules = 5;               // 已处理规则数
+  int32 failed_rules = 6;                  // 失败规则数
+  optional string error_message = 7;       // 错误信息
+  int64 started_at = 8;                    // 开始时间
+  int64 completed_at = 9;                  // 完成时间
+}
+
+// iptables生成的规则
+message IptablesGeneratedRule {
+  string rule_command = 1;                 // 生成的iptables命令
+  string config_name = 2;                  // 对应的配置名称
+  int32 priority = 3;                      // 优先级
+  bool is_valid = 4;                       // 是否有效
+  optional string error_message = 5;       // 错误信息（如果无效）
+}
+
+// iptables脚本
+message IptablesScript {
+  string server_id = 1;                    // 服务器ID
+  string script_content = 2;               // 脚本内容
+  repeated IptablesGeneratedRule rules = 3; // 生成的规则列表
+  int64 generated_at = 4;                  // 生成时间
+}
+
+// iptables配置信息（用于前端显示）
+message IptablesConfigInfo {
+  string server_id = 1;                    // 服务器ID
+  string server_name = 2;                  // 服务器名称
+  string config_name = 3;                  // 配置名称
+  string table_name = 4;                   // 表名
+  string chain_name = 5;                   // 链名
+  string rule_action = 6;                  // 规则动作
+  optional string source_ip = 7;           // 源IP
+  optional string source_port = 8;         // 源端口
+  optional string dest_ip = 9;             // 目标IP
+  optional string dest_port = 10;          // 目标端口
+  string protocol = 11;                    // 协议
+  optional string rule_comment = 12;       // 规则注释
+  int32 priority = 13;                     // 优先级
+  bool is_enabled = 14;                    // 是否启用
+  string generated_rule = 15;              // 生成的规则
+  int64 created_at = 16;                   // 创建时间
+  int64 updated_at = 17;                   // 更新时间
+}

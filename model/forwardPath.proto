@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package nspass.model.v1;
+
+option go_package = "github.com/moooyo/nspass-proto/generated/model;model";
+
+// 转发路径规则状态枚举
+enum ForwardPathRuleStatus {
+  FORWARD_PATH_RULE_STATUS_UNSPECIFIED = 0;
+  FORWARD_PATH_RULE_STATUS_ACTIVE = 1;      // 运行中
+  FORWARD_PATH_RULE_STATUS_INACTIVE = 2;    // 已暂停
+  FORWARD_PATH_RULE_STATUS_ERROR = 3;       // 错误
+}
+
+// 转发路径规则类型枚举
+enum ForwardPathRuleType {
+  FORWARD_PATH_RULE_TYPE_UNSPECIFIED = 0;
+  FORWARD_PATH_RULE_TYPE_HTTP = 1;
+  FORWARD_PATH_RULE_TYPE_TCP = 2;
+  FORWARD_PATH_RULE_TYPE_UDP = 3;
+  FORWARD_PATH_RULE_TYPE_ALL = 4;
+}
+
+// 转发路径中的单个节点
+message ForwardPathNode {
+  string server_id = 1;                    // 服务器ID
+  string server_name = 2;                  // 服务器名称（用于显示）
+  int32 port = 3;                          // 在此服务器上使用的端口
+  int32 order = 4;                         // 在路径中的顺序
+}
+
+// 转发路径规则
+message ForwardPathRule {
+  string id = 1;                           // 规则ID
+  uint32 user_id = 2;                      // 用户ID
+  string name = 3;                         // 规则名称
+  ForwardPathRuleType type = 4;            // 转发类型
+  ForwardPathRuleStatus status = 5;        // 状态
+  repeated ForwardPathNode path = 6;       // 转发路径节点列表
+  string egress_server_id = 7;             // 出口服务器ID
+  string egress_server_name = 8;           // 出口服务器名称（用于显示）
+  int64 traffic_up = 9;                    // 上行流量（字节）
+  int64 traffic_down = 10;                 // 下行流量（字节）
+  int64 created_at = 11;                   // 创建时间（Unix时间戳）
+  int64 updated_at = 12;                   // 更新时间（Unix时间戳）
+}
+
+// 转发路径规则创建请求
+message ForwardPathRuleCreateRequest {
+  string name = 1;                         // 规则名称
+  ForwardPathRuleType type = 2;            // 转发类型
+  repeated string path_server_ids = 3;     // 路径服务器ID列表
+  string egress_server_id = 4;             // 出口服务器ID (端口从出口服务器配置中获取)
+}
+
+// 转发路径规则更新请求
+message ForwardPathRuleUpdateRequest {
+  string id = 1;                           // 规则ID
+  optional string name = 2;                // 规则名称
+  optional ForwardPathRuleType type = 3;   // 转发类型
+  optional ForwardPathRuleStatus status = 4; // 状态
+  repeated string path_server_ids = 5;     // 路径服务器ID列表
+  optional string egress_server_id = 6;    // 出口服务器ID (端口从出口服务器配置中获取)
+}
+
+// iptables规则配置
+message IptablesRuleConfig {
+  string id = 1;                           // 配置ID
+  string forward_path_rule_id = 2;         // 所属转发路径规则ID
+  string server_id = 3;                    // 服务器ID
+  string chain = 4;                        // iptables链名
+  string rule = 5;                         // 完整的iptables规则
+  string rule_type = 6;                    // 规则类型 (tcp/udp)
+  int32 source_port = 7;                   // 源端口
+  string target_ip = 8;                    // 目标IP
+  int32 target_port = 9;                   // 目标端口
+  bool is_applied = 10;                    // 是否已应用
+  int64 created_at = 11;                   // 创建时间
+  int64 updated_at = 12;                   // 更新时间
+}
