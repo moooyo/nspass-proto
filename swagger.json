@@ -22,6 +22,556 @@
     "application/json"
   ],
   "paths": {
+    "/v1/settings": {
+      "get": {
+        "summary": "获取设置列表",
+        "operationId": "SettingsManagementService_GetSettings",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetSettingsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "category",
+            "description": "按分类筛选",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "isSystem",
+            "description": "是否为系统设置",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "SettingsManagementService"
+        ]
+      },
+      "post": {
+        "summary": "创建设置",
+        "operationId": "SettingsManagementService_CreateSetting",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateSettingResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateSettingRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SettingsManagementService"
+        ]
+      }
+    },
+    "/v1/settings/batch": {
+      "post": {
+        "summary": "批量更新设置",
+        "operationId": "SettingsManagementService_BatchUpdateSettings",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1BatchUpdateSettingsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1BatchUpdateSettingsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SettingsManagementService"
+        ]
+      }
+    },
+    "/v1/settings/{key}": {
+      "get": {
+        "summary": "获取单个设置",
+        "operationId": "SettingsManagementService_GetSetting",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetSettingResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "SettingsManagementService"
+        ]
+      },
+      "delete": {
+        "summary": "删除设置",
+        "operationId": "SettingsManagementService_DeleteSetting",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteSettingResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "SettingsManagementService"
+        ]
+      },
+      "put": {
+        "summary": "更新设置",
+        "operationId": "SettingsManagementService_UpdateSetting",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateSettingResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SettingsManagementServiceUpdateSettingBody"
+            }
+          }
+        ],
+        "tags": [
+          "SettingsManagementService"
+        ]
+      }
+    },
+    "/v1/egress": {
+      "get": {
+        "summary": "获取出口列表",
+        "operationId": "EgressManagementService_GetEgressList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetEgressListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "egressId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "serverId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "egressMode",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "EGRESS_MODE_UNSPECIFIED",
+              "EGRESS_MODE_DIRECT",
+              "EGRESS_MODE_IPTABLES",
+              "EGRESS_MODE_SS2022"
+            ],
+            "default": "EGRESS_MODE_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "EgressManagementService"
+        ]
+      },
+      "post": {
+        "summary": "创建出口",
+        "operationId": "EgressManagementService_CreateEgress",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateEgressResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateEgressRequest"
+            }
+          }
+        ],
+        "tags": [
+          "EgressManagementService"
+        ]
+      }
+    },
+    "/v1/egress/available-servers": {
+      "get": {
+        "summary": "获取可用服务器列表",
+        "operationId": "EgressManagementService_GetAvailableServers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAvailableServersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "EgressManagementService"
+        ]
+      }
+    },
+    "/v1/egress/validate-config": {
+      "post": {
+        "summary": "验证出口配置",
+        "operationId": "EgressManagementService_ValidateEgressConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ValidateEgressConfigResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ValidateEgressConfigRequest"
+            }
+          }
+        ],
+        "tags": [
+          "EgressManagementService"
+        ]
+      }
+    },
+    "/v1/egress/{id}": {
+      "get": {
+        "summary": "获取出口详情",
+        "operationId": "EgressManagementService_GetEgress",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetEgressResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "EgressManagementService"
+        ]
+      },
+      "delete": {
+        "summary": "删除出口",
+        "operationId": "EgressManagementService_DeleteEgress",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteEgressResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "EgressManagementService"
+        ]
+      },
+      "put": {
+        "summary": "更新出口",
+        "operationId": "EgressManagementService_UpdateEgress",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateEgressResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EgressManagementServiceUpdateEgressBody"
+            }
+          }
+        ],
+        "tags": [
+          "EgressManagementService"
+        ]
+      }
+    },
+    "/v1/egress/{id}/stats": {
+      "get": {
+        "summary": "获取出口统计",
+        "operationId": "EgressManagementService_GetEgressStats",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetEgressStatsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "days",
+            "description": "统计天数",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "EgressManagementService"
+        ]
+      }
+    },
+    "/v1/egress/{id}/test": {
+      "post": {
+        "summary": "测试出口连接",
+        "operationId": "EgressManagementService_TestEgressConnection",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1TestEgressConnectionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EgressManagementServiceTestEgressConnectionBody"
+            }
+          }
+        ],
+        "tags": [
+          "EgressManagementService"
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "健康检查",
+        "description": "简单的健康检查端点，返回服务是否正常运行",
+        "operationId": "HealthService_HealthCheck",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1HealthResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "HealthService"
+        ]
+      }
+    },
     "/s/{subscriptionId}": {
       "get": {
         "summary": "获取订阅内容",
@@ -657,15 +1207,16 @@
         ]
       }
     },
-    "/v1/dns/configs": {
-      "get": {
-        "summary": "获取DNS配置列表",
-        "operationId": "DnsConfigService_GetDnsConfigs",
+    "/v1/auth/login": {
+      "post": {
+        "summary": "用户登录",
+        "description": "验证用户凭据并返回JWT认证令牌。\n使用邮箱和密码进行身份验证。\n成功登录后返回用户信息和访问令牌。",
+        "operationId": "UserAuthService_Login",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetDnsConfigsResponse"
+              "$ref": "#/definitions/v1LoginResponse"
             }
           },
           "default": {
@@ -677,53 +1228,107 @@
         },
         "parameters": [
           {
-            "name": "configName",
-            "description": "配置名筛选",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1LoginRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserAuthService"
+        ]
+      }
+    },
+    "/v1/auth/register": {
+      "post": {
+        "summary": "用户注册",
+        "description": "创建新用户账户。需要提供用户名、邮箱和密码。\n邮箱必须是有效格式且未被使用，密码最少8位。\n成功注册后返回用户基本信息。",
+        "operationId": "UserAuthService_Register",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RegisterResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RegisterRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserAuthService"
+        ]
+      }
+    },
+    "/v1/auth/passkey/authentication/options": {
+      "post": {
+        "summary": "获取Passkey认证选项",
+        "description": "生成Passkey登录认证所需的挑战和选项。\n用户点击Passkey登录时首先调用此接口。",
+        "operationId": "PasskeyService_GetAuthenticationOptions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PasskeyAuthenticationOptionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "success",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "message",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "provider",
-            "description": "provider筛选",
+            "name": "errorCode",
             "in": "query",
             "required": false,
-            "type": "string",
-            "enum": [
-              "DNS_PROVIDER_UNSPECIFIED",
-              "DNS_PROVIDER_CLOUDFLARE"
-            ],
-            "default": "DNS_PROVIDER_UNSPECIFIED"
-          },
-          {
-            "name": "page",
-            "description": "页码",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "pageSize",
-            "description": "每页大小",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           }
         ],
         "tags": [
-          "DnsConfigService"
+          "PasskeyService"
         ]
-      },
+      }
+    },
+    "/v1/auth/passkey/authentication/verify": {
       "post": {
-        "summary": "创建DNS配置",
-        "operationId": "DnsConfigService_CreateDnsConfig",
+        "summary": "Passkey登录认证",
+        "description": "验证Passkey认证结果并完成登录。\n成功认证后返回用户信息和访问令牌。",
+        "operationId": "PasskeyService_AuthenticatePasskey",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1CreateDnsConfigResponse"
+              "$ref": "#/definitions/v1PasskeyAuthenticationResponse"
             }
           },
           "default": {
@@ -739,24 +1344,25 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1CreateDnsConfigRequest"
+              "$ref": "#/definitions/v1PasskeyAuthenticationRequest"
             }
           }
         ],
         "tags": [
-          "DnsConfigService"
+          "PasskeyService"
         ]
       }
     },
-    "/v1/dns/configs/{id}": {
-      "delete": {
-        "summary": "删除DNS配置",
-        "operationId": "DnsConfigService_DeleteDnsConfig",
+    "/v1/auth/passkey/registration/options": {
+      "post": {
+        "summary": "获取Passkey注册选项",
+        "description": "生成注册新Passkey凭据所需的挑战和选项。\n用户在注册Passkey前必须先调用此接口获取注册选项。",
+        "operationId": "PasskeyService_GetRegistrationOptions",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1DeleteDnsConfigResponse"
+              "$ref": "#/definitions/v1PasskeyRegistrationOptionsResponse"
             }
           },
           "default": {
@@ -768,26 +1374,666 @@
         },
         "parameters": [
           {
-            "name": "id",
-            "description": "配置ID",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
+            "name": "success",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "message",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "errorCode",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
-          "DnsConfigService"
+          "PasskeyService"
+        ]
+      }
+    },
+    "/v1/auth/passkey/registration/verify": {
+      "post": {
+        "summary": "注册Passkey凭据",
+        "description": "完成Passkey凭据的注册。客户端使用WebAuthn API\n生成凭据后，将结果发送到此接口完成注册。",
+        "operationId": "PasskeyService_RegisterPasskey",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PasskeyRegistrationResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1PasskeyRegistrationRequest"
+            }
+          }
+        ],
+        "tags": [
+          "PasskeyService"
+        ]
+      }
+    },
+    "/v1/user/passkeys": {
+      "get": {
+        "summary": "获取用户的Passkey列表",
+        "description": "获取当前用户所有已注册的Passkey凭据列表。\n支持分页查询和基本信息展示。",
+        "operationId": "PasskeyService_GetPasskeyList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PasskeyListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pagination.page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pagination.pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "PasskeyService"
+        ]
+      }
+    },
+    "/v1/user/passkeys/{credentialId}": {
+      "delete": {
+        "summary": "删除Passkey凭据",
+        "description": "删除指定的Passkey凭据。用户可以管理自己的\nPasskey凭据，删除不再使用的认证器。",
+        "operationId": "PasskeyService_DeletePasskey",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeletePasskeyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "credentialId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PasskeyService"
+        ]
+      }
+    },
+    "/v1/user/passkeys/{credentialId}/name": {
+      "put": {
+        "summary": "重命名Passkey凭据",
+        "description": "修改Passkey凭据的显示名称，便于用户识别\n不同的认证器设备。",
+        "operationId": "PasskeyService_RenamePasskey",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RenamePasskeyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "credentialId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PasskeyServiceRenamePasskeyBody"
+            }
+          }
+        ],
+        "tags": [
+          "PasskeyService"
+        ]
+      }
+    },
+    "/v1/user/two-factor/toggle": {
+      "post": {
+        "summary": "启用/禁用二步验证",
+        "operationId": "UserTwoFactorService_ToggleTwoFactorAuth",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ToggleTwoFactorAuthResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ToggleTwoFactorAuthRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserTwoFactorService"
+        ]
+      }
+    },
+    "/v1/user/two-factor/verify": {
+      "post": {
+        "summary": "验证二步验证码",
+        "operationId": "UserTwoFactorService_VerifyTwoFactorAuth",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1VerifyTwoFactorAuthResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1VerifyTwoFactorAuthRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserTwoFactorService"
+        ]
+      }
+    },
+    "/v1/user/account/delete": {
+      "post": {
+        "summary": "注销账户",
+        "operationId": "UserAccountService_DeleteAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteAccountResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1DeleteAccountRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserAccountService"
+        ]
+      }
+    },
+    "/v1/user/password": {
+      "post": {
+        "summary": "修改密码",
+        "operationId": "UserPasswordService_ChangePassword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ChangePasswordResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ChangePasswordRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserPasswordService"
+        ]
+      }
+    },
+    "/v1/users/{userId}/configs": {
+      "get": {
+        "summary": "获取指定用户的所有配置",
+        "operationId": "UserConfigService_GetUserConfigs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetUserConfigsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "路径参数",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserConfigService"
+        ]
+      }
+    },
+    "/v1/users/{userId}/configs/{configKey}": {
+      "get": {
+        "summary": "获取指定用户的特定配置",
+        "operationId": "UserConfigService_GetUserConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetUserConfigResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "路径参数",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "configKey",
+            "description": "路径参数",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserConfigService"
+        ]
+      },
+      "delete": {
+        "summary": "删除指定用户的特定配置",
+        "operationId": "UserConfigService_DeleteUserConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteUserConfigResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "路径参数",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "configKey",
+            "description": "路径参数",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserConfigService"
         ]
       },
       "put": {
-        "summary": "更新DNS配置",
-        "operationId": "DnsConfigService_UpdateDnsConfig",
+        "summary": "更新指定用户的特定配置",
+        "operationId": "UserConfigService_UpdateUserConfig",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1UpdateDnsConfigResponse"
+              "$ref": "#/definitions/v1UpdateUserConfigResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "路径参数",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "configKey",
+            "description": "路径参数",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserConfigServiceUpdateUserConfigBody"
+            }
+          }
+        ],
+        "tags": [
+          "UserConfigService"
+        ]
+      }
+    },
+    "/v1/users/{userId}/configs/{configKey}/history/{version}": {
+      "get": {
+        "summary": "更复杂的路径参数示例",
+        "operationId": "UserConfigService_GetUserConfigHistory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetUserConfigHistoryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "configKey",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserConfigService"
+        ]
+      }
+    },
+    "/v1/user/avatar": {
+      "post": {
+        "summary": "上传头像",
+        "operationId": "UserAvatarService_UploadAvatar",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UploadAvatarResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "UserAvatarService"
+        ]
+      }
+    },
+    "/v1/user/login-history": {
+      "get": {
+        "summary": "获取登录历史",
+        "operationId": "UserLoginHistoryService_GetLoginHistory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetLoginHistoryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "UserLoginHistoryService"
+        ]
+      }
+    },
+    "/v1/users": {
+      "get": {
+        "summary": "获取用户列表（管理员专用）",
+        "operationId": "UserManagementService_GetUsers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetUsersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "name",
+            "description": "按名称筛选",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "role",
+            "description": "按角色筛选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "status",
+            "description": "按状态筛选",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserManagementService"
+        ]
+      },
+      "post": {
+        "summary": "创建用户（管理员专用）",
+        "operationId": "UserManagementService_CreateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserManagementService"
+        ]
+      }
+    },
+    "/v1/users/{id}": {
+      "get": {
+        "summary": "获取用户详情（管理员专用）",
+        "operationId": "UserManagementService_GetUserDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetUserDetailResponse"
             }
           },
           "default": {
@@ -800,47 +2046,321 @@
         "parameters": [
           {
             "name": "id",
-            "description": "配置ID",
             "in": "path",
             "required": true,
             "type": "integer",
-            "format": "int64"
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "UserManagementService"
+        ]
+      },
+      "delete": {
+        "summary": "删除用户（管理员专用）",
+        "operationId": "UserManagementService_DeleteUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "UserManagementService"
+        ]
+      },
+      "put": {
+        "summary": "更新用户（管理员专用）",
+        "operationId": "UserManagementService_UpdateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
           },
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DnsConfigServiceUpdateDnsConfigBody"
+              "$ref": "#/definitions/UserManagementServiceUpdateUserBody"
             }
           }
         ],
         "tags": [
-          "DnsConfigService"
+          "UserManagementService"
         ]
       }
     },
-    "/health": {
-      "get": {
-        "summary": "健康检查",
-        "description": "简单的健康检查端点，返回服务是否正常运行",
-        "operationId": "HealthService_HealthCheck",
+    "/v1/users/{id}/reset-password": {
+      "post": {
+        "summary": "重置用户密码（管理员专用）",
+        "operationId": "UserManagementService_ResetUserPassword",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1HealthResponse"
+              "$ref": "#/definitions/v1ResetUserPasswordResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/rpcStatus"
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserManagementServiceResetUserPasswordBody"
+            }
+          }
+        ],
+        "tags": [
+          "UserManagementService"
+        ]
+      }
+    },
+    "/v1/users/{id}/reset-traffic": {
+      "post": {
+        "summary": "重置用户流量（管理员专用）",
+        "operationId": "UserManagementService_ResetUserTraffic",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ResetUserTrafficResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserManagementServiceResetUserTrafficBody"
+            }
+          }
+        ],
+        "tags": [
+          "UserManagementService"
+        ]
+      }
+    },
+    "/v1/user/activity-logs": {
+      "get": {
+        "summary": "获取活动日志",
+        "operationId": "UserActivityService_GetActivityLogs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetActivityLogsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "UserActivityService"
+        ]
+      }
+    },
+    "/v1/profile": {
+      "get": {
+        "summary": "获取当前用户信息",
+        "operationId": "UserProfileService_GetCurrentUserInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetCurrentUserInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
             }
           }
         },
         "tags": [
-          "HealthService"
+          "UserProfileService"
+        ]
+      },
+      "put": {
+        "summary": "更新当前用户信息",
+        "operationId": "UserProfileService_UpdateCurrentUserInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateCurrentUserInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateUserInfoRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserProfileService"
+        ]
+      }
+    },
+    "/v1/user/traffic": {
+      "get": {
+        "summary": "获取用户流量统计",
+        "operationId": "UserTrafficService_GetTrafficStats",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetTrafficStatsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "days",
+            "description": "统计天数，默认30天",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "UserTrafficService"
+        ]
+      }
+    },
+    "/v1/user/traffic/reset": {
+      "post": {
+        "summary": "重置用户流量",
+        "operationId": "UserTrafficService_ResetTraffic",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ResetTrafficResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ResetTrafficRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserTrafficService"
         ]
       }
     },
@@ -1148,15 +2668,15 @@
         ]
       }
     },
-    "/v1/user/traffic": {
+    "/v1/dns/configs": {
       "get": {
-        "summary": "获取用户流量统计",
-        "operationId": "UserTrafficService_GetTrafficStats",
+        "summary": "获取DNS配置列表",
+        "operationId": "DnsConfigService_GetDnsConfigs",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetTrafficStatsResponse"
+              "$ref": "#/definitions/v1GetDnsConfigsResponse"
             }
           },
           "default": {
@@ -1168,1478 +2688,53 @@
         },
         "parameters": [
           {
-            "name": "days",
-            "description": "统计天数，默认30天",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "tags": [
-          "UserTrafficService"
-        ]
-      }
-    },
-    "/v1/user/traffic/reset": {
-      "post": {
-        "summary": "重置用户流量",
-        "operationId": "UserTrafficService_ResetTraffic",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1ResetTrafficResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1ResetTrafficRequest"
-            }
-          }
-        ],
-        "tags": [
-          "UserTrafficService"
-        ]
-      }
-    },
-    "/v1/user/password": {
-      "post": {
-        "summary": "修改密码",
-        "operationId": "UserPasswordService_ChangePassword",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1ChangePasswordResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1ChangePasswordRequest"
-            }
-          }
-        ],
-        "tags": [
-          "UserPasswordService"
-        ]
-      }
-    },
-    "/v1/auth/login": {
-      "post": {
-        "summary": "用户登录",
-        "description": "验证用户凭据并返回JWT认证令牌。\n使用邮箱和密码进行身份验证。\n成功登录后返回用户信息和访问令牌。",
-        "operationId": "UserAuthService_Login",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1LoginResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1LoginRequest"
-            }
-          }
-        ],
-        "tags": [
-          "UserAuthService"
-        ]
-      }
-    },
-    "/v1/auth/register": {
-      "post": {
-        "summary": "用户注册",
-        "description": "创建新用户账户。需要提供用户名、邮箱和密码。\n邮箱必须是有效格式且未被使用，密码最少8位。\n成功注册后返回用户基本信息。",
-        "operationId": "UserAuthService_Register",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1RegisterResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1RegisterRequest"
-            }
-          }
-        ],
-        "tags": [
-          "UserAuthService"
-        ]
-      }
-    },
-    "/v1/profile": {
-      "get": {
-        "summary": "获取当前用户信息",
-        "operationId": "UserProfileService_GetCurrentUserInfo",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetCurrentUserInfoResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "UserProfileService"
-        ]
-      },
-      "put": {
-        "summary": "更新当前用户信息",
-        "operationId": "UserProfileService_UpdateCurrentUserInfo",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1UpdateCurrentUserInfoResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1UpdateUserInfoRequest"
-            }
-          }
-        ],
-        "tags": [
-          "UserProfileService"
-        ]
-      }
-    },
-    "/v1/user/two-factor/toggle": {
-      "post": {
-        "summary": "启用/禁用二步验证",
-        "operationId": "UserTwoFactorService_ToggleTwoFactorAuth",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1ToggleTwoFactorAuthResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1ToggleTwoFactorAuthRequest"
-            }
-          }
-        ],
-        "tags": [
-          "UserTwoFactorService"
-        ]
-      }
-    },
-    "/v1/user/two-factor/verify": {
-      "post": {
-        "summary": "验证二步验证码",
-        "operationId": "UserTwoFactorService_VerifyTwoFactorAuth",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1VerifyTwoFactorAuthResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1VerifyTwoFactorAuthRequest"
-            }
-          }
-        ],
-        "tags": [
-          "UserTwoFactorService"
-        ]
-      }
-    },
-    "/v1/auth/passkey/authentication/options": {
-      "post": {
-        "summary": "获取Passkey认证选项",
-        "description": "生成Passkey登录认证所需的挑战和选项。\n用户点击Passkey登录时首先调用此接口。",
-        "operationId": "PasskeyService_GetAuthenticationOptions",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1PasskeyAuthenticationOptionsResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "success",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "message",
+            "name": "configName",
+            "description": "配置名筛选",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "errorCode",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "PasskeyService"
-        ]
-      }
-    },
-    "/v1/auth/passkey/authentication/verify": {
-      "post": {
-        "summary": "Passkey登录认证",
-        "description": "验证Passkey认证结果并完成登录。\n成功认证后返回用户信息和访问令牌。",
-        "operationId": "PasskeyService_AuthenticatePasskey",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1PasskeyAuthenticationResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1PasskeyAuthenticationRequest"
-            }
-          }
-        ],
-        "tags": [
-          "PasskeyService"
-        ]
-      }
-    },
-    "/v1/auth/passkey/registration/options": {
-      "post": {
-        "summary": "获取Passkey注册选项",
-        "description": "生成注册新Passkey凭据所需的挑战和选项。\n用户在注册Passkey前必须先调用此接口获取注册选项。",
-        "operationId": "PasskeyService_GetRegistrationOptions",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1PasskeyRegistrationOptionsResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "success",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "message",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "errorCode",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "PasskeyService"
-        ]
-      }
-    },
-    "/v1/auth/passkey/registration/verify": {
-      "post": {
-        "summary": "注册Passkey凭据",
-        "description": "完成Passkey凭据的注册。客户端使用WebAuthn API\n生成凭据后，将结果发送到此接口完成注册。",
-        "operationId": "PasskeyService_RegisterPasskey",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1PasskeyRegistrationResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1PasskeyRegistrationRequest"
-            }
-          }
-        ],
-        "tags": [
-          "PasskeyService"
-        ]
-      }
-    },
-    "/v1/user/passkeys": {
-      "get": {
-        "summary": "获取用户的Passkey列表",
-        "description": "获取当前用户所有已注册的Passkey凭据列表。\n支持分页查询和基本信息展示。",
-        "operationId": "PasskeyService_GetPasskeyList",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1PasskeyListResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "pagination.page",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "pagination.pageSize",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "tags": [
-          "PasskeyService"
-        ]
-      }
-    },
-    "/v1/user/passkeys/{credentialId}": {
-      "delete": {
-        "summary": "删除Passkey凭据",
-        "description": "删除指定的Passkey凭据。用户可以管理自己的\nPasskey凭据，删除不再使用的认证器。",
-        "operationId": "PasskeyService_DeletePasskey",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1DeletePasskeyResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "credentialId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "PasskeyService"
-        ]
-      }
-    },
-    "/v1/user/passkeys/{credentialId}/name": {
-      "put": {
-        "summary": "重命名Passkey凭据",
-        "description": "修改Passkey凭据的显示名称，便于用户识别\n不同的认证器设备。",
-        "operationId": "PasskeyService_RenamePasskey",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1RenamePasskeyResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "credentialId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/PasskeyServiceRenamePasskeyBody"
-            }
-          }
-        ],
-        "tags": [
-          "PasskeyService"
-        ]
-      }
-    },
-    "/v1/users": {
-      "get": {
-        "summary": "获取用户列表（管理员专用）",
-        "operationId": "UserManagementService_GetUsers",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetUsersResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "name",
-            "description": "按名称筛选",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "role",
-            "description": "按角色筛选",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "status",
-            "description": "按状态筛选",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "UserManagementService"
-        ]
-      },
-      "post": {
-        "summary": "创建用户（管理员专用）",
-        "operationId": "UserManagementService_CreateUser",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1CreateUserResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1CreateUserRequest"
-            }
-          }
-        ],
-        "tags": [
-          "UserManagementService"
-        ]
-      }
-    },
-    "/v1/users/{id}": {
-      "get": {
-        "summary": "获取用户详情（管理员专用）",
-        "operationId": "UserManagementService_GetUserDetail",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetUserDetailResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "tags": [
-          "UserManagementService"
-        ]
-      },
-      "delete": {
-        "summary": "删除用户（管理员专用）",
-        "operationId": "UserManagementService_DeleteUser",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1DeleteUserResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "tags": [
-          "UserManagementService"
-        ]
-      },
-      "put": {
-        "summary": "更新用户（管理员专用）",
-        "operationId": "UserManagementService_UpdateUser",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1UpdateUserResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UserManagementServiceUpdateUserBody"
-            }
-          }
-        ],
-        "tags": [
-          "UserManagementService"
-        ]
-      }
-    },
-    "/v1/users/{id}/reset-password": {
-      "post": {
-        "summary": "重置用户密码（管理员专用）",
-        "operationId": "UserManagementService_ResetUserPassword",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1ResetUserPasswordResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UserManagementServiceResetUserPasswordBody"
-            }
-          }
-        ],
-        "tags": [
-          "UserManagementService"
-        ]
-      }
-    },
-    "/v1/users/{id}/reset-traffic": {
-      "post": {
-        "summary": "重置用户流量（管理员专用）",
-        "operationId": "UserManagementService_ResetUserTraffic",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1ResetUserTrafficResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UserManagementServiceResetUserTrafficBody"
-            }
-          }
-        ],
-        "tags": [
-          "UserManagementService"
-        ]
-      }
-    },
-    "/v1/user/avatar": {
-      "post": {
-        "summary": "上传头像",
-        "operationId": "UserAvatarService_UploadAvatar",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1UploadAvatarResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "UserAvatarService"
-        ]
-      }
-    },
-    "/v1/users/{userId}/configs": {
-      "get": {
-        "summary": "获取指定用户的所有配置",
-        "operationId": "UserConfigService_GetUserConfigs",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetUserConfigsResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "description": "路径参数",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "UserConfigService"
-        ]
-      }
-    },
-    "/v1/users/{userId}/configs/{configKey}": {
-      "get": {
-        "summary": "获取指定用户的特定配置",
-        "operationId": "UserConfigService_GetUserConfig",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetUserConfigResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "description": "路径参数",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "configKey",
-            "description": "路径参数",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "UserConfigService"
-        ]
-      },
-      "delete": {
-        "summary": "删除指定用户的特定配置",
-        "operationId": "UserConfigService_DeleteUserConfig",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1DeleteUserConfigResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "description": "路径参数",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "configKey",
-            "description": "路径参数",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "UserConfigService"
-        ]
-      },
-      "put": {
-        "summary": "更新指定用户的特定配置",
-        "operationId": "UserConfigService_UpdateUserConfig",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1UpdateUserConfigResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "description": "路径参数",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "configKey",
-            "description": "路径参数",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UserConfigServiceUpdateUserConfigBody"
-            }
-          }
-        ],
-        "tags": [
-          "UserConfigService"
-        ]
-      }
-    },
-    "/v1/users/{userId}/configs/{configKey}/history/{version}": {
-      "get": {
-        "summary": "更复杂的路径参数示例",
-        "operationId": "UserConfigService_GetUserConfigHistory",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetUserConfigHistoryResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "configKey",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "version",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "UserConfigService"
-        ]
-      }
-    },
-    "/v1/user/activity-logs": {
-      "get": {
-        "summary": "获取活动日志",
-        "operationId": "UserActivityService_GetActivityLogs",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetActivityLogsResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "tags": [
-          "UserActivityService"
-        ]
-      }
-    },
-    "/v1/user/account/delete": {
-      "post": {
-        "summary": "注销账户",
-        "operationId": "UserAccountService_DeleteAccount",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1DeleteAccountResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1DeleteAccountRequest"
-            }
-          }
-        ],
-        "tags": [
-          "UserAccountService"
-        ]
-      }
-    },
-    "/v1/user/login-history": {
-      "get": {
-        "summary": "获取登录历史",
-        "operationId": "UserLoginHistoryService_GetLoginHistory",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetLoginHistoryResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "tags": [
-          "UserLoginHistoryService"
-        ]
-      }
-    },
-    "/v1/servers": {
-      "get": {
-        "summary": "获取服务器列表",
-        "description": "支持分页查询和多种过滤条件，包括服务器名称、状态和地区。\n可用于管理界面显示服务器概览信息。",
-        "operationId": "ServerManagementService_GetServers",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetServersResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "name",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "status",
+            "name": "provider",
+            "description": "provider筛选",
             "in": "query",
             "required": false,
             "type": "string",
             "enum": [
-              "SERVER_STATUS_UNSPECIFIED",
-              "SERVER_STATUS_ONLINE",
-              "SERVER_STATUS_OFFLINE",
-              "SERVER_STATUS_PENDING_INSTALL",
-              "SERVER_STATUS_UNKNOWN"
+              "DNS_PROVIDER_UNSPECIFIED",
+              "DNS_PROVIDER_CLOUDFLARE"
             ],
-            "default": "SERVER_STATUS_UNSPECIFIED"
+            "default": "DNS_PROVIDER_UNSPECIFIED"
           },
-          {
-            "name": "country",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "ServerManagementService"
-        ]
-      },
-      "post": {
-        "summary": "创建服务器",
-        "description": "添加新的服务器到系统中。需要提供服务器的基本信息，\n包括名称、IP地址、地区和组别等。",
-        "operationId": "ServerManagementService_CreateServer",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1CreateServerResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1CreateServerRequest"
-            }
-          }
-        ],
-        "tags": [
-          "ServerManagementService"
-        ]
-      }
-    },
-    "/v1/servers/batch-delete": {
-      "post": {
-        "summary": "批量删除服务器",
-        "description": "一次性删除多个服务器。\n适用于批量清理或管理操作。",
-        "operationId": "ServerManagementService_BatchDeleteServers",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1BatchDeleteServersResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1BatchDeleteServersRequest"
-            }
-          }
-        ],
-        "tags": [
-          "ServerManagementService"
-        ]
-      }
-    },
-    "/v1/servers/{id}": {
-      "get": {
-        "summary": "获取服务器详情",
-        "description": "根据服务器ID获取完整的服务器信息，\n包括流量统计和当前状态。",
-        "operationId": "ServerManagementService_GetServerById",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetServerByIdResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "ServerManagementService"
-        ]
-      },
-      "delete": {
-        "summary": "删除服务器",
-        "description": "从系统中移除指定的服务器。\n此操作不可逆，请谨慎使用。",
-        "operationId": "ServerManagementService_DeleteServer",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1DeleteServerResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "ServerManagementService"
-        ]
-      },
-      "put": {
-        "summary": "更新服务器",
-        "description": "修改现有服务器的配置信息。\n可以更新服务器的名称、地址、状态等属性。",
-        "operationId": "ServerManagementService_UpdateServer",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1UpdateServerResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "data",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1UpdateServerRequest"
-            }
-          }
-        ],
-        "tags": [
-          "ServerManagementService"
-        ]
-      }
-    },
-    "/v1/servers/{id}/restart": {
-      "post": {
-        "summary": "重启服务器",
-        "description": "重启指定的服务器服务。\n用于解决服务器运行异常或应用配置更改。",
-        "operationId": "ServerManagementService_RestartServer",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1RestartServerResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "ServerManagementService"
-        ]
-      }
-    },
-    "/v1/egress": {
-      "get": {
-        "summary": "获取出口列表",
-        "operationId": "EgressManagementService_GetEgressList",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetEgressListResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
           {
             "name": "page",
+            "description": "页码",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "pageSize",
+            "description": "每页大小",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "egressId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "serverId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "egressMode",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "EGRESS_MODE_UNSPECIFIED",
-              "EGRESS_MODE_DIRECT",
-              "EGRESS_MODE_IPTABLES",
-              "EGRESS_MODE_SS2022"
-            ],
-            "default": "EGRESS_MODE_UNSPECIFIED"
+            "format": "int64"
           }
         ],
         "tags": [
-          "EgressManagementService"
+          "DnsConfigService"
         ]
       },
       "post": {
-        "summary": "创建出口",
-        "operationId": "EgressManagementService_CreateEgress",
+        "summary": "创建DNS配置",
+        "operationId": "DnsConfigService_CreateDnsConfig",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1CreateEgressResponse"
+              "$ref": "#/definitions/v1CreateDnsConfigResponse"
             }
           },
           "default": {
@@ -2655,109 +2750,24 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1CreateEgressRequest"
+              "$ref": "#/definitions/v1CreateDnsConfigRequest"
             }
           }
         ],
         "tags": [
-          "EgressManagementService"
+          "DnsConfigService"
         ]
       }
     },
-    "/v1/egress/available-servers": {
-      "get": {
-        "summary": "获取可用服务器列表",
-        "operationId": "EgressManagementService_GetAvailableServers",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetAvailableServersResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "EgressManagementService"
-        ]
-      }
-    },
-    "/v1/egress/validate-config": {
-      "post": {
-        "summary": "验证出口配置",
-        "operationId": "EgressManagementService_ValidateEgressConfig",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1ValidateEgressConfigResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1ValidateEgressConfigRequest"
-            }
-          }
-        ],
-        "tags": [
-          "EgressManagementService"
-        ]
-      }
-    },
-    "/v1/egress/{id}": {
-      "get": {
-        "summary": "获取出口详情",
-        "operationId": "EgressManagementService_GetEgress",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetEgressResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "EgressManagementService"
-        ]
-      },
+    "/v1/dns/configs/{id}": {
       "delete": {
-        "summary": "删除出口",
-        "operationId": "EgressManagementService_DeleteEgress",
+        "summary": "删除DNS配置",
+        "operationId": "DnsConfigService_DeleteDnsConfig",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1DeleteEgressResponse"
+              "$ref": "#/definitions/v1DeleteDnsConfigResponse"
             }
           },
           "default": {
@@ -2770,23 +2780,25 @@
         "parameters": [
           {
             "name": "id",
+            "description": "配置ID",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int64"
           }
         ],
         "tags": [
-          "EgressManagementService"
+          "DnsConfigService"
         ]
       },
       "put": {
-        "summary": "更新出口",
-        "operationId": "EgressManagementService_UpdateEgress",
+        "summary": "更新DNS配置",
+        "operationId": "DnsConfigService_UpdateDnsConfig",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1UpdateEgressResponse"
+              "$ref": "#/definitions/v1UpdateDnsConfigResponse"
             }
           },
           "default": {
@@ -2799,99 +2811,23 @@
         "parameters": [
           {
             "name": "id",
+            "description": "配置ID",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/EgressManagementServiceUpdateEgressBody"
-            }
-          }
-        ],
-        "tags": [
-          "EgressManagementService"
-        ]
-      }
-    },
-    "/v1/egress/{id}/stats": {
-      "get": {
-        "summary": "获取出口统计",
-        "operationId": "EgressManagementService_GetEgressStats",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetEgressStatsResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "days",
-            "description": "统计天数",
-            "in": "query",
-            "required": false,
             "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "tags": [
-          "EgressManagementService"
-        ]
-      }
-    },
-    "/v1/egress/{id}/test": {
-      "post": {
-        "summary": "测试出口连接",
-        "operationId": "EgressManagementService_TestEgressConnection",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1TestEgressConnectionResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
+            "format": "int64"
           },
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/EgressManagementServiceTestEgressConnectionBody"
+              "$ref": "#/definitions/DnsConfigServiceUpdateDnsConfigBody"
             }
           }
         ],
         "tags": [
-          "EgressManagementService"
+          "DnsConfigService"
         ]
       }
     },
@@ -3357,15 +3293,16 @@
         ]
       }
     },
-    "/v1/settings": {
+    "/v1/servers": {
       "get": {
-        "summary": "获取设置列表",
-        "operationId": "SettingsManagementService_GetSettings",
+        "summary": "获取服务器列表",
+        "description": "支持分页查询和多种过滤条件，包括服务器名称、状态和地区。\n可用于管理界面显示服务器概览信息。",
+        "operationId": "ServerManagementService_GetServers",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetSettingsResponse"
+              "$ref": "#/definitions/v1GetServersResponse"
             }
           },
           "default": {
@@ -3377,32 +3314,59 @@
         },
         "parameters": [
           {
-            "name": "category",
-            "description": "按分类筛选",
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "name",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "isSystem",
-            "description": "是否为系统设置",
+            "name": "status",
             "in": "query",
             "required": false,
-            "type": "boolean"
+            "type": "string",
+            "enum": [
+              "SERVER_STATUS_UNSPECIFIED",
+              "SERVER_STATUS_ONLINE",
+              "SERVER_STATUS_OFFLINE",
+              "SERVER_STATUS_PENDING_INSTALL",
+              "SERVER_STATUS_UNKNOWN"
+            ],
+            "default": "SERVER_STATUS_UNSPECIFIED"
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
-          "SettingsManagementService"
+          "ServerManagementService"
         ]
       },
       "post": {
-        "summary": "创建设置",
-        "operationId": "SettingsManagementService_CreateSetting",
+        "summary": "创建服务器",
+        "description": "添加新的服务器到系统中。需要提供服务器的基本信息，\n包括名称、IP地址、地区和组别等。",
+        "operationId": "ServerManagementService_CreateServer",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1CreateSettingResponse"
+              "$ref": "#/definitions/v1CreateServerResponse"
             }
           },
           "default": {
@@ -3418,24 +3382,25 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1CreateSettingRequest"
+              "$ref": "#/definitions/v1CreateServerRequest"
             }
           }
         ],
         "tags": [
-          "SettingsManagementService"
+          "ServerManagementService"
         ]
       }
     },
-    "/v1/settings/batch": {
+    "/v1/servers/batch-delete": {
       "post": {
-        "summary": "批量更新设置",
-        "operationId": "SettingsManagementService_BatchUpdateSettings",
+        "summary": "批量删除服务器",
+        "description": "一次性删除多个服务器。\n适用于批量清理或管理操作。",
+        "operationId": "ServerManagementService_BatchDeleteServers",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1BatchUpdateSettingsResponse"
+              "$ref": "#/definitions/v1BatchDeleteServersResponse"
             }
           },
           "default": {
@@ -3451,24 +3416,25 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1BatchUpdateSettingsRequest"
+              "$ref": "#/definitions/v1BatchDeleteServersRequest"
             }
           }
         ],
         "tags": [
-          "SettingsManagementService"
+          "ServerManagementService"
         ]
       }
     },
-    "/v1/settings/{key}": {
+    "/v1/servers/{id}": {
       "get": {
-        "summary": "获取单个设置",
-        "operationId": "SettingsManagementService_GetSetting",
+        "summary": "获取服务器详情",
+        "description": "根据服务器ID获取完整的服务器信息，\n包括流量统计和当前状态。",
+        "operationId": "ServerManagementService_GetServerById",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetSettingResponse"
+              "$ref": "#/definitions/v1GetServerByIdResponse"
             }
           },
           "default": {
@@ -3480,24 +3446,25 @@
         },
         "parameters": [
           {
-            "name": "key",
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
           }
         ],
         "tags": [
-          "SettingsManagementService"
+          "ServerManagementService"
         ]
       },
       "delete": {
-        "summary": "删除设置",
-        "operationId": "SettingsManagementService_DeleteSetting",
+        "summary": "删除服务器",
+        "description": "从系统中移除指定的服务器。\n此操作不可逆，请谨慎使用。",
+        "operationId": "ServerManagementService_DeleteServer",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1DeleteSettingResponse"
+              "$ref": "#/definitions/v1DeleteServerResponse"
             }
           },
           "default": {
@@ -3509,24 +3476,25 @@
         },
         "parameters": [
           {
-            "name": "key",
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
           }
         ],
         "tags": [
-          "SettingsManagementService"
+          "ServerManagementService"
         ]
       },
       "put": {
-        "summary": "更新设置",
-        "operationId": "SettingsManagementService_UpdateSetting",
+        "summary": "更新服务器",
+        "description": "修改现有服务器的配置信息。\n可以更新服务器的名称、地址、状态等属性。",
+        "operationId": "ServerManagementService_UpdateServer",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1UpdateSettingResponse"
+              "$ref": "#/definitions/v1UpdateServerResponse"
             }
           },
           "default": {
@@ -3538,66 +3506,70 @@
         },
         "parameters": [
           {
-            "name": "key",
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "body",
+            "name": "data",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/SettingsManagementServiceUpdateSettingBody"
+              "$ref": "#/definitions/v1UpdateServerRequest"
             }
           }
         ],
         "tags": [
-          "SettingsManagementService"
+          "ServerManagementService"
+        ]
+      }
+    },
+    "/v1/servers/{id}/restart": {
+      "post": {
+        "summary": "重启服务器",
+        "description": "重启指定的服务器服务。\n用于解决服务器运行异常或应用配置更改。",
+        "operationId": "ServerManagementService_RestartServer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RestartServerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ServerManagementService"
         ]
       }
     }
   },
   "definitions": {
-    "SubscriptionManagementServiceUpdateSubscriptionBody": {
+    "SettingsManagementServiceUpdateSettingBody": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string",
-          "title": "订阅名称"
+        "value": {
+          "type": "string"
         },
         "description": {
-          "type": "string",
-          "title": "描述"
-        },
-        "includeAutoRoutes": {
-          "type": "boolean",
-          "title": "是否包含自动生成的线路"
-        },
-        "includeManualRoutes": {
-          "type": "boolean",
-          "title": "是否包含手动添加的线路"
-        },
-        "includedRouteIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "title": "仅包含的线路ID列表"
-        },
-        "excludedRouteIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "title": "排除的线路ID列表"
-        },
-        "isActive": {
-          "type": "boolean",
-          "title": "是否激活"
+          "type": "string"
         }
       },
-      "title": "更新订阅请求"
+      "title": "更新设置请求"
     },
     "googlerpcStatus": {
       "type": "object",
@@ -3641,6 +3613,563 @@
         }
       },
       "title": "通用API响应封装"
+    },
+    "v1BatchUpdateSettingsRequest": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1UpdateSettingRequest"
+          }
+        }
+      },
+      "title": "批量更新设置请求"
+    },
+    "v1BatchUpdateSettingsResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1SettingItem"
+          }
+        }
+      }
+    },
+    "v1CreateSettingRequest": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "isSystem": {
+          "type": "boolean"
+        }
+      },
+      "title": "创建设置请求"
+    },
+    "v1CreateSettingResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1SettingItem"
+        }
+      }
+    },
+    "v1DeleteSettingResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        }
+      }
+    },
+    "v1GetSettingResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1SettingItem"
+        }
+      }
+    },
+    "v1GetSettingsResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1SettingItem"
+          }
+        }
+      }
+    },
+    "v1SettingItem": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "title": "类型：string, number, boolean, json"
+        },
+        "isSystem": {
+          "type": "boolean",
+          "title": "是否为系统设置"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "updatedBy": {
+          "type": "string"
+        }
+      },
+      "title": "设置项"
+    },
+    "v1UpdateSettingRequest": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "title": "更新设置请求"
+    },
+    "v1UpdateSettingResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1SettingItem"
+        }
+      }
+    },
+    "EgressManagementServiceTestEgressConnectionBody": {
+      "type": "object",
+      "properties": {
+        "timeout": {
+          "type": "integer",
+          "format": "int32",
+          "title": "超时时间（秒）"
+        }
+      },
+      "title": "测试出口连接请求"
+    },
+    "EgressManagementServiceUpdateEgressBody": {
+      "type": "object",
+      "properties": {
+        "egressId": {
+          "type": "string"
+        },
+        "serverId": {
+          "type": "string"
+        },
+        "egressMode": {
+          "$ref": "#/definitions/v1EgressMode"
+        },
+        "targetAddress": {
+          "type": "string"
+        },
+        "forwardType": {
+          "$ref": "#/definitions/v1ForwardType"
+        },
+        "destAddress": {
+          "type": "string"
+        },
+        "destPort": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "supportUdp": {
+          "type": "boolean"
+        }
+      },
+      "title": "更新出口请求"
+    },
+    "v1AvailableServerItem": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "v1CreateEgressRequest": {
+      "type": "object",
+      "properties": {
+        "egressId": {
+          "type": "string"
+        },
+        "serverId": {
+          "type": "string"
+        },
+        "egressMode": {
+          "$ref": "#/definitions/v1EgressMode"
+        },
+        "targetAddress": {
+          "type": "string",
+          "title": "直出模式字段"
+        },
+        "forwardType": {
+          "$ref": "#/definitions/v1ForwardType",
+          "title": "iptables模式字段"
+        },
+        "destAddress": {
+          "type": "string"
+        },
+        "destPort": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string",
+          "title": "shadowsocks-2022模式字段"
+        },
+        "supportUdp": {
+          "type": "boolean"
+        }
+      },
+      "title": "创建出口请求"
+    },
+    "v1CreateEgressResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1EgressItem"
+        }
+      }
+    },
+    "v1DeleteEgressResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        }
+      }
+    },
+    "v1EgressItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "egressId": {
+          "type": "string"
+        },
+        "serverId": {
+          "type": "string"
+        },
+        "egressMode": {
+          "$ref": "#/definitions/v1EgressMode"
+        },
+        "egressConfig": {
+          "type": "string"
+        },
+        "targetAddress": {
+          "type": "string",
+          "title": "直出模式字段"
+        },
+        "forwardType": {
+          "$ref": "#/definitions/v1ForwardType",
+          "title": "iptables模式字段"
+        },
+        "destAddress": {
+          "type": "string"
+        },
+        "destPort": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string",
+          "title": "shadowsocks-2022模式字段"
+        },
+        "supportUdp": {
+          "type": "boolean"
+        }
+      },
+      "title": "出口项目消息"
+    },
+    "v1EgressMode": {
+      "type": "string",
+      "enum": [
+        "EGRESS_MODE_UNSPECIFIED",
+        "EGRESS_MODE_DIRECT",
+        "EGRESS_MODE_IPTABLES",
+        "EGRESS_MODE_SS2022"
+      ],
+      "default": "EGRESS_MODE_UNSPECIFIED",
+      "title": "出口模式枚举"
+    },
+    "v1ForwardType": {
+      "type": "string",
+      "enum": [
+        "FORWARD_TYPE_UNSPECIFIED",
+        "FORWARD_TYPE_TCP",
+        "FORWARD_TYPE_UDP",
+        "FORWARD_TYPE_ALL"
+      ],
+      "default": "FORWARD_TYPE_UNSPECIFIED",
+      "title": "转发类型枚举"
+    },
+    "v1GetAvailableServersResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1AvailableServerItem"
+          }
+        }
+      }
+    },
+    "v1GetEgressListResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1EgressItem"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/v1PaginationResponse"
+        }
+      }
+    },
+    "v1GetEgressResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1EgressItem"
+        }
+      }
+    },
+    "v1GetEgressStatsResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "connectionsCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "bytesTransferred": {
+          "type": "string",
+          "format": "int64"
+        },
+        "lastActivity": {
+          "type": "string"
+        }
+      }
+    },
+    "v1PaginationResponse": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "通用分页响应"
+    },
+    "v1TestEgressConnectionResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "latency": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "error": {
+          "type": "string"
+        }
+      }
+    },
+    "v1UpdateEgressResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1EgressItem"
+        }
+      }
+    },
+    "v1ValidateEgressConfigRequest": {
+      "type": "object",
+      "properties": {
+        "egressMode": {
+          "$ref": "#/definitions/v1EgressMode"
+        },
+        "targetAddress": {
+          "type": "string"
+        },
+        "forwardType": {
+          "$ref": "#/definitions/v1ForwardType"
+        },
+        "destAddress": {
+          "type": "string"
+        },
+        "destPort": {
+          "type": "string"
+        }
+      },
+      "title": "验证出口配置请求"
+    },
+    "v1ValidateEgressConfigResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "valid": {
+          "type": "boolean"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1HealthResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "title": "健康状态，通常为 \"healthy\" 或 \"unhealthy\""
+        },
+        "message": {
+          "type": "string",
+          "title": "可选的状态消息"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "int64",
+          "title": "检查时间戳（Unix时间）"
+        },
+        "version": {
+          "type": "string",
+          "title": "可选的服务版本信息"
+        }
+      },
+      "title": "健康检查响应"
+    },
+    "SubscriptionManagementServiceUpdateSubscriptionBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "订阅名称"
+        },
+        "description": {
+          "type": "string",
+          "title": "描述"
+        },
+        "includeAutoRoutes": {
+          "type": "boolean",
+          "title": "是否包含自动生成的线路"
+        },
+        "includeManualRoutes": {
+          "type": "boolean",
+          "title": "是否包含手动添加的线路"
+        },
+        "includedRouteIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "仅包含的线路ID列表"
+        },
+        "excludedRouteIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "排除的线路ID列表"
+        },
+        "isActive": {
+          "type": "boolean",
+          "title": "是否激活"
+        }
+      },
+      "title": "更新订阅请求"
     },
     "v1CreateSubscriptionRequest": {
       "type": "object",
@@ -3793,28 +4322,6 @@
         }
       },
       "title": "通用分页请求"
-    },
-    "v1PaginationResponse": {
-      "type": "object",
-      "properties": {
-        "total": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "page": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "totalPages": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "title": "通用分页响应"
     },
     "v1SubscriptionData": {
       "type": "object",
@@ -4483,627 +4990,6 @@
       },
       "title": "用户流量占比项"
     },
-    "DnsConfigServiceUpdateDnsConfigBody": {
-      "type": "object",
-      "properties": {
-        "configName": {
-          "type": "string",
-          "title": "配置名称"
-        },
-        "provider": {
-          "$ref": "#/definitions/v1DnsProvider",
-          "title": "DNS提供商"
-        },
-        "domain": {
-          "type": "string",
-          "title": "域名"
-        },
-        "configParams": {
-          "type": "string",
-          "title": "配置参数（JSON格式）"
-        }
-      },
-      "title": "更新DNS配置请求"
-    },
-    "v1CreateDnsConfigRequest": {
-      "type": "object",
-      "properties": {
-        "configName": {
-          "type": "string",
-          "title": "配置名称"
-        },
-        "provider": {
-          "$ref": "#/definitions/v1DnsProvider",
-          "title": "DNS提供商"
-        },
-        "domain": {
-          "type": "string",
-          "title": "域名"
-        },
-        "configParams": {
-          "type": "string",
-          "title": "配置参数（JSON格式）"
-        }
-      },
-      "title": "创建DNS配置请求"
-    },
-    "v1CreateDnsConfigResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1DnsConfig"
-        }
-      },
-      "title": "创建DNS配置响应"
-    },
-    "v1DeleteDnsConfigResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        }
-      },
-      "title": "删除DNS配置响应"
-    },
-    "v1DnsConfig": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "title": "主键ID"
-        },
-        "configName": {
-          "type": "string",
-          "title": "配置名称"
-        },
-        "provider": {
-          "$ref": "#/definitions/v1DnsProvider",
-          "title": "DNS提供商"
-        },
-        "domain": {
-          "type": "string",
-          "title": "域名"
-        },
-        "configParams": {
-          "type": "string",
-          "title": "配置参数（JSON格式）"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "int64",
-          "title": "创建时间（Unix时间戳）"
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "int64",
-          "title": "更新时间（Unix时间戳）"
-        }
-      },
-      "title": "DNS配置信息"
-    },
-    "v1DnsProvider": {
-      "type": "string",
-      "enum": [
-        "DNS_PROVIDER_UNSPECIFIED",
-        "DNS_PROVIDER_CLOUDFLARE"
-      ],
-      "default": "DNS_PROVIDER_UNSPECIFIED",
-      "title": "DNS提供商枚举"
-    },
-    "v1GetDnsConfigsResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1DnsConfig"
-          }
-        },
-        "pagination": {
-          "$ref": "#/definitions/v1PaginationResponse"
-        }
-      },
-      "title": "获取DNS配置列表响应"
-    },
-    "v1UpdateDnsConfigResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1DnsConfig"
-        }
-      },
-      "title": "更新DNS配置响应"
-    },
-    "rpcStatus": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        },
-        "details": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/protobufAny"
-          }
-        }
-      }
-    },
-    "v1HealthResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "title": "健康状态，通常为 \"healthy\" 或 \"unhealthy\""
-        },
-        "message": {
-          "type": "string",
-          "title": "可选的状态消息"
-        },
-        "timestamp": {
-          "type": "string",
-          "format": "int64",
-          "title": "检查时间戳（Unix时间）"
-        },
-        "version": {
-          "type": "string",
-          "title": "可选的服务版本信息"
-        }
-      },
-      "title": "健康检查响应"
-    },
-    "RuleManagementServiceToggleRuleBody": {
-      "type": "object",
-      "properties": {
-        "enabled": {
-          "type": "boolean"
-        }
-      },
-      "title": "启用/禁用规则请求"
-    },
-    "RuleManagementServiceUpdateRuleBody": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "sourcePort": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "targetAddress": {
-          "type": "string"
-        },
-        "targetPort": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "password": {
-          "type": "string"
-        },
-        "supportUDP": {
-          "type": "boolean"
-        },
-        "egressMode": {
-          "$ref": "#/definitions/v1EgressMode"
-        },
-        "type": {
-          "$ref": "#/definitions/v1ForwardRuleType"
-        }
-      },
-      "title": "更新规则请求"
-    },
-    "v1BatchDeleteRulesRequest": {
-      "type": "object",
-      "properties": {
-        "ids": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "title": "批量删除规则请求"
-    },
-    "v1BatchDeleteRulesResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "deletedCount": {
-          "type": "integer",
-          "format": "int32"
-        }
-      }
-    },
-    "v1CreateRuleRequest": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "sourcePort": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "targetAddress": {
-          "type": "string"
-        },
-        "targetPort": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "serverId": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "password": {
-          "type": "string"
-        },
-        "supportUDP": {
-          "type": "boolean"
-        },
-        "egressMode": {
-          "$ref": "#/definitions/v1EgressMode"
-        },
-        "type": {
-          "$ref": "#/definitions/v1ForwardRuleType"
-        }
-      },
-      "title": "创建规则请求"
-    },
-    "v1CreateRuleResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1ForwardRule"
-        }
-      }
-    },
-    "v1DeleteRuleResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        }
-      }
-    },
-    "v1EgressMode": {
-      "type": "string",
-      "enum": [
-        "EGRESS_MODE_UNSPECIFIED",
-        "EGRESS_MODE_DIRECT",
-        "EGRESS_MODE_PROXY"
-      ],
-      "default": "EGRESS_MODE_UNSPECIFIED",
-      "title": "出口模式枚举"
-    },
-    "v1ForwardRule": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "userId": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "serverId": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "name": {
-          "type": "string"
-        },
-        "egressMode": {
-          "$ref": "#/definitions/v1EgressMode"
-        },
-        "type": {
-          "$ref": "#/definitions/v1ForwardRuleType"
-        },
-        "sourcePort": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "targetAddress": {
-          "type": "string"
-        },
-        "targetPort": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "password": {
-          "type": "string"
-        },
-        "supportUDP": {
-          "type": "boolean"
-        },
-        "status": {
-          "$ref": "#/definitions/v1RuleStatus"
-        },
-        "createTime": {
-          "type": "string"
-        },
-        "updateTime": {
-          "type": "string"
-        },
-        "uploadTraffic": {
-          "type": "number",
-          "format": "double",
-          "title": "MB"
-        },
-        "downloadTraffic": {
-          "type": "number",
-          "format": "double",
-          "title": "MB"
-        }
-      },
-      "title": "转发规则信息"
-    },
-    "v1ForwardRuleType": {
-      "type": "string",
-      "enum": [
-        "FORWARD_RULE_TYPE_UNSPECIFIED",
-        "FORWARD_RULE_TYPE_TCP",
-        "FORWARD_RULE_TYPE_UDP",
-        "FORWARD_RULE_TYPE_HTTP"
-      ],
-      "default": "FORWARD_RULE_TYPE_UNSPECIFIED",
-      "title": "规则类型枚举"
-    },
-    "v1GetRuleResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1ForwardRule"
-        }
-      }
-    },
-    "v1GetRuleTrafficStatsResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1RuleTrafficStats"
-        }
-      }
-    },
-    "v1GetRulesResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1ForwardRule"
-          }
-        },
-        "pagination": {
-          "$ref": "#/definitions/v1PaginationResponse"
-        }
-      }
-    },
-    "v1RuleStatus": {
-      "type": "string",
-      "enum": [
-        "RULE_STATUS_UNSPECIFIED",
-        "RULE_STATUS_ACTIVE",
-        "RULE_STATUS_INACTIVE",
-        "RULE_STATUS_ERROR"
-      ],
-      "default": "RULE_STATUS_UNSPECIFIED",
-      "title": "规则状态枚举"
-    },
-    "v1RuleTrafficStats": {
-      "type": "object",
-      "properties": {
-        "ruleId": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "ruleName": {
-          "type": "string"
-        },
-        "uploadTraffic": {
-          "type": "number",
-          "format": "double"
-        },
-        "downloadTraffic": {
-          "type": "number",
-          "format": "double"
-        },
-        "totalTraffic": {
-          "type": "number",
-          "format": "double"
-        },
-        "dailyStats": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1TrafficDataPoint"
-          }
-        }
-      },
-      "title": "规则流量统计"
-    },
-    "v1ToggleRuleResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1ForwardRule"
-        }
-      }
-    },
-    "v1TrafficDataPoint": {
-      "type": "object",
-      "properties": {
-        "date": {
-          "type": "string"
-        },
-        "upload": {
-          "type": "number",
-          "format": "double"
-        },
-        "download": {
-          "type": "number",
-          "format": "double"
-        }
-      },
-      "title": "流量数据点"
-    },
-    "v1UpdateRuleResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1ForwardRule"
-        }
-      }
-    },
-    "v1GetTrafficStatsResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1TrafficStats"
-        }
-      }
-    },
-    "v1ResetTrafficRequest": {
-      "type": "object",
-      "properties": {
-        "confirm": {
-          "type": "string",
-          "description": "确认字符串",
-          "title": "可以为空，或者添加确认字段"
-        }
-      },
-      "title": "重置流量请求（空请求体）"
-    },
-    "v1ResetTrafficResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        }
-      }
-    },
-    "v1TrafficStats": {
-      "type": "object",
-      "properties": {
-        "totalUsed": {
-          "type": "number",
-          "format": "double",
-          "title": "总使用量（MB）"
-        },
-        "totalLimit": {
-          "type": "number",
-          "format": "double",
-          "title": "总限制（MB）"
-        },
-        "resetDate": {
-          "type": "string",
-          "title": "重置日期"
-        },
-        "usagePercent": {
-          "type": "number",
-          "format": "double",
-          "title": "使用百分比"
-        },
-        "dailyUsage": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1TrafficUsageItem"
-          },
-          "title": "每日使用情况"
-        }
-      },
-      "title": "流量统计数据"
-    },
-    "v1TrafficUsageItem": {
-      "type": "object",
-      "properties": {
-        "date": {
-          "type": "string"
-        },
-        "upload": {
-          "type": "number",
-          "format": "double",
-          "title": "MB"
-        },
-        "download": {
-          "type": "number",
-          "format": "double",
-          "title": "MB"
-        },
-        "total": {
-          "type": "number",
-          "format": "double",
-          "title": "MB"
-        }
-      },
-      "title": "流量使用项"
-    },
-    "v1ChangePasswordRequest": {
-      "type": "object",
-      "properties": {
-        "oldPassword": {
-          "type": "string"
-        },
-        "newPassword": {
-          "type": "string"
-        },
-        "confirmPassword": {
-          "type": "string"
-        }
-      },
-      "title": "修改密码请求"
-    },
-    "v1ChangePasswordResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        }
-      }
-    },
     "v1LoginData": {
       "type": "object",
       "properties": {
@@ -5217,158 +5103,6 @@
         }
       },
       "title": "用户基本信息"
-    },
-    "v1GetCurrentUserInfoResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1UserInfo"
-        }
-      }
-    },
-    "v1UpdateCurrentUserInfoResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1UserInfo"
-        }
-      }
-    },
-    "v1UpdateUserInfoRequest": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "phone": {
-          "type": "string"
-        },
-        "avatar": {
-          "type": "string"
-        }
-      },
-      "title": "更新用户信息请求"
-    },
-    "v1UserInfo": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "name": {
-          "type": "string"
-        },
-        "role": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "userGroup": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "traffic": {
-          "type": "string"
-        },
-        "trafficResetDate": {
-          "type": "string"
-        },
-        "forwardRuleConfigLimit": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "phone": {
-          "type": "string"
-        },
-        "avatar": {
-          "type": "string"
-        },
-        "createTime": {
-          "type": "string"
-        },
-        "lastLoginTime": {
-          "type": "string"
-        }
-      },
-      "title": "用户信息"
-    },
-    "v1ToggleTwoFactorAuthRequest": {
-      "type": "object",
-      "properties": {
-        "enabled": {
-          "type": "boolean"
-        }
-      },
-      "title": "启用/禁用二步验证请求"
-    },
-    "v1ToggleTwoFactorAuthResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1TwoFactorAuthData"
-        }
-      }
-    },
-    "v1TwoFactorAuthData": {
-      "type": "object",
-      "properties": {
-        "qrCode": {
-          "type": "string"
-        },
-        "backupCodes": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "title": "二步验证数据"
-    },
-    "v1VerifyTwoFactorAuthData": {
-      "type": "object",
-      "properties": {
-        "verified": {
-          "type": "boolean"
-        }
-      },
-      "title": "验证二步验证码响应"
-    },
-    "v1VerifyTwoFactorAuthRequest": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "type": "string"
-        }
-      },
-      "title": "验证二步验证码请求"
-    },
-    "v1VerifyTwoFactorAuthResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1VerifyTwoFactorAuthData"
-        }
-      }
     },
     "PasskeyServiceRenamePasskeyBody": {
       "type": "object",
@@ -5685,6 +5419,257 @@
         }
       }
     },
+    "v1ToggleTwoFactorAuthRequest": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "title": "启用/禁用二步验证请求"
+    },
+    "v1ToggleTwoFactorAuthResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1TwoFactorAuthData"
+        }
+      }
+    },
+    "v1TwoFactorAuthData": {
+      "type": "object",
+      "properties": {
+        "qrCode": {
+          "type": "string"
+        },
+        "backupCodes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "二步验证数据"
+    },
+    "v1VerifyTwoFactorAuthData": {
+      "type": "object",
+      "properties": {
+        "verified": {
+          "type": "boolean"
+        }
+      },
+      "title": "验证二步验证码响应"
+    },
+    "v1VerifyTwoFactorAuthRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        }
+      },
+      "title": "验证二步验证码请求"
+    },
+    "v1VerifyTwoFactorAuthResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1VerifyTwoFactorAuthData"
+        }
+      }
+    },
+    "v1DeleteAccountRequest": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "注销账户请求"
+    },
+    "v1DeleteAccountResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        }
+      }
+    },
+    "v1ChangePasswordRequest": {
+      "type": "object",
+      "properties": {
+        "oldPassword": {
+          "type": "string"
+        },
+        "newPassword": {
+          "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
+        }
+      },
+      "title": "修改密码请求"
+    },
+    "v1ChangePasswordResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        }
+      }
+    },
+    "UserConfigServiceUpdateUserConfigBody": {
+      "type": "object",
+      "properties": {
+        "configValue": {
+          "type": "string",
+          "title": "请求体"
+        },
+        "description": {
+          "type": "string",
+          "title": "请求体"
+        }
+      },
+      "title": "更新用户配置请求"
+    },
+    "v1DeleteUserConfigResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        }
+      }
+    },
+    "v1GetUserConfigHistoryResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1UserConfig"
+        }
+      }
+    },
+    "v1GetUserConfigResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1UserConfig"
+        }
+      }
+    },
+    "v1GetUserConfigsResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1UserConfig"
+          }
+        }
+      }
+    },
+    "v1UpdateUserConfigResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1UserConfig"
+        }
+      }
+    },
+    "v1UserConfig": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "configKey": {
+          "type": "string"
+        },
+        "configValue": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "updatedTime": {
+          "type": "string"
+        }
+      },
+      "title": "用户配置信息"
+    },
+    "v1UploadAvatarData": {
+      "type": "object",
+      "properties": {
+        "avatarUrl": {
+          "type": "string"
+        }
+      },
+      "title": "上传头像响应数据"
+    },
+    "v1UploadAvatarResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1UploadAvatarData"
+        }
+      }
+    },
+    "v1GetLoginHistoryResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1LoginHistoryItem"
+          }
+        }
+      }
+    },
+    "v1LoginHistoryItem": {
+      "type": "object",
+      "properties": {
+        "loginTime": {
+          "type": "string"
+        },
+        "ip": {
+          "type": "string"
+        },
+        "userAgent": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "title": "登录历史项"
+    },
     "UserManagementServiceResetUserPasswordBody": {
       "type": "object",
       "properties": {
@@ -5925,117 +5910,6 @@
       },
       "title": "用户列表项"
     },
-    "v1UploadAvatarData": {
-      "type": "object",
-      "properties": {
-        "avatarUrl": {
-          "type": "string"
-        }
-      },
-      "title": "上传头像响应数据"
-    },
-    "v1UploadAvatarResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1UploadAvatarData"
-        }
-      }
-    },
-    "UserConfigServiceUpdateUserConfigBody": {
-      "type": "object",
-      "properties": {
-        "configValue": {
-          "type": "string",
-          "title": "请求体"
-        },
-        "description": {
-          "type": "string",
-          "title": "请求体"
-        }
-      },
-      "title": "更新用户配置请求"
-    },
-    "v1DeleteUserConfigResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        }
-      }
-    },
-    "v1GetUserConfigHistoryResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1UserConfig"
-        }
-      }
-    },
-    "v1GetUserConfigResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1UserConfig"
-        }
-      }
-    },
-    "v1GetUserConfigsResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1UserConfig"
-          }
-        }
-      }
-    },
-    "v1UpdateUserConfigResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1UserConfig"
-        }
-      }
-    },
-    "v1UserConfig": {
-      "type": "object",
-      "properties": {
-        "userId": {
-          "type": "string"
-        },
-        "configKey": {
-          "type": "string"
-        },
-        "configValue": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "updatedTime": {
-          "type": "string"
-        }
-      },
-      "title": "用户配置信息"
-    },
     "v1ActivityLogItem": {
       "type": "object",
       "properties": {
@@ -6072,124 +5946,295 @@
         }
       }
     },
-    "v1DeleteAccountRequest": {
-      "type": "object",
-      "properties": {
-        "password": {
-          "type": "string"
-        }
-      },
-      "title": "注销账户请求"
-    },
-    "v1DeleteAccountResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        }
-      }
-    },
-    "v1GetLoginHistoryResponse": {
+    "v1GetCurrentUserInfoResponse": {
       "type": "object",
       "properties": {
         "status": {
           "$ref": "#/definitions/v1ApiResponse"
         },
         "data": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1LoginHistoryItem"
-          }
+          "$ref": "#/definitions/v1UserInfo"
         }
       }
     },
-    "v1LoginHistoryItem": {
+    "v1UpdateCurrentUserInfoResponse": {
       "type": "object",
       "properties": {
-        "loginTime": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1UserInfo"
+        }
+      }
+    },
+    "v1UpdateUserInfoRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
           "type": "string"
         },
-        "ip": {
+        "email": {
           "type": "string"
         },
-        "userAgent": {
+        "phone": {
           "type": "string"
         },
-        "location": {
+        "avatar": {
+          "type": "string"
+        }
+      },
+      "title": "更新用户信息请求"
+    },
+    "v1UserInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
           "type": "string"
         },
-        "success": {
+        "role": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "userGroup": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "traffic": {
+          "type": "string"
+        },
+        "trafficResetDate": {
+          "type": "string"
+        },
+        "forwardRuleConfigLimit": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "createTime": {
+          "type": "string"
+        },
+        "lastLoginTime": {
+          "type": "string"
+        }
+      },
+      "title": "用户信息"
+    },
+    "v1GetTrafficStatsResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1TrafficStats"
+        }
+      }
+    },
+    "v1ResetTrafficRequest": {
+      "type": "object",
+      "properties": {
+        "confirm": {
+          "type": "string",
+          "description": "确认字符串",
+          "title": "可以为空，或者添加确认字段"
+        }
+      },
+      "title": "重置流量请求（空请求体）"
+    },
+    "v1ResetTrafficResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        }
+      }
+    },
+    "v1TrafficStats": {
+      "type": "object",
+      "properties": {
+        "totalUsed": {
+          "type": "number",
+          "format": "double",
+          "title": "总使用量（MB）"
+        },
+        "totalLimit": {
+          "type": "number",
+          "format": "double",
+          "title": "总限制（MB）"
+        },
+        "resetDate": {
+          "type": "string",
+          "title": "重置日期"
+        },
+        "usagePercent": {
+          "type": "number",
+          "format": "double",
+          "title": "使用百分比"
+        },
+        "dailyUsage": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1TrafficUsageItem"
+          },
+          "title": "每日使用情况"
+        }
+      },
+      "title": "流量统计数据"
+    },
+    "v1TrafficUsageItem": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "upload": {
+          "type": "number",
+          "format": "double",
+          "title": "MB"
+        },
+        "download": {
+          "type": "number",
+          "format": "double",
+          "title": "MB"
+        },
+        "total": {
+          "type": "number",
+          "format": "double",
+          "title": "MB"
+        }
+      },
+      "title": "流量使用项"
+    },
+    "RuleManagementServiceToggleRuleBody": {
+      "type": "object",
+      "properties": {
+        "enabled": {
           "type": "boolean"
         }
       },
-      "title": "登录历史项"
+      "title": "启用/禁用规则请求"
     },
-    "v1BatchDeleteServersRequest": {
+    "RuleManagementServiceUpdateRuleBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "sourcePort": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "targetAddress": {
+          "type": "string"
+        },
+        "targetPort": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "password": {
+          "type": "string"
+        },
+        "supportUDP": {
+          "type": "boolean"
+        },
+        "egressMode": {
+          "$ref": "#/definitions/v1EgressMode"
+        },
+        "type": {
+          "$ref": "#/definitions/v1ForwardRuleType"
+        }
+      },
+      "title": "更新规则请求"
+    },
+    "v1BatchDeleteRulesRequest": {
       "type": "object",
       "properties": {
         "ids": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
-      "title": "批量删除服务器请求"
+      "title": "批量删除规则请求"
     },
-    "v1BatchDeleteServersResponse": {
+    "v1BatchDeleteRulesResponse": {
       "type": "object",
       "properties": {
         "status": {
           "$ref": "#/definitions/v1ApiResponse"
+        },
+        "deletedCount": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
-    "v1CreateServerRequest": {
+    "v1CreateRuleRequest": {
       "type": "object",
       "properties": {
         "name": {
           "type": "string"
         },
-        "country": {
+        "sourcePort": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "targetAddress": {
           "type": "string"
         },
-        "group": {
+        "targetPort": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "serverId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "password": {
           "type": "string"
         },
-        "registerTime": {
-          "type": "string"
+        "supportUDP": {
+          "type": "boolean"
         },
-        "uploadTraffic": {
-          "type": "number",
-          "format": "double"
+        "egressMode": {
+          "$ref": "#/definitions/v1EgressMode"
         },
-        "downloadTraffic": {
-          "type": "number",
-          "format": "double"
-        },
-        "status": {
-          "$ref": "#/definitions/v1ServerStatus"
-        },
-        "token": {
-          "type": "string",
-          "title": "服务器认证令牌"
+        "type": {
+          "$ref": "#/definitions/v1ForwardRuleType"
         }
       },
-      "title": "创建服务器请求"
+      "title": "创建规则请求"
     },
-    "v1CreateServerResponse": {
+    "v1CreateRuleResponse": {
       "type": "object",
       "properties": {
         "status": {
           "$ref": "#/definitions/v1ApiResponse"
         },
         "data": {
-          "$ref": "#/definitions/v1ServerItem"
+          "$ref": "#/definitions/v1ForwardRule"
         }
       }
     },
-    "v1DeleteServerResponse": {
+    "v1DeleteRuleResponse": {
       "type": "object",
       "properties": {
         "status": {
@@ -6197,65 +6242,54 @@
         }
       }
     },
-    "v1GetServerByIdResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1ServerItem"
-        }
-      }
-    },
-    "v1GetServersResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1ServerItem"
-          }
-        },
-        "pagination": {
-          "$ref": "#/definitions/v1PaginationResponse"
-        }
-      }
-    },
-    "v1RestartServerResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        }
-      }
-    },
-    "v1ServerItem": {
+    "v1ForwardRule": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "integer",
+          "format": "int32"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "serverId": {
+          "type": "integer",
+          "format": "int32"
         },
         "name": {
           "type": "string"
         },
-        "ipv4": {
+        "egressMode": {
+          "$ref": "#/definitions/v1EgressMode"
+        },
+        "type": {
+          "$ref": "#/definitions/v1ForwardRuleType"
+        },
+        "sourcePort": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "targetAddress": {
           "type": "string"
         },
-        "ipv6": {
+        "targetPort": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "password": {
           "type": "string"
         },
-        "country": {
+        "supportUDP": {
+          "type": "boolean"
+        },
+        "status": {
+          "$ref": "#/definitions/v1RuleStatus"
+        },
+        "createTime": {
           "type": "string"
         },
-        "group": {
-          "type": "string"
-        },
-        "registerTime": {
+        "updateTime": {
           "type": "string"
         },
         "uploadTraffic": {
@@ -6267,48 +6301,80 @@
           "type": "number",
           "format": "double",
           "title": "MB"
-        },
-        "status": {
-          "$ref": "#/definitions/v1ServerStatus"
-        },
-        "token": {
-          "type": "string",
-          "title": "服务器认证令牌"
         }
       },
-      "title": "服务器项"
+      "title": "转发规则信息"
     },
-    "v1ServerStatus": {
+    "v1ForwardRuleType": {
       "type": "string",
       "enum": [
-        "SERVER_STATUS_UNSPECIFIED",
-        "SERVER_STATUS_ONLINE",
-        "SERVER_STATUS_OFFLINE",
-        "SERVER_STATUS_PENDING_INSTALL",
-        "SERVER_STATUS_UNKNOWN"
+        "FORWARD_RULE_TYPE_UNSPECIFIED",
+        "FORWARD_RULE_TYPE_TCP",
+        "FORWARD_RULE_TYPE_UDP",
+        "FORWARD_RULE_TYPE_HTTP"
       ],
-      "default": "SERVER_STATUS_UNSPECIFIED",
-      "title": "服务器状态枚举"
+      "default": "FORWARD_RULE_TYPE_UNSPECIFIED",
+      "title": "规则类型枚举"
     },
-    "v1UpdateServerRequest": {
+    "v1GetRuleResponse": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string"
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
         },
-        "ipv4": {
-          "type": "string"
+        "data": {
+          "$ref": "#/definitions/v1ForwardRule"
+        }
+      }
+    },
+    "v1GetRuleTrafficStatsResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
         },
-        "ipv6": {
-          "type": "string"
+        "data": {
+          "$ref": "#/definitions/v1RuleTrafficStats"
+        }
+      }
+    },
+    "v1GetRulesResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
         },
-        "country": {
-          "type": "string"
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1ForwardRule"
+          }
         },
-        "group": {
-          "type": "string"
+        "pagination": {
+          "$ref": "#/definitions/v1PaginationResponse"
+        }
+      }
+    },
+    "v1RuleStatus": {
+      "type": "string",
+      "enum": [
+        "RULE_STATUS_UNSPECIFIED",
+        "RULE_STATUS_ACTIVE",
+        "RULE_STATUS_INACTIVE",
+        "RULE_STATUS_ERROR"
+      ],
+      "default": "RULE_STATUS_UNSPECIFIED",
+      "title": "规则状态枚举"
+    },
+    "v1RuleTrafficStats": {
+      "type": "object",
+      "properties": {
+        "ruleId": {
+          "type": "integer",
+          "format": "int32"
         },
-        "registerTime": {
+        "ruleName": {
           "type": "string"
         },
         "uploadTraffic": {
@@ -6319,191 +6385,171 @@
           "type": "number",
           "format": "double"
         },
-        "status": {
-          "$ref": "#/definitions/v1ServerStatus"
+        "totalTraffic": {
+          "type": "number",
+          "format": "double"
         },
-        "token": {
-          "type": "string",
-          "title": "服务器认证令牌"
+        "dailyStats": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1TrafficDataPoint"
+          }
         }
       },
-      "title": "更新服务器请求"
+      "title": "规则流量统计"
     },
-    "v1UpdateServerResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1ServerItem"
-        }
-      }
-    },
-    "EgressManagementServiceTestEgressConnectionBody": {
-      "type": "object",
-      "properties": {
-        "timeout": {
-          "type": "integer",
-          "format": "int32",
-          "title": "超时时间（秒）"
-        }
-      },
-      "title": "测试出口连接请求"
-    },
-    "EgressManagementServiceUpdateEgressBody": {
-      "type": "object",
-      "properties": {
-        "egressId": {
-          "type": "string"
-        },
-        "serverId": {
-          "type": "string"
-        },
-        "egressMode": {
-          "$ref": "#/definitions/v1EgressMode"
-        },
-        "targetAddress": {
-          "type": "string"
-        },
-        "forwardType": {
-          "$ref": "#/definitions/v1ForwardType"
-        },
-        "destAddress": {
-          "type": "string"
-        },
-        "destPort": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        },
-        "supportUdp": {
-          "type": "boolean"
-        }
-      },
-      "title": "更新出口请求"
-    },
-    "v1AvailableServerItem": {
-      "type": "object",
-      "properties": {
-        "label": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        }
-      }
-    },
-    "v1CreateEgressRequest": {
-      "type": "object",
-      "properties": {
-        "egressId": {
-          "type": "string"
-        },
-        "serverId": {
-          "type": "string"
-        },
-        "egressMode": {
-          "$ref": "#/definitions/v1EgressMode"
-        },
-        "targetAddress": {
-          "type": "string",
-          "title": "直出模式字段"
-        },
-        "forwardType": {
-          "$ref": "#/definitions/v1ForwardType",
-          "title": "iptables模式字段"
-        },
-        "destAddress": {
-          "type": "string"
-        },
-        "destPort": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string",
-          "title": "shadowsocks-2022模式字段"
-        },
-        "supportUdp": {
-          "type": "boolean"
-        }
-      },
-      "title": "创建出口请求"
-    },
-    "v1CreateEgressResponse": {
+    "v1ToggleRuleResponse": {
       "type": "object",
       "properties": {
         "status": {
           "$ref": "#/definitions/v1ApiResponse"
         },
         "data": {
-          "$ref": "#/definitions/v1EgressItem"
+          "$ref": "#/definitions/v1ForwardRule"
         }
       }
     },
-    "v1DeleteEgressResponse": {
+    "v1TrafficDataPoint": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "upload": {
+          "type": "number",
+          "format": "double"
+        },
+        "download": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      "title": "流量数据点"
+    },
+    "v1UpdateRuleResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1ForwardRule"
+        }
+      }
+    },
+    "DnsConfigServiceUpdateDnsConfigBody": {
+      "type": "object",
+      "properties": {
+        "configName": {
+          "type": "string",
+          "title": "配置名称"
+        },
+        "provider": {
+          "$ref": "#/definitions/v1DnsProvider",
+          "title": "DNS提供商"
+        },
+        "domain": {
+          "type": "string",
+          "title": "域名"
+        },
+        "configParams": {
+          "type": "string",
+          "title": "配置参数（JSON格式）"
+        }
+      },
+      "title": "更新DNS配置请求"
+    },
+    "v1CreateDnsConfigRequest": {
+      "type": "object",
+      "properties": {
+        "configName": {
+          "type": "string",
+          "title": "配置名称"
+        },
+        "provider": {
+          "$ref": "#/definitions/v1DnsProvider",
+          "title": "DNS提供商"
+        },
+        "domain": {
+          "type": "string",
+          "title": "域名"
+        },
+        "configParams": {
+          "type": "string",
+          "title": "配置参数（JSON格式）"
+        }
+      },
+      "title": "创建DNS配置请求"
+    },
+    "v1CreateDnsConfigResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1DnsConfig"
+        }
+      },
+      "title": "创建DNS配置响应"
+    },
+    "v1DeleteDnsConfigResponse": {
       "type": "object",
       "properties": {
         "status": {
           "$ref": "#/definitions/v1ApiResponse"
         }
-      }
+      },
+      "title": "删除DNS配置响应"
     },
-    "v1EgressItem": {
+    "v1DnsConfig": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64",
+          "title": "主键ID"
         },
-        "egressId": {
-          "type": "string"
-        },
-        "serverId": {
-          "type": "string"
-        },
-        "egressMode": {
-          "$ref": "#/definitions/v1EgressMode"
-        },
-        "egressConfig": {
-          "type": "string"
-        },
-        "targetAddress": {
+        "configName": {
           "type": "string",
-          "title": "直出模式字段"
+          "title": "配置名称"
         },
-        "forwardType": {
-          "$ref": "#/definitions/v1ForwardType",
-          "title": "iptables模式字段"
+        "provider": {
+          "$ref": "#/definitions/v1DnsProvider",
+          "title": "DNS提供商"
         },
-        "destAddress": {
-          "type": "string"
-        },
-        "destPort": {
-          "type": "string"
-        },
-        "password": {
+        "domain": {
           "type": "string",
-          "title": "shadowsocks-2022模式字段"
+          "title": "域名"
         },
-        "supportUdp": {
-          "type": "boolean"
+        "configParams": {
+          "type": "string",
+          "title": "配置参数（JSON格式）"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建时间（Unix时间戳）"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "更新时间（Unix时间戳）"
         }
       },
-      "title": "出口项目消息"
+      "title": "DNS配置信息"
     },
-    "v1ForwardType": {
+    "v1DnsProvider": {
       "type": "string",
       "enum": [
-        "FORWARD_TYPE_UNSPECIFIED",
-        "FORWARD_TYPE_TCP",
-        "FORWARD_TYPE_UDP",
-        "FORWARD_TYPE_ALL"
+        "DNS_PROVIDER_UNSPECIFIED",
+        "DNS_PROVIDER_CLOUDFLARE"
       ],
-      "default": "FORWARD_TYPE_UNSPECIFIED",
-      "title": "转发类型枚举"
+      "default": "DNS_PROVIDER_UNSPECIFIED",
+      "title": "DNS提供商枚举"
     },
-    "v1GetAvailableServersResponse": {
+    "v1GetDnsConfigsResponse": {
       "type": "object",
       "properties": {
         "status": {
@@ -6513,125 +6559,26 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v1AvailableServerItem"
-          }
-        }
-      }
-    },
-    "v1GetEgressListResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1EgressItem"
+            "$ref": "#/definitions/v1DnsConfig"
           }
         },
         "pagination": {
           "$ref": "#/definitions/v1PaginationResponse"
         }
-      }
+      },
+      "title": "获取DNS配置列表响应"
     },
-    "v1GetEgressResponse": {
+    "v1UpdateDnsConfigResponse": {
       "type": "object",
       "properties": {
         "status": {
           "$ref": "#/definitions/v1ApiResponse"
         },
         "data": {
-          "$ref": "#/definitions/v1EgressItem"
-        }
-      }
-    },
-    "v1GetEgressStatsResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "connectionsCount": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "bytesTransferred": {
-          "type": "string",
-          "format": "int64"
-        },
-        "lastActivity": {
-          "type": "string"
-        }
-      }
-    },
-    "v1TestEgressConnectionResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "success": {
-          "type": "boolean"
-        },
-        "latency": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "error": {
-          "type": "string"
-        }
-      }
-    },
-    "v1UpdateEgressResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1EgressItem"
-        }
-      }
-    },
-    "v1ValidateEgressConfigRequest": {
-      "type": "object",
-      "properties": {
-        "egressMode": {
-          "$ref": "#/definitions/v1EgressMode"
-        },
-        "targetAddress": {
-          "type": "string"
-        },
-        "forwardType": {
-          "$ref": "#/definitions/v1ForwardType"
-        },
-        "destAddress": {
-          "type": "string"
-        },
-        "destPort": {
-          "type": "string"
+          "$ref": "#/definitions/v1DnsConfig"
         }
       },
-      "title": "验证出口配置请求"
-    },
-    "v1ValidateEgressConfigResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "valid": {
-          "type": "boolean"
-        },
-        "errors": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
+      "title": "更新DNS配置响应"
     },
     "RouteManagementServiceUpdateRouteBody": {
       "type": "object",
@@ -7188,79 +7135,19 @@
       },
       "title": "验证线路连通性响应"
     },
-    "SettingsManagementServiceUpdateSettingBody": {
+    "v1BatchDeleteServersRequest": {
       "type": "object",
       "properties": {
-        "value": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        }
-      },
-      "title": "更新设置请求"
-    },
-    "v1BatchUpdateSettingsRequest": {
-      "type": "object",
-      "properties": {
-        "settings": {
+        "ids": {
           "type": "array",
           "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1UpdateSettingRequest"
+            "type": "string"
           }
         }
       },
-      "title": "批量更新设置请求"
+      "title": "批量删除服务器请求"
     },
-    "v1BatchUpdateSettingsResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1SettingItem"
-          }
-        }
-      }
-    },
-    "v1CreateSettingRequest": {
-      "type": "object",
-      "properties": {
-        "key": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string"
-        },
-        "isSystem": {
-          "type": "boolean"
-        }
-      },
-      "title": "创建设置请求"
-    },
-    "v1CreateSettingResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "$ref": "#/definitions/v1SettingItem"
-        }
-      }
-    },
-    "v1DeleteSettingResponse": {
+    "v1BatchDeleteServersResponse": {
       "type": "object",
       "properties": {
         "status": {
@@ -7268,89 +7155,212 @@
         }
       }
     },
-    "v1GetSettingResponse": {
+    "v1CreateServerRequest": {
       "type": "object",
       "properties": {
+        "name": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "registerTime": {
+          "type": "string"
+        },
+        "uploadTraffic": {
+          "type": "number",
+          "format": "double"
+        },
+        "downloadTraffic": {
+          "type": "number",
+          "format": "double"
+        },
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ServerStatus"
         },
-        "data": {
-          "$ref": "#/definitions/v1SettingItem"
-        }
-      }
-    },
-    "v1GetSettingsResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1SettingItem"
-          }
-        }
-      }
-    },
-    "v1SettingItem": {
-      "type": "object",
-      "properties": {
-        "key": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "type": {
+        "token": {
           "type": "string",
-          "title": "类型：string, number, boolean, json"
-        },
-        "isSystem": {
-          "type": "boolean",
-          "title": "是否为系统设置"
-        },
-        "updatedAt": {
-          "type": "string"
-        },
-        "updatedBy": {
-          "type": "string"
+          "title": "服务器认证令牌"
         }
       },
-      "title": "设置项"
+      "title": "创建服务器请求"
     },
-    "v1UpdateSettingRequest": {
-      "type": "object",
-      "properties": {
-        "key": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        }
-      },
-      "title": "更新设置请求"
-    },
-    "v1UpdateSettingResponse": {
+    "v1CreateServerResponse": {
       "type": "object",
       "properties": {
         "status": {
           "$ref": "#/definitions/v1ApiResponse"
         },
         "data": {
-          "$ref": "#/definitions/v1SettingItem"
+          "$ref": "#/definitions/v1ServerItem"
+        }
+      }
+    },
+    "v1DeleteServerResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        }
+      }
+    },
+    "v1GetServerByIdResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1ServerItem"
+        }
+      }
+    },
+    "v1GetServersResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1ServerItem"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/v1PaginationResponse"
+        }
+      }
+    },
+    "v1RestartServerResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        }
+      }
+    },
+    "v1ServerItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "ipv4": {
+          "type": "string"
+        },
+        "ipv6": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "registerTime": {
+          "type": "string"
+        },
+        "uploadTraffic": {
+          "type": "number",
+          "format": "double",
+          "title": "MB"
+        },
+        "downloadTraffic": {
+          "type": "number",
+          "format": "double",
+          "title": "MB"
+        },
+        "status": {
+          "$ref": "#/definitions/v1ServerStatus"
+        },
+        "token": {
+          "type": "string",
+          "title": "服务器认证令牌"
+        }
+      },
+      "title": "服务器项"
+    },
+    "v1ServerStatus": {
+      "type": "string",
+      "enum": [
+        "SERVER_STATUS_UNSPECIFIED",
+        "SERVER_STATUS_ONLINE",
+        "SERVER_STATUS_OFFLINE",
+        "SERVER_STATUS_PENDING_INSTALL",
+        "SERVER_STATUS_UNKNOWN"
+      ],
+      "default": "SERVER_STATUS_UNSPECIFIED",
+      "title": "服务器状态枚举"
+    },
+    "v1UpdateServerRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "ipv4": {
+          "type": "string"
+        },
+        "ipv6": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "registerTime": {
+          "type": "string"
+        },
+        "uploadTraffic": {
+          "type": "number",
+          "format": "double"
+        },
+        "downloadTraffic": {
+          "type": "number",
+          "format": "double"
+        },
+        "status": {
+          "$ref": "#/definitions/v1ServerStatus"
+        },
+        "token": {
+          "type": "string",
+          "title": "服务器认证令牌"
+        }
+      },
+      "title": "更新服务器请求"
+    },
+    "v1UpdateServerResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponse"
+        },
+        "data": {
+          "$ref": "#/definitions/v1ServerItem"
         }
       }
     }
   },
   "tags": [
+    {
+      "name": "SettingsManagementService"
+    },
+    {
+      "name": "EgressManagementService"
+    },
+    {
+      "name": "HealthService"
+    },
     {
       "name": "SubscriptionManagementService"
     },
@@ -7358,61 +7368,52 @@
       "name": "DashboardService"
     },
     {
-      "name": "DnsConfigService"
-    },
-    {
-      "name": "HealthService"
-    },
-    {
-      "name": "RuleManagementService"
-    },
-    {
-      "name": "UserTrafficService"
-    },
-    {
-      "name": "UserPasswordService"
-    },
-    {
       "name": "UserAuthService"
-    },
-    {
-      "name": "UserProfileService"
-    },
-    {
-      "name": "UserTwoFactorService"
     },
     {
       "name": "PasskeyService"
     },
     {
-      "name": "UserManagementService"
-    },
-    {
-      "name": "UserAvatarService"
-    },
-    {
-      "name": "UserConfigService"
-    },
-    {
-      "name": "UserActivityService"
+      "name": "UserTwoFactorService"
     },
     {
       "name": "UserAccountService"
     },
     {
+      "name": "UserPasswordService"
+    },
+    {
+      "name": "UserConfigService"
+    },
+    {
+      "name": "UserAvatarService"
+    },
+    {
       "name": "UserLoginHistoryService"
     },
     {
-      "name": "ServerManagementService"
+      "name": "UserManagementService"
     },
     {
-      "name": "EgressManagementService"
+      "name": "UserActivityService"
+    },
+    {
+      "name": "UserProfileService"
+    },
+    {
+      "name": "UserTrafficService"
+    },
+    {
+      "name": "RuleManagementService"
+    },
+    {
+      "name": "DnsConfigService"
     },
     {
       "name": "RouteManagementService"
     },
     {
-      "name": "SettingsManagementService"
+      "name": "ServerManagementService"
     }
   ]
 }
