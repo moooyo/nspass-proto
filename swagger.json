@@ -6170,6 +6170,10 @@
         },
         "status": {
           "$ref": "#/definitions/v1ServerStatus"
+        },
+        "token": {
+          "type": "string",
+          "title": "服务器认证令牌"
         }
       },
       "title": "创建服务器请求"
@@ -6266,6 +6270,10 @@
         },
         "status": {
           "$ref": "#/definitions/v1ServerStatus"
+        },
+        "token": {
+          "type": "string",
+          "title": "服务器认证令牌"
         }
       },
       "title": "服务器项"
@@ -6313,6 +6321,10 @@
         },
         "status": {
           "$ref": "#/definitions/v1ServerStatus"
+        },
+        "token": {
+          "type": "string",
+          "title": "服务器认证令牌"
         }
       },
       "title": "更新服务器请求"
