@@ -29,6 +29,7 @@ message ServerItem {
   optional double downloadTraffic = 9; // MB
   ServerStatus status = 10;
   optional string token = 11; // 服务器认证令牌
+  optional string availablePorts = 12; // 可用端口范围，格式：10000-20000;30001;30002
 }
 
 // 创建服务器请求
@@ -41,6 +42,7 @@ message CreateServerRequest {
   optional double downloadTraffic = 6;
   optional ServerStatus status = 7;
   optional string token = 8; // 服务器认证令牌
+  optional string availablePorts = 9; // 可用端口范围，格式：10000-20000;30001;30002
 }
 
 // 更新服务器请求
@@ -55,6 +57,7 @@ message UpdateServerRequest {
   optional double downloadTraffic = 8;
   optional ServerStatus status = 9;
   optional string token = 10; // 服务器认证令牌
+  optional string availablePorts = 11; // 可用端口范围，格式：10000-20000;30001;30002
 }
 
 // 服务器列表查询参数

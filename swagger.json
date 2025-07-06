@@ -7184,6 +7184,10 @@
         "token": {
           "type": "string",
           "title": "服务器认证令牌"
+        },
+        "availablePorts": {
+          "type": "string",
+          "title": "可用端口范围，格式：10000-20000;30001;30002"
         }
       },
       "title": "创建服务器请求"
@@ -7284,6 +7288,10 @@
         "token": {
           "type": "string",
           "title": "服务器认证令牌"
+        },
+        "availablePorts": {
+          "type": "string",
+          "title": "可用端口范围，格式：10000-20000;30001;30002"
         }
       },
       "title": "服务器项"
@@ -7335,6 +7343,10 @@
         "token": {
           "type": "string",
           "title": "服务器认证令牌"
+        },
+        "availablePorts": {
+          "type": "string",
+          "title": "可用端口范围，格式：10000-20000;30001;30002"
         }
       },
       "title": "更新服务器请求"
