@@ -127,6 +127,11 @@ message SystemMetrics {
   int64 memory_used = 8;                           // 已用内存(字节)
   int64 disk_total = 9;                            // 总磁盘(字节)
   int64 disk_used = 10;                            // 已用磁盘(字节)
+  int32 tcp_connections = 11;                      // TCP连接数
+  double download_speed = 12;                      // 下载速度(字节/秒)
+  double upload_speed = 13;                        // 上传速度(字节/秒)
+  int64 swap_total = 14;                           // 总SWAP(字节)
+  int64 swap_used = 15;                            // 已用SWAP(字节)
 }
 
 // 流量监控数据
