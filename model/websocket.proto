@@ -1,0 +1,220 @@
+syntax = "proto3";
+
+package nspass.model.v1;
+
+option go_package = "github.com/moooyo/nspass-proto/generated/model;model";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+
+// WebSocket消息类型
+enum WebSocketMessageType {
+  WEBSOCKET_MESSAGE_TYPE_UNSPECIFIED = 0;
+  WEBSOCKET_MESSAGE_TYPE_TASK = 1;        // 任务下发
+  WEBSOCKET_MESSAGE_TYPE_METRICS = 2;     // 监控数据上报
+  WEBSOCKET_MESSAGE_TYPE_HEARTBEAT = 3;   // 心跳
+  WEBSOCKET_MESSAGE_TYPE_ACK = 4;         // 确认消息
+  WEBSOCKET_MESSAGE_TYPE_ERROR = 5;       // 错误消息
+}
+
+// 任务类型
+enum TaskType {
+  TASK_TYPE_UNSPECIFIED = 0;
+  TASK_TYPE_CONFIG_UPDATE = 1;    // 配置更新
+  TASK_TYPE_RESTART = 2;          // 重启服务
+  TASK_TYPE_SYNC_RULES = 3;       // 同步规则
+  TASK_TYPE_SYNC_USERS = 4;       // 同步用户
+  TASK_TYPE_COLLECT_METRICS = 5;  // 收集监控数据
+  TASK_TYPE_HEALTH_CHECK = 6;     // 健康检查
+}
+
+// 任务状态
+enum TaskStatus {
+  TASK_STATUS_UNSPECIFIED = 0;
+  TASK_STATUS_PENDING = 1;    // 等待执行
+  TASK_STATUS_RUNNING = 2;    // 执行中
+  TASK_STATUS_COMPLETED = 3;  // 已完成
+  TASK_STATUS_FAILED = 4;     // 执行失败
+  TASK_STATUS_CANCELLED = 5;  // 已取消
+}
+
+// 监控数据类型
+enum MetricsType {
+  METRICS_TYPE_UNSPECIFIED = 0;
+  METRICS_TYPE_SYSTEM = 1;      // 系统监控
+  METRICS_TYPE_TRAFFIC = 2;     // 流量监控
+  METRICS_TYPE_CONNECTION = 3;  // 连接监控
+  METRICS_TYPE_PERFORMANCE = 4; // 性能监控
+  METRICS_TYPE_ERROR = 5;       // 错误监控
+}
+
+// WebSocket消息
+message WebSocketMessage {
+  string id = 1;                                    // 消息ID
+  WebSocketMessageType type = 2;                    // 消息类型
+  google.protobuf.Timestamp timestamp = 3;         // 时间戳
+  google.protobuf.Any payload = 4;                 // 消息载荷
+  string correlation_id = 5;                       // 关联ID，用于请求响应匹配
+}
+
+// 任务消息
+message TaskMessage {
+  string task_id = 1;                              // 任务ID
+  TaskType task_type = 2;                          // 任务类型
+  string title = 3;                                // 任务标题
+  string description = 4;                          // 任务描述
+  google.protobuf.Any parameters = 5;              // 任务参数
+  google.protobuf.Timestamp created_at = 6;        // 创建时间
+  google.protobuf.Timestamp deadline = 7;          // 截止时间
+  int32 priority = 8;                              // 优先级 (1-10, 10最高)
+  int32 retry_count = 9;                           // 重试次数
+  int32 max_retries = 10;                          // 最大重试次数
+}
+
+// 监控数据消息
+message MetricsMessage {
+  string agent_id = 1;                             // Agent ID
+  MetricsType metrics_type = 2;                    // 监控类型
+  google.protobuf.Timestamp timestamp = 3;        // 时间戳
+  google.protobuf.Any data = 4;                   // 监控数据
+  map<string, string> labels = 5;                 // 标签
+}
+
+// 心跳消息
+message HeartbeatMessage {
+  string agent_id = 1;                             // Agent ID
+  google.protobuf.Timestamp timestamp = 2;        // 时间戳
+  string status = 3;                               // 状态
+  map<string, string> metadata = 4;               // 元数据
+}
+
+// 确认消息
+message AckMessage {
+  string message_id = 1;                           // 原消息ID
+  bool success = 2;                                // 是否成功
+  string error_message = 3;                        // 错误信息
+  google.protobuf.Any result = 4;                 // 结果数据
+}
+
+// 错误消息
+message ErrorMessage {
+  string code = 1;                                 // 错误代码
+  string message = 2;                              // 错误消息
+  string details = 3;                              // 错误详情
+  google.protobuf.Timestamp timestamp = 4;        // 时间戳
+}
+
+// 任务执行结果
+message TaskResult {
+  string task_id = 1;                              // 任务ID
+  TaskStatus status = 2;                           // 任务状态
+  google.protobuf.Timestamp started_at = 3;       // 开始时间
+  google.protobuf.Timestamp completed_at = 4;     // 完成时间
+  string output = 5;                               // 输出信息
+  string error_message = 6;                        // 错误信息
+  google.protobuf.Any result_data = 7;            // 结果数据
+}
+
+// 系统监控数据
+message SystemMetrics {
+  double cpu_usage = 1;                            // CPU使用率 (0-100)
+  double memory_usage = 2;                         // 内存使用率 (0-100)
+  double disk_usage = 3;                           // 磁盘使用率 (0-100)
+  double load_average = 4;                         // 负载平均值
+  int64 uptime = 5;                                // 运行时间(秒)
+  int32 process_count = 6;                         // 进程数量
+  int64 memory_total = 7;                          // 总内存(字节)
+  int64 memory_used = 8;                           // 已用内存(字节)
+  int64 disk_total = 9;                            // 总磁盘(字节)
+  int64 disk_used = 10;                            // 已用磁盘(字节)
+}
+
+// 流量监控数据
+message TrafficMetrics {
+  int64 bytes_in = 1;                              // 入流量(字节)
+  int64 bytes_out = 2;                             // 出流量(字节)
+  int64 packets_in = 3;                            // 入包数
+  int64 packets_out = 4;                           // 出包数
+  int32 connection_count = 5;                      // 连接数
+  double bandwidth_in = 6;                         // 入带宽(bps)
+  double bandwidth_out = 7;                        // 出带宽(bps)
+  google.protobuf.Timestamp period_start = 8;     // 统计周期开始时间
+  google.protobuf.Timestamp period_end = 9;       // 统计周期结束时间
+}
+
+// 连接监控数据
+message ConnectionMetrics {
+  int32 active_connections = 1;                    // 活跃连接数
+  int32 total_connections = 2;                     // 总连接数
+  int32 failed_connections = 3;                    // 失败连接数
+  double average_response_time = 4;                // 平均响应时间(ms)
+  int32 concurrent_users = 5;                      // 并发用户数
+  repeated string top_destinations = 6;            // 热门目标地址
+  map<string, int32> connection_by_protocol = 7;   // 按协议分类的连接数
+}
+
+// 性能监控数据
+message PerformanceMetrics {
+  double response_time = 1;                        // 响应时间(ms)
+  double throughput = 2;                           // 吞吐量(请求/秒)
+  double error_rate = 3;                           // 错误率(0-1)
+  int32 queue_size = 4;                            // 队列大小
+  double memory_usage = 5;                         // 内存使用情况
+  double cpu_usage = 6;                            // CPU使用情况
+  map<string, double> custom_metrics = 7;          // 自定义指标
+}
+
+// 错误监控数据
+message ErrorMetrics {
+  int32 total_errors = 1;                          // 总错误数
+  int32 critical_errors = 2;                       // 严重错误数
+  int32 warning_errors = 3;                        // 警告错误数
+  repeated string error_types = 4;                 // 错误类型
+  map<string, int32> error_count_by_type = 5;      // 按类型统计的错误数
+  google.protobuf.Timestamp last_error_time = 6;   // 最后错误时间
+}
+
+// 任务配置更新参数
+message ConfigUpdateTaskParams {
+  string config_type = 1;                          // 配置类型
+  string config_content = 2;                       // 配置内容
+  bool restart_required = 3;                       // 是否需要重启
+  map<string, string> additional_params = 4;       // 附加参数
+}
+
+// 任务重启参数
+message RestartTaskParams {
+  string service_name = 1;                         // 服务名称
+  bool graceful = 2;                               // 是否优雅重启
+  int32 timeout = 3;                               // 超时时间(秒)
+  map<string, string> additional_params = 4;       // 附加参数
+}
+
+// 任务同步规则参数
+message SyncRulesTaskParams {
+  repeated string rule_ids = 1;                    // 规则ID列表
+  bool full_sync = 2;                              // 是否全量同步
+  map<string, string> additional_params = 3;       // 附加参数
+}
+
+// 任务同步用户参数
+message SyncUsersTaskParams {
+  repeated string user_ids = 1;                    // 用户ID列表
+  bool full_sync = 2;                              // 是否全量同步
+  map<string, string> additional_params = 3;       // 附加参数
+}
+
+// 任务收集监控数据参数
+message CollectMetricsTaskParams {
+  repeated MetricsType metrics_types = 1;          // 监控类型列表
+  int32 interval = 2;                              // 收集间隔(秒)
+  int32 duration = 3;                              // 收集持续时间(秒)
+  map<string, string> additional_params = 4;       // 附加参数
+}
+
+// 任务健康检查参数
+message HealthCheckTaskParams {
+  repeated string check_types = 1;                 // 检查类型列表
+  int32 timeout = 2;                               // 超时时间(秒)
+  map<string, string> additional_params = 3;       // 附加参数
+}

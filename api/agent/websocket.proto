@@ -1,0 +1,291 @@
+syntax = "proto3";
+
+package nspass.api.agent.v1;
+
+option go_package = "github.com/moooyo/nspass-proto/generated/api/agent;agent";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "model/websocket.proto";
+import "model/node.proto";
+
+// Agent WebSocket服务
+service AgentWebSocketService {
+  // 建立WebSocket连接
+  rpc Connect(ConnectRequest) returns (ConnectResponse);
+  
+  // 发送任务给Agent
+  rpc SendTask(SendTaskRequest) returns (SendTaskResponse);
+  
+  // 获取Agent状态
+  rpc GetAgentStatus(GetAgentStatusRequest) returns (GetAgentStatusResponse);
+  
+  // 获取任务列表
+  rpc ListTasks(ListTasksRequest) returns (ListTasksResponse);
+  
+  // 获取任务详情
+  rpc GetTask(GetTaskRequest) returns (GetTaskResponse);
+  
+  // 取消任务
+  rpc CancelTask(CancelTaskRequest) returns (CancelTaskResponse);
+  
+  // 获取监控数据
+  rpc GetMetrics(GetMetricsRequest) returns (GetMetricsResponse);
+  
+  // 获取监控数据历史
+  rpc GetMetricsHistory(GetMetricsHistoryRequest) returns (GetMetricsHistoryResponse);
+}
+
+// 连接请求
+message ConnectRequest {
+  string agent_id = 1;                             // Agent ID
+  string token = 2;                                // 认证Token
+  string version = 3;                              // Agent版本
+  map<string, string> metadata = 4;               // 元数据
+}
+
+// 连接响应
+message ConnectResponse {
+  bool success = 1;                                // 是否成功
+  string session_id = 2;                           // 会话ID
+  string error_message = 3;                        // 错误信息
+  google.protobuf.Timestamp connected_at = 4;     // 连接时间
+  map<string, string> server_info = 5;            // 服务器信息
+}
+
+// 发送任务请求
+message SendTaskRequest {
+  string agent_id = 1;                             // Agent ID
+  nspass.model.v1.TaskMessage task = 2;           // 任务消息
+}
+
+// 发送任务响应
+message SendTaskResponse {
+  bool success = 1;                                // 是否成功
+  string task_id = 2;                              // 任务ID
+  string error_message = 3;                        // 错误信息
+}
+
+// 获取Agent状态请求
+message GetAgentStatusRequest {
+  string agent_id = 1;                             // Agent ID
+}
+
+// 获取Agent状态响应
+message GetAgentStatusResponse {
+  string agent_id = 1;                             // Agent ID
+  nspass.model.v1.NodeStatus status = 2;          // 状态
+  google.protobuf.Timestamp last_heartbeat = 3;   // 最后心跳时间
+  google.protobuf.Timestamp connected_at = 4;     // 连接时间
+  bool is_connected = 5;                           // 是否连接
+  string session_id = 6;                           // 会话ID
+  map<string, string> metadata = 7;               // 元数据
+}
+
+// 获取任务列表请求
+message ListTasksRequest {
+  string agent_id = 1;                             // Agent ID
+  nspass.model.v1.TaskStatus status = 2;          // 任务状态过滤
+  int32 page = 3;                                  // 页码
+  int32 page_size = 4;                             // 每页大小
+  google.protobuf.Timestamp start_time = 5;       // 开始时间
+  google.protobuf.Timestamp end_time = 6;         // 结束时间
+}
+
+// 获取任务列表响应
+message ListTasksResponse {
+  repeated TaskInfo tasks = 1;                     // 任务列表
+  int32 total = 2;                                 // 总数
+  int32 page = 3;                                  // 当前页
+  int32 page_size = 4;                             // 每页大小
+}
+
+// 任务信息
+message TaskInfo {
+  string task_id = 1;                              // 任务ID
+  string agent_id = 2;                             // Agent ID
+  nspass.model.v1.TaskType task_type = 3;         // 任务类型
+  string title = 4;                                // 任务标题
+  string description = 5;                          // 任务描述
+  nspass.model.v1.TaskStatus status = 6;          // 任务状态
+  google.protobuf.Timestamp created_at = 7;       // 创建时间
+  google.protobuf.Timestamp started_at = 8;       // 开始时间
+  google.protobuf.Timestamp completed_at = 9;     // 完成时间
+  google.protobuf.Timestamp deadline = 10;        // 截止时间
+  int32 priority = 11;                             // 优先级
+  int32 retry_count = 12;                          // 重试次数
+  int32 max_retries = 13;                          // 最大重试次数
+  string error_message = 14;                       // 错误信息
+}
+
+// 获取任务详情请求
+message GetTaskRequest {
+  string task_id = 1;                              // 任务ID
+}
+
+// 获取任务详情响应
+message GetTaskResponse {
+  TaskInfo task = 1;                               // 任务信息
+  nspass.model.v1.TaskMessage task_message = 2;   // 任务消息
+  nspass.model.v1.TaskResult result = 3;          // 任务结果
+}
+
+// 取消任务请求
+message CancelTaskRequest {
+  string task_id = 1;                              // 任务ID
+  string reason = 2;                               // 取消原因
+}
+
+// 取消任务响应
+message CancelTaskResponse {
+  bool success = 1;                                // 是否成功
+  string error_message = 2;                        // 错误信息
+}
+
+// 获取监控数据请求
+message GetMetricsRequest {
+  string agent_id = 1;                             // Agent ID
+  nspass.model.v1.MetricsType metrics_type = 2;   // 监控类型
+  google.protobuf.Timestamp start_time = 3;       // 开始时间
+  google.protobuf.Timestamp end_time = 4;         // 结束时间
+}
+
+// 获取监控数据响应
+message GetMetricsResponse {
+  repeated MetricsData metrics = 1;                // 监控数据列表
+}
+
+// 监控数据
+message MetricsData {
+  string agent_id = 1;                             // Agent ID
+  nspass.model.v1.MetricsType metrics_type = 2;   // 监控类型
+  google.protobuf.Timestamp timestamp = 3;        // 时间戳
+  nspass.model.v1.MetricsMessage data = 4;        // 监控数据
+}
+
+// 获取监控数据历史请求
+message GetMetricsHistoryRequest {
+  string agent_id = 1;                             // Agent ID
+  nspass.model.v1.MetricsType metrics_type = 2;   // 监控类型
+  google.protobuf.Timestamp start_time = 3;       // 开始时间
+  google.protobuf.Timestamp end_time = 4;         // 结束时间
+  int32 interval = 5;                              // 采样间隔(秒)
+  int32 page = 6;                                  // 页码
+  int32 page_size = 7;                             // 每页大小
+}
+
+// 获取监控数据历史响应
+message GetMetricsHistoryResponse {
+  repeated MetricsData metrics = 1;                // 监控数据列表
+  int32 total = 2;                                 // 总数
+  int32 page = 3;                                  // 当前页
+  int32 page_size = 4;                             // 每页大小
+}
+
+// Agent管理服务
+service AgentManagementService {
+  // 获取所有Agent列表
+  rpc ListAgents(ListAgentsRequest) returns (ListAgentsResponse);
+  
+  // 获取Agent详情
+  rpc GetAgent(GetAgentRequest) returns (GetAgentResponse);
+  
+  // 强制断开Agent连接
+  rpc DisconnectAgent(DisconnectAgentRequest) returns (DisconnectAgentResponse);
+  
+  // 批量发送任务
+  rpc BroadcastTask(BroadcastTaskRequest) returns (BroadcastTaskResponse);
+  
+  // 获取Agent统计信息
+  rpc GetAgentStats(GetAgentStatsRequest) returns (GetAgentStatsResponse);
+}
+
+// 获取Agent列表请求
+message ListAgentsRequest {
+  nspass.model.v1.NodeStatus status = 1;          // 状态过滤
+  int32 page = 2;                                  // 页码
+  int32 page_size = 3;                             // 每页大小
+  string keyword = 4;                              // 关键词搜索
+}
+
+// 获取Agent列表响应
+message ListAgentsResponse {
+  repeated AgentInfo agents = 1;                   // Agent列表
+  int32 total = 2;                                 // 总数
+  int32 page = 3;                                  // 当前页
+  int32 page_size = 4;                             // 每页大小
+}
+
+// Agent信息
+message AgentInfo {
+  string agent_id = 1;                             // Agent ID
+  string name = 2;                                 // Agent名称
+  nspass.model.v1.NodeStatus status = 3;          // 状态
+  string version = 4;                              // 版本
+  google.protobuf.Timestamp last_heartbeat = 5;   // 最后心跳时间
+  google.protobuf.Timestamp connected_at = 6;     // 连接时间
+  bool is_connected = 7;                           // 是否连接
+  string session_id = 8;                           // 会话ID
+  map<string, string> metadata = 9;               // 元数据
+  int32 active_tasks = 10;                         // 活跃任务数
+  int32 total_tasks = 11;                          // 总任务数
+  int32 failed_tasks = 12;                         // 失败任务数
+}
+
+// 获取Agent详情请求
+message GetAgentRequest {
+  string agent_id = 1;                             // Agent ID
+}
+
+// 获取Agent详情响应
+message GetAgentResponse {
+  AgentInfo agent = 1;                             // Agent信息
+  repeated TaskInfo recent_tasks = 2;              // 最近任务
+  MetricsData latest_metrics = 3;                  // 最新监控数据
+}
+
+// 强制断开Agent连接请求
+message DisconnectAgentRequest {
+  string agent_id = 1;                             // Agent ID
+  string reason = 2;                               // 断开原因
+}
+
+// 强制断开Agent连接响应
+message DisconnectAgentResponse {
+  bool success = 1;                                // 是否成功
+  string error_message = 2;                        // 错误信息
+}
+
+// 批量发送任务请求
+message BroadcastTaskRequest {
+  repeated string agent_ids = 1;                   // Agent ID列表
+  nspass.model.v1.TaskMessage task = 2;           // 任务消息
+}
+
+// 批量发送任务响应
+message BroadcastTaskResponse {
+  int32 success_count = 1;                         // 成功数量
+  int32 failed_count = 2;                          // 失败数量
+  repeated string failed_agent_ids = 3;            // 失败的Agent ID列表
+  repeated string error_messages = 4;              // 错误信息列表
+}
+
+// 获取Agent统计信息请求
+message GetAgentStatsRequest {
+  google.protobuf.Timestamp start_time = 1;       // 开始时间
+  google.protobuf.Timestamp end_time = 2;         // 结束时间
+}
+
+// 获取Agent统计信息响应
+message GetAgentStatsResponse {
+  int32 total_agents = 1;                          // 总Agent数
+  int32 online_agents = 2;                         // 在线Agent数
+  int32 offline_agents = 3;                        // 离线Agent数
+  int32 total_tasks = 4;                           // 总任务数
+  int32 completed_tasks = 5;                       // 已完成任务数
+  int32 failed_tasks = 6;                          // 失败任务数
+  int32 pending_tasks = 7;                         // 待处理任务数
+  double average_response_time = 8;                // 平均响应时间
+  map<string, int32> tasks_by_type = 9;            // 按类型统计的任务数
+  map<string, int32> agents_by_status = 10;        // 按状态统计的Agent数
+}
