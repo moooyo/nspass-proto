@@ -198,35 +198,35 @@ service IptablesConfigService {
   // 获取服务器iptables配置列表
   rpc GetServerIptablesConfigs(GetServerIptablesConfigsRequest) returns (GetServerIptablesConfigsResponse) {
     option (google.api.http) = {
-      get: "/api/v1/servers/{server_id}/iptables/configs"
+      get: "/v1/servers/{server_id}/iptables/configs"
     };
   }
 
   // 获取服务器iptables概览
   rpc GetServerIptablesOverview(GetServerIptablesOverviewRequest) returns (GetServerIptablesOverviewResponse) {
     option (google.api.http) = {
-      get: "/api/v1/servers/{server_id}/iptables/overview"
+      get: "/v1/servers/{server_id}/iptables/overview"
     };
   }
 
   // 获取服务器iptables生成的规则
   rpc GetServerIptablesRules(GetServerIptablesRulesRequest) returns (GetServerIptablesRulesResponse) {
     option (google.api.http) = {
-      get: "/api/v1/servers/{server_id}/iptables/rules"
+      get: "/v1/servers/{server_id}/iptables/rules"
     };
   }
 
   // 获取服务器iptables脚本
   rpc GetServerIptablesScript(GetServerIptablesScriptRequest) returns (GetServerIptablesScriptResponse) {
     option (google.api.http) = {
-      get: "/api/v1/servers/{server_id}/iptables/script"
+      get: "/v1/servers/{server_id}/iptables/script"
     };
   }
 
   // 获取单个iptables配置
   rpc GetIptablesConfig(GetIptablesConfigRequest) returns (GetIptablesConfigResponse) {
     option (google.api.http) = {
-      get: "/api/v1/servers/{server_id}/iptables/configs/{config_name}"
+      get: "/v1/servers/{server_id}/iptables/configs/{config_name}"
     };
   }
 
@@ -235,7 +235,7 @@ service IptablesConfigService {
   // 重建服务器iptables配置
   rpc RebuildServerIptables(RebuildServerIptablesRequest) returns (RebuildServerIptablesResponse) {
     option (google.api.http) = {
-      post: "/api/v1/servers/{server_id}/iptables/rebuild"
+      post: "/v1/servers/{server_id}/iptables/rebuild"
       body: "*"
     };
   }
@@ -243,14 +243,14 @@ service IptablesConfigService {
   // 获取重建任务状态
   rpc GetRebuildTaskStatus(GetRebuildTaskStatusRequest) returns (GetRebuildTaskStatusResponse) {
     option (google.api.http) = {
-      get: "/api/v1/iptables/rebuild-tasks/{task_id}"
+      get: "/v1/iptables/rebuild-tasks/{task_id}"
     };
   }
 
   // 批量重建多个服务器iptables配置
   rpc BatchRebuildServersIptables(BatchRebuildServersIptablesRequest) returns (BatchRebuildServersIptablesResponse) {
     option (google.api.http) = {
-      post: "/api/v1/iptables/batch-rebuild"
+      post: "/v1/iptables/batch-rebuild"
       body: "*"
     };
   }
@@ -258,7 +258,7 @@ service IptablesConfigService {
   // 验证服务器iptables配置
   rpc ValidateServerIptables(ValidateServerIptablesRequest) returns (ValidateServerIptablesResponse) {
     option (google.api.http) = {
-      post: "/api/v1/servers/{server_id}/iptables/validate"
+      post: "/v1/servers/{server_id}/iptables/validate"
       body: "*"
     };
   }
@@ -266,7 +266,7 @@ service IptablesConfigService {
   // 清理服务器iptables配置
   rpc CleanupServerIptables(CleanupServerIptablesRequest) returns (CleanupServerIptablesResponse) {
     option (google.api.http) = {
-      post: "/api/v1/servers/{server_id}/iptables/cleanup"
+      post: "/v1/servers/{server_id}/iptables/cleanup"
       body: "*"
     };
   }

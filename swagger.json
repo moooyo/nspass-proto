@@ -2305,7 +2305,7 @@
         ]
       }
     },
-    "/api/v1/iptables/batch-rebuild": {
+    "/v1/iptables/batch-rebuild": {
       "post": {
         "summary": "批量重建多个服务器iptables配置",
         "operationId": "IptablesConfigService_BatchRebuildServersIptables",
@@ -2338,7 +2338,7 @@
         ]
       }
     },
-    "/api/v1/iptables/rebuild-tasks/{taskId}": {
+    "/v1/iptables/rebuild-tasks/{taskId}": {
       "get": {
         "summary": "获取重建任务状态",
         "operationId": "IptablesConfigService_GetRebuildTaskStatus",
@@ -2370,7 +2370,7 @@
         ]
       }
     },
-    "/api/v1/servers/{serverId}/iptables/cleanup": {
+    "/v1/servers/{serverId}/iptables/cleanup": {
       "post": {
         "summary": "清理服务器iptables配置",
         "operationId": "IptablesConfigService_CleanupServerIptables",
@@ -2410,7 +2410,7 @@
         ]
       }
     },
-    "/api/v1/servers/{serverId}/iptables/configs": {
+    "/v1/servers/{serverId}/iptables/configs": {
       "get": {
         "summary": "获取服务器iptables配置列表",
         "operationId": "IptablesConfigService_GetServerIptablesConfigs",
@@ -2511,7 +2511,7 @@
         ]
       }
     },
-    "/api/v1/servers/{serverId}/iptables/configs/{configName}": {
+    "/v1/servers/{serverId}/iptables/configs/{configName}": {
       "get": {
         "summary": "获取单个iptables配置",
         "operationId": "IptablesConfigService_GetIptablesConfig",
@@ -2550,7 +2550,7 @@
         ]
       }
     },
-    "/api/v1/servers/{serverId}/iptables/overview": {
+    "/v1/servers/{serverId}/iptables/overview": {
       "get": {
         "summary": "获取服务器iptables概览",
         "operationId": "IptablesConfigService_GetServerIptablesOverview",
@@ -2582,10 +2582,10 @@
         ]
       }
     },
-    "/api/v1/servers/{serverId}/iptables/rebuild": {
+    "/v1/servers/{serverId}/iptables/rebuild": {
       "post": {
-        "summary": "重建服务器iptables配置（后端管理接口）",
-        "operationId": "ForwardPathRuleService_RebuildServerIptables",
+        "summary": "重建服务器iptables配置",
+        "operationId": "IptablesConfigService_RebuildServerIptables",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -2613,16 +2613,16 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ForwardPathRuleServiceRebuildServerIptablesBody"
+              "$ref": "#/definitions/IptablesConfigServiceRebuildServerIptablesBody"
             }
           }
         ],
         "tags": [
-          "ForwardPathRuleService"
+          "IptablesConfigService"
         ]
       }
     },
-    "/api/v1/servers/{serverId}/iptables/rules": {
+    "/v1/servers/{serverId}/iptables/rules": {
       "get": {
         "summary": "获取服务器iptables生成的规则",
         "operationId": "IptablesConfigService_GetServerIptablesRules",
@@ -2661,7 +2661,7 @@
         ]
       }
     },
-    "/api/v1/servers/{serverId}/iptables/script": {
+    "/v1/servers/{serverId}/iptables/script": {
       "get": {
         "summary": "获取服务器iptables脚本",
         "operationId": "IptablesConfigService_GetServerIptablesScript",
@@ -2707,7 +2707,7 @@
         ]
       }
     },
-    "/api/v1/servers/{serverId}/iptables/validate": {
+    "/v1/servers/{serverId}/iptables/validate": {
       "post": {
         "summary": "验证服务器iptables配置",
         "operationId": "IptablesConfigService_ValidateServerIptables",
@@ -4424,6 +4424,46 @@
             "in": "path",
             "required": true,
             "type": "string"
+          }
+        ],
+        "tags": [
+          "ForwardPathRuleService"
+        ]
+      }
+    },
+    "/api/v1/servers/{serverId}/iptables/rebuild": {
+      "post": {
+        "summary": "重建服务器iptables配置（后端管理接口）",
+        "operationId": "ForwardPathRuleService_RebuildServerIptables",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RebuildServerIptablesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverId",
+            "description": "服务器ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ForwardPathRuleServiceRebuildServerIptablesBody"
+            }
           }
         ],
         "tags": [
