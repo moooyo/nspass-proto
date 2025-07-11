@@ -23,8 +23,8 @@ message GetServerIptablesConfigsRequest {
 
 // 获取服务器iptables配置列表响应
 message GetServerIptablesConfigsResponse {
-  nspass.common.v1.ApiResponse response = 1;
-  repeated nspass.model.v1.IptablesConfig configs = 2;
+  nspass.common.v1.ApiResponse status = 1;
+  repeated nspass.model.v1.IptablesConfig data = 2;
   nspass.common.v1.PaginationResponse pagination = 3;
 }
 
@@ -35,8 +35,8 @@ message GetServerIptablesOverviewRequest {
 
 // 获取服务器iptables概览响应
 message GetServerIptablesOverviewResponse {
-  nspass.common.v1.ApiResponse response = 1;
-  nspass.model.v1.IptablesServerConfig overview = 2;
+  nspass.common.v1.ApiResponse status = 1;
+  nspass.model.v1.IptablesServerConfig data = 2;
 }
 
 // 获取服务器iptables生成的规则请求
@@ -47,8 +47,8 @@ message GetServerIptablesRulesRequest {
 
 // 获取服务器iptables生成的规则响应
 message GetServerIptablesRulesResponse {
-  nspass.common.v1.ApiResponse response = 1;
-  repeated nspass.model.v1.IptablesGeneratedRule rules = 2;
+  nspass.common.v1.ApiResponse status = 1;
+  repeated nspass.model.v1.IptablesGeneratedRule data = 2;
   int32 total_rules = 3;                        // 总规则数
   int32 valid_rules = 4;                        // 有效规则数
   int32 invalid_rules = 5;                      // 无效规则数
@@ -63,8 +63,8 @@ message GetServerIptablesScriptRequest {
 
 // 获取服务器iptables脚本响应
 message GetServerIptablesScriptResponse {
-  nspass.common.v1.ApiResponse response = 1;
-  nspass.model.v1.IptablesScript script = 2;
+  nspass.common.v1.ApiResponse status = 1;
+  nspass.model.v1.IptablesScript data = 2;
 }
 
 // 获取单个iptables配置请求
@@ -75,8 +75,8 @@ message GetIptablesConfigRequest {
 
 // 获取单个iptables配置响应
 message GetIptablesConfigResponse {
-  nspass.common.v1.ApiResponse response = 1;
-  nspass.model.v1.IptablesConfig config = 2;
+  nspass.common.v1.ApiResponse status = 1;
+  nspass.model.v1.IptablesConfig data = 2;
 }
 
 // ========================= 后端重建接口 =========================
@@ -92,8 +92,8 @@ message RebuildServerIptablesRequest {
 
 // 重建服务器iptables配置响应
 message RebuildServerIptablesResponse {
-  nspass.common.v1.ApiResponse response = 1;
-  nspass.model.v1.IptablesRebuildTask task = 2;
+  nspass.common.v1.ApiResponse status = 1;
+  nspass.model.v1.IptablesRebuildTask data = 2;
 }
 
 // 获取重建任务状态请求
@@ -103,8 +103,8 @@ message GetRebuildTaskStatusRequest {
 
 // 获取重建任务状态响应
 message GetRebuildTaskStatusResponse {
-  nspass.common.v1.ApiResponse response = 1;
-  nspass.model.v1.IptablesRebuildTask task = 2;
+  nspass.common.v1.ApiResponse status = 1;
+  nspass.model.v1.IptablesRebuildTask data = 2;
 }
 
 // 批量重建多个服务器iptables配置请求
@@ -116,8 +116,8 @@ message BatchRebuildServersIptablesRequest {
 
 // 批量重建多个服务器iptables配置响应
 message BatchRebuildServersIptablesResponse {
-  nspass.common.v1.ApiResponse response = 1;
-  repeated nspass.model.v1.IptablesRebuildTask tasks = 2;
+  nspass.common.v1.ApiResponse status = 1;
+  repeated nspass.model.v1.IptablesRebuildTask data = 2;
 }
 
 // 验证服务器iptables配置请求
@@ -128,7 +128,7 @@ message ValidateServerIptablesRequest {
 
 // 验证服务器iptables配置响应
 message ValidateServerIptablesResponse {
-  nspass.common.v1.ApiResponse response = 1;
+  nspass.common.v1.ApiResponse status = 1;
   bool is_valid = 2;                            // 是否有效
   repeated string validation_errors = 3;        // 验证错误
   repeated string validation_warnings = 4;      // 验证警告
@@ -147,7 +147,7 @@ message CleanupServerIptablesRequest {
 
 // 清理服务器iptables配置响应
 message CleanupServerIptablesResponse {
-  nspass.common.v1.ApiResponse response = 1;
+  nspass.common.v1.ApiResponse status = 1;
   int32 removed_configs = 2;                    // 移除的配置数
   repeated string removed_config_names = 3;     // 移除的配置名称
 }
@@ -161,8 +161,8 @@ message GetForwardPathRuleIptablesRequest {
 
 // 获取转发路径规则iptables配置响应
 message GetForwardPathRuleIptablesResponse {
-  nspass.common.v1.ApiResponse response = 1;
-  repeated nspass.model.v1.IptablesConfigInfo configs = 2;
+  nspass.common.v1.ApiResponse status = 1;
+  repeated nspass.model.v1.IptablesConfigInfo data = 2;
 }
 
 // 重建转发路径规则iptables配置请求
@@ -174,8 +174,8 @@ message RebuildForwardPathRuleIptablesRequest {
 
 // 重建转发路径规则iptables配置响应
 message RebuildForwardPathRuleIptablesResponse {
-  nspass.common.v1.ApiResponse response = 1;
-  nspass.model.v1.IptablesRebuildTask task = 2;
+  nspass.common.v1.ApiResponse status = 1;
+  nspass.model.v1.IptablesRebuildTask data = 2;
 }
 
 // 获取服务器iptables配置请求（简化版，用于转发路径规则接口）
@@ -185,8 +185,8 @@ message GetServerIptablesConfigRequest {
 
 // 获取服务器iptables配置响应（简化版，用于转发路径规则接口）
 message GetServerIptablesConfigResponse {
-  nspass.common.v1.ApiResponse response = 1;
-  repeated nspass.model.v1.IptablesConfigInfo configs = 2;
+  nspass.common.v1.ApiResponse status = 1;
+  repeated nspass.model.v1.IptablesConfigInfo data = 2;
 }
 
 // ========================= 服务定义 =========================
