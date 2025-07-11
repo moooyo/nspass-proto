@@ -7796,10 +7796,10 @@
     "v1BatchRebuildServersIptablesResponse": {
       "type": "object",
       "properties": {
-        "response": {
+        "status": {
           "$ref": "#/definitions/v1ApiResponse"
         },
-        "tasks": {
+        "data": {
           "type": "array",
           "items": {
             "type": "object",
@@ -7812,7 +7812,7 @@
     "v1CleanupServerIptablesResponse": {
       "type": "object",
       "properties": {
-        "response": {
+        "status": {
           "$ref": "#/definitions/v1ApiResponse"
         },
         "removedConfigs": {
@@ -7833,10 +7833,10 @@
     "v1GetIptablesConfigResponse": {
       "type": "object",
       "properties": {
-        "response": {
+        "status": {
           "$ref": "#/definitions/v1ApiResponse"
         },
-        "config": {
+        "data": {
           "$ref": "#/definitions/v1IptablesConfig"
         }
       },
@@ -7845,10 +7845,10 @@
     "v1GetRebuildTaskStatusResponse": {
       "type": "object",
       "properties": {
-        "response": {
+        "status": {
           "$ref": "#/definitions/v1ApiResponse"
         },
-        "task": {
+        "data": {
           "$ref": "#/definitions/v1IptablesRebuildTask"
         }
       },
@@ -7857,10 +7857,10 @@
     "v1GetServerIptablesConfigsResponse": {
       "type": "object",
       "properties": {
-        "response": {
+        "status": {
           "$ref": "#/definitions/v1ApiResponse"
         },
-        "configs": {
+        "data": {
           "type": "array",
           "items": {
             "type": "object",
@@ -7876,10 +7876,10 @@
     "v1GetServerIptablesOverviewResponse": {
       "type": "object",
       "properties": {
-        "response": {
+        "status": {
           "$ref": "#/definitions/v1ApiResponse"
         },
-        "overview": {
+        "data": {
           "$ref": "#/definitions/v1IptablesServerConfig"
         }
       },
@@ -7888,10 +7888,10 @@
     "v1GetServerIptablesRulesResponse": {
       "type": "object",
       "properties": {
-        "response": {
+        "status": {
           "$ref": "#/definitions/v1ApiResponse"
         },
-        "rules": {
+        "data": {
           "type": "array",
           "items": {
             "type": "object",
@@ -7919,10 +7919,10 @@
     "v1GetServerIptablesScriptResponse": {
       "type": "object",
       "properties": {
-        "response": {
+        "status": {
           "$ref": "#/definitions/v1ApiResponse"
         },
-        "script": {
+        "data": {
           "$ref": "#/definitions/v1IptablesScript"
         }
       },
@@ -8205,10 +8205,10 @@
     "v1RebuildServerIptablesResponse": {
       "type": "object",
       "properties": {
-        "response": {
+        "status": {
           "$ref": "#/definitions/v1ApiResponse"
         },
-        "task": {
+        "data": {
           "$ref": "#/definitions/v1IptablesRebuildTask"
         }
       },
@@ -8217,7 +8217,7 @@
     "v1ValidateServerIptablesResponse": {
       "type": "object",
       "properties": {
-        "response": {
+        "status": {
           "$ref": "#/definitions/v1ApiResponse"
         },
         "isValid": {
@@ -9749,10 +9749,10 @@
     "v1GetForwardPathRuleIptablesResponse": {
       "type": "object",
       "properties": {
-        "response": {
+        "status": {
           "$ref": "#/definitions/v1ApiResponse"
         },
-        "configs": {
+        "data": {
           "type": "array",
           "items": {
             "type": "object",
@@ -9823,10 +9823,10 @@
     "v1GetServerIptablesConfigResponse": {
       "type": "object",
       "properties": {
-        "response": {
+        "status": {
           "$ref": "#/definitions/v1ApiResponse"
         },
-        "configs": {
+        "data": {
           "type": "array",
           "items": {
             "type": "object",
@@ -9916,10 +9916,10 @@
     "v1RebuildForwardPathRuleIptablesResponse": {
       "type": "object",
       "properties": {
-        "response": {
+        "status": {
           "$ref": "#/definitions/v1ApiResponse"
         },
-        "task": {
+        "data": {
           "$ref": "#/definitions/v1IptablesRebuildTask"
         }
       },
