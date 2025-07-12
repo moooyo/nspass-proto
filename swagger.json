@@ -8483,6 +8483,11 @@
         },
         "supportUdp": {
           "type": "boolean"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "title": "shadowsocks端口"
         }
       },
       "title": "更新出口请求"
@@ -8530,6 +8535,11 @@
         },
         "supportUdp": {
           "type": "boolean"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "title": "shadowsocks端口，默认从20000到50000之间随机生成"
         }
       },
       "title": "创建出口请求"
@@ -8591,6 +8601,11 @@
         },
         "supportUdp": {
           "type": "boolean"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "title": "shadowsocks端口"
         }
       },
       "title": "出口项目消息"
