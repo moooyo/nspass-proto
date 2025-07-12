@@ -122,14 +122,14 @@ service ForwardPathRuleService {
   // 获取转发路径规则列表
   rpc GetForwardPathRules(GetForwardPathRulesRequest) returns (GetForwardPathRulesResponse) {
     option (google.api.http) = {
-      get: "/api/v1/forward-path-rules"
+      get: "/v1/forward-path-rules"
     };
   }
 
   // 创建转发路径规则
   rpc CreateForwardPathRule(CreateForwardPathRuleRequest) returns (CreateForwardPathRuleResponse) {
     option (google.api.http) = {
-      post: "/api/v1/forward-path-rules"
+      post: "/v1/forward-path-rules"
       body: "*"
     };
   }
@@ -137,14 +137,14 @@ service ForwardPathRuleService {
   // 获取单个转发路径规则
   rpc GetForwardPathRule(GetForwardPathRuleRequest) returns (GetForwardPathRuleResponse) {
     option (google.api.http) = {
-      get: "/api/v1/forward-path-rules/{id}"
+      get: "/v1/forward-path-rules/{id}"
     };
   }
 
   // 更新转发路径规则
   rpc UpdateForwardPathRule(UpdateForwardPathRuleRequest) returns (UpdateForwardPathRuleResponse) {
     option (google.api.http) = {
-      put: "/api/v1/forward-path-rules/{id}"
+      put: "/v1/forward-path-rules/{id}"
       body: "*"
     };
   }
@@ -152,14 +152,14 @@ service ForwardPathRuleService {
   // 删除转发路径规则
   rpc DeleteForwardPathRule(DeleteForwardPathRuleRequest) returns (DeleteForwardPathRuleResponse) {
     option (google.api.http) = {
-      delete: "/api/v1/forward-path-rules/{id}"
+      delete: "/v1/forward-path-rules/{id}"
     };
   }
 
   // 启用转发路径规则
   rpc EnableForwardPathRule(EnableForwardPathRuleRequest) returns (EnableForwardPathRuleResponse) {
     option (google.api.http) = {
-      post: "/api/v1/forward-path-rules/{id}/enable"
+      post: "/v1/forward-path-rules/{id}/enable"
       body: "*"
     };
   }
@@ -167,7 +167,7 @@ service ForwardPathRuleService {
   // 禁用转发路径规则
   rpc DisableForwardPathRule(DisableForwardPathRuleRequest) returns (DisableForwardPathRuleResponse) {
     option (google.api.http) = {
-      post: "/api/v1/forward-path-rules/{id}/disable"
+      post: "/v1/forward-path-rules/{id}/disable"
       body: "*"
     };
   }
@@ -175,7 +175,7 @@ service ForwardPathRuleService {
   // 获取转发路径规则流量统计
   rpc GetForwardPathRuleTraffic(GetForwardPathRuleTrafficRequest) returns (GetForwardPathRuleTrafficResponse) {
     option (google.api.http) = {
-      get: "/api/v1/forward-path-rules/{id}/traffic"
+      get: "/v1/forward-path-rules/{id}/traffic"
     };
   }
 
@@ -184,14 +184,14 @@ service ForwardPathRuleService {
   // 获取转发路径规则相关的iptables配置（只读）
   rpc GetForwardPathRuleIptables(nspass.api.iptables.v1.GetForwardPathRuleIptablesRequest) returns (nspass.api.iptables.v1.GetForwardPathRuleIptablesResponse) {
     option (google.api.http) = {
-      get: "/api/v1/forward-path-rules/{rule_id}/iptables"
+      get: "/v1/forward-path-rules/{rule_id}/iptables"
     };
   }
 
   // 重建转发路径规则iptables配置
   rpc RebuildForwardPathRuleIptables(nspass.api.iptables.v1.RebuildForwardPathRuleIptablesRequest) returns (nspass.api.iptables.v1.RebuildForwardPathRuleIptablesResponse) {
     option (google.api.http) = {
-      post: "/api/v1/forward-path-rules/{rule_id}/iptables/rebuild"
+      post: "/v1/forward-path-rules/{rule_id}/iptables/rebuild"
       body: "*"
     };
   }
@@ -199,14 +199,14 @@ service ForwardPathRuleService {
   // 获取服务器iptables配置（只读，用于前端查询）
   rpc GetServerIptablesConfig(nspass.api.iptables.v1.GetServerIptablesConfigRequest) returns (nspass.api.iptables.v1.GetServerIptablesConfigResponse) {
     option (google.api.http) = {
-      get: "/api/v1/servers/{server_id}/iptables"
+      get: "/v1/servers/{server_id}/iptables"
     };
   }
 
   // 重建服务器iptables配置（后端管理接口）
   rpc RebuildServerIptables(nspass.api.iptables.v1.RebuildServerIptablesRequest) returns (nspass.api.iptables.v1.RebuildServerIptablesResponse) {
     option (google.api.http) = {
-      post: "/api/v1/servers/{server_id}/iptables/rebuild"
+      post: "/v1/servers/{server_id}/iptables/rebuild"
       body: "*"
     };
   }
