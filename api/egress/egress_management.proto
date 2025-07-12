@@ -26,6 +26,7 @@ message CreateEgressRequest {
   // shadowsocks-2022模式字段
   optional string password = 8;
   optional bool supportUdp = 9;
+  optional int32 port = 10;  // shadowsocks端口，默认从20000到50000之间随机生成
 }
 
 // 更新出口请求
@@ -40,6 +41,7 @@ message UpdateEgressRequest {
   optional string destPort = 8;
   optional string password = 9;
   optional bool supportUdp = 10;
+  optional int32 port = 11;  // shadowsocks端口
 }
 
 // 获取出口详情请求
