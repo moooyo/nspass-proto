@@ -37,8 +37,8 @@ message ForwardPathRule {
   ForwardPathRuleType type = 4;            // 转发类型
   ForwardPathRuleStatus status = 5;        // 状态
   repeated ForwardPathNode path = 6;       // 转发路径节点列表
-  string egress_server_id = 7;             // 出口服务器ID
-  string egress_server_name = 8;           // 出口服务器名称（用于显示）
+  string egress_id = 7;                   // 出口ID
+  string egress_name = 8;                  // 出口名称（用于显示）
   int64 traffic_up = 9;                    // 上行流量（字节）
   int64 traffic_down = 10;                 // 下行流量（字节）
   int64 created_at = 11;                   // 创建时间（Unix时间戳）
@@ -50,7 +50,7 @@ message ForwardPathRuleCreateRequest {
   string name = 1;                         // 规则名称
   ForwardPathRuleType type = 2;            // 转发类型
   repeated string path_server_ids = 3;     // 路径服务器ID列表
-  string egress_server_id = 4;             // 出口服务器ID (端口从出口服务器配置中获取)
+  string egress_id = 4;                   // 出口ID
 }
 
 // 转发路径规则更新请求
@@ -60,7 +60,7 @@ message ForwardPathRuleUpdateRequest {
   optional ForwardPathRuleType type = 3;   // 转发类型
   optional ForwardPathRuleStatus status = 4; // 状态
   repeated string path_server_ids = 5;     // 路径服务器ID列表
-  optional string egress_server_id = 6;    // 出口服务器ID (端口从出口服务器配置中获取)
+  optional string egress_id = 6;          // 出口ID
 }
 
 // iptables规则配置

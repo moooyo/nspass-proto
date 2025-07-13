@@ -30,7 +30,7 @@ message CreateForwardPathRuleRequest {
   string name = 1;                         // 规则名称
   nspass.model.v1.ForwardPathRuleType type = 2; // 转发类型
   repeated string path_server_ids = 3;     // 路径服务器ID列表
-  string egress_server_id = 4;             // 出口服务器ID (端口从出口服务器配置中获取)
+  string egress_id = 4;                   // 出口ID
 }
 
 // 创建转发路径规则响应
@@ -57,7 +57,7 @@ message UpdateForwardPathRuleRequest {
   optional nspass.model.v1.ForwardPathRuleType type = 3; // 转发类型
   optional nspass.model.v1.ForwardPathRuleStatus status = 4; // 状态
   repeated string path_server_ids = 5;     // 路径服务器ID列表
-  optional string egress_server_id = 6;    // 出口服务器ID (端口从出口服务器配置中获取)
+  optional string egress_id = 6;          // 出口ID
 }
 
 // 更新转发路径规则响应
