@@ -3045,7 +3045,8 @@
             "format": "int32"
           },
           {
-            "name": "egressId",
+            "name": "egressName",
+            "description": "改为egressName用于查询",
             "in": "query",
             "required": false,
             "type": "string"
@@ -6254,6 +6255,10 @@
         },
         "type": {
           "$ref": "#/definitions/v1ForwardRuleType"
+        },
+        "egressId": {
+          "type": "string",
+          "title": "出口ID - 传入出口规则的ID"
         }
       },
       "title": "更新规则请求"
@@ -6315,6 +6320,10 @@
         },
         "type": {
           "$ref": "#/definitions/v1ForwardRuleType"
+        },
+        "egressId": {
+          "type": "string",
+          "title": "出口ID - 传入出口规则的ID"
         }
       },
       "title": "创建规则请求"
@@ -6407,6 +6416,14 @@
           "type": "number",
           "format": "double",
           "title": "MB"
+        },
+        "egressId": {
+          "type": "string",
+          "title": "出口ID"
+        },
+        "egressName": {
+          "type": "string",
+          "title": "出口名称 - 用于显示"
         }
       },
       "title": "转发规则信息"
@@ -8457,8 +8474,9 @@
     "EgressManagementServiceUpdateEgressBody": {
       "type": "object",
       "properties": {
-        "egressId": {
-          "type": "string"
+        "egressName": {
+          "type": "string",
+          "title": "改为egressName用于显示"
         },
         "serverId": {
           "type": "string"
@@ -8506,8 +8524,9 @@
     "v1CreateEgressRequest": {
       "type": "object",
       "properties": {
-        "egressId": {
-          "type": "string"
+        "egressName": {
+          "type": "string",
+          "title": "改为egressName用于显示"
         },
         "serverId": {
           "type": "string"
@@ -8569,8 +8588,9 @@
         "id": {
           "type": "string"
         },
-        "egressId": {
-          "type": "string"
+        "egressName": {
+          "type": "string",
+          "title": "改为egressName用于显示"
         },
         "serverId": {
           "type": "string"
