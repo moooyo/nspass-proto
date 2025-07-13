@@ -9539,9 +9539,9 @@
           },
           "title": "路径服务器ID列表"
         },
-        "egressServerId": {
+        "egressId": {
           "type": "string",
-          "title": "出口服务器ID (端口从出口服务器配置中获取)"
+          "title": "出口ID"
         }
       },
       "title": "更新转发路径规则请求"
@@ -9564,9 +9564,9 @@
           },
           "title": "路径服务器ID列表"
         },
-        "egressServerId": {
+        "egressId": {
           "type": "string",
-          "title": "出口服务器ID (端口从出口服务器配置中获取)"
+          "title": "出口ID"
         }
       },
       "title": "创建转发路径规则请求"
@@ -9666,13 +9666,13 @@
           },
           "title": "转发路径节点列表"
         },
-        "egressServerId": {
+        "egressId": {
           "type": "string",
-          "title": "出口服务器ID"
+          "title": "出口ID"
         },
-        "egressServerName": {
+        "egressName": {
           "type": "string",
-          "title": "出口服务器名称（用于显示）"
+          "title": "出口名称（用于显示）"
         },
         "trafficUp": {
           "type": "string",
