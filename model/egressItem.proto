@@ -9,7 +9,7 @@ option go_package = "github.com/moooyo/nspass-proto/generated/model;model";
 // 出口项目消息
 message EgressItem {
   string id = 1;
-  string egressId = 2;
+  string egressName = 2;  // 改为egressName用于显示
   string serverId = 3;
   EgressMode egressMode = 4;
   string egressConfig = 5;

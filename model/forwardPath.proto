@@ -51,6 +51,7 @@ message ForwardPathRuleCreateRequest {
   ForwardPathRuleType type = 2;            // 转发类型
   repeated string path_server_ids = 3;     // 路径服务器ID列表
   string egress_id = 4;                   // 出口ID
+  // 注意：egress_name 应该由后端根据 egress_id 自动填充，不需要前端传入
 }
 
 // 转发路径规则更新请求
@@ -61,6 +62,7 @@ message ForwardPathRuleUpdateRequest {
   optional ForwardPathRuleStatus status = 4; // 状态
   repeated string path_server_ids = 5;     // 路径服务器ID列表
   optional string egress_id = 6;          // 出口ID
+  // 注意：egress_name 应该由后端根据 egress_id 自动填充，不需要前端传入
 }
 
 // iptables规则配置

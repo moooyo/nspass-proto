@@ -31,6 +31,7 @@ message CreateForwardPathRuleRequest {
   nspass.model.v1.ForwardPathRuleType type = 2; // 转发类型
   repeated string path_server_ids = 3;     // 路径服务器ID列表
   string egress_id = 4;                   // 出口ID
+  // 注意：egress_name 由后端根据 egress_id 自动填充
 }
 
 // 创建转发路径规则响应
@@ -58,6 +59,7 @@ message UpdateForwardPathRuleRequest {
   optional nspass.model.v1.ForwardPathRuleStatus status = 4; // 状态
   repeated string path_server_ids = 5;     // 路径服务器ID列表
   optional string egress_id = 6;          // 出口ID
+  // 注意：egress_name 由后端根据 egress_id 自动填充
 }
 
 // 更新转发路径规则响应

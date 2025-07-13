@@ -11,7 +11,7 @@ import "model/egressItem.proto";
 
 // 创建出口请求
 message CreateEgressRequest {
-  optional string egressId = 1;
+  optional string egressName = 1;  // 改为egressName用于显示
   string serverId = 2;
   nspass.model.v1.EgressMode egressMode = 3;
   
@@ -32,7 +32,7 @@ message CreateEgressRequest {
 // 更新出口请求
 message UpdateEgressRequest {
   string id = 1;
-  optional string egressId = 2;
+  optional string egressName = 2;  // 改为egressName用于显示
   optional string serverId = 3;
   optional nspass.model.v1.EgressMode egressMode = 4;
   optional string targetAddress = 5;
@@ -58,7 +58,7 @@ message DeleteEgressRequest {
 message GetEgressListRequest {
   optional int32 page = 1;
   optional int32 pageSize = 2;
-  optional string egressId = 3;
+  optional string egressName = 3;  // 改为egressName用于查询
   optional string serverId = 4;
   optional nspass.model.v1.EgressMode egressMode = 5;
 }

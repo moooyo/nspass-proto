@@ -48,6 +48,8 @@ message ForwardRule {
   string updateTime = 14;
   double uploadTraffic = 15;  // MB
   double downloadTraffic = 16; // MB
+  string egressId = 17;        // 出口ID
+  string egressName = 18;      // 出口名称 - 用于显示
 }
 
 // 规则流量统计
@@ -88,6 +90,8 @@ message CreateRuleRequest {
   optional bool supportUDP = 7;
   optional EgressMode egressMode = 8;
   optional ForwardRuleType type = 9;
+  optional string egressId = 10;       // 出口ID - 传入出口规则的ID
+  // 注意：egressName 由后端根据 egressId 自动填充
 }
 
 // 获取单个规则请求
@@ -106,6 +110,8 @@ message UpdateRuleRequest {
   optional bool supportUDP = 7;
   optional EgressMode egressMode = 8;
   optional ForwardRuleType type = 9;
+  optional string egressId = 10;       // 出口ID - 传入出口规则的ID
+  // 注意：egressName 由后端根据 egressId 自动填充
 }
 
 // 删除规则请求
