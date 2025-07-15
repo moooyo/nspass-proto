@@ -6,66 +6,66 @@ option go_package = "github.com/moooyo/nspass-proto/generated/model;model";
 
 import "google/protobuf/timestamp.proto";
 
-// 订阅类型枚举
+// ??????????????????
 enum SubscriptionType {
   SUBSCRIPTION_TYPE_UNSPECIFIED = 0;
-  SUBSCRIPTION_TYPE_SURGE = 1;           // Surge格式
-  SUBSCRIPTION_TYPE_SHADOWSOCKS = 2;     // Shadowsocks格式
-  SUBSCRIPTION_TYPE_QUANTUMULT_X = 3;    // QuantumultX格式
-  SUBSCRIPTION_TYPE_LOON = 4;            // Loon格式
-  SUBSCRIPTION_TYPE_STASH = 5;           // Stash格式
-  SUBSCRIPTION_TYPE_CLASH = 6;           // Clash格式
-  SUBSCRIPTION_TYPE_V2RAY = 7;           // V2Ray格式
+  SUBSCRIPTION_TYPE_SURGE = 1;
+  SUBSCRIPTION_TYPE_SHADOWSOCKS = 2;
+  SUBSCRIPTION_TYPE_QUANTUMULT_X = 3;
+  SUBSCRIPTION_TYPE_LOON = 4;
+  SUBSCRIPTION_TYPE_STASH = 5;
+  SUBSCRIPTION_TYPE_CLASH = 6;
+  SUBSCRIPTION_TYPE_V2RAY = 7;
 }
 
-// 订阅配置模型
+// ??????????????????
 message Subscription {
-  string id = 1;                                    // 内部ID
-  string subscription_id = 2;                       // 订阅ID (128-256位字符串)
-  int32 user_id = 3;                                // 用户ID
-  SubscriptionType type = 4;                        // 订阅类型
-  string name = 5;                                  // 订阅名称
-  string description = 6;                           // 描述
-  bool include_auto_routes = 7;                     // 是否包含自动生成的线路
-  bool include_manual_routes = 8;                   // 是否包含手动添加的线路
-  repeated string included_route_ids = 9;           // 仅包含的线路ID列表 (为空表示包含所有)
-  repeated string excluded_route_ids = 10;          // 排除的线路ID列表
-  google.protobuf.Timestamp created_at = 11;        // 创建时间
-  google.protobuf.Timestamp updated_at = 12;        // 更新时间
-  optional google.protobuf.Timestamp expires_at = 13; // 过期时间
-  bool is_active = 14;                              // 是否激活
-  int32 request_count = 15;                         // 请求次数
-  optional google.protobuf.Timestamp last_used_at = 16; // 最后使用时间
-  map<string, string> metadata = 17;               // 元数据
+  string id = 1;
+  string subscription_id = 2;
+  int32 user_id = 3;
+  SubscriptionType type = 4;
+  string name = 5;
+  string description = 6;
+  bool include_auto_routes = 7;
+  bool include_manual_routes = 8;
+  repeated string included_route_ids = 9;
+  repeated string excluded_route_ids = 10;
+  google.protobuf.Timestamp created_at = 11;
+  google.protobuf.Timestamp updated_at = 12;
+  optional google.protobuf.Timestamp expires_at = 13;
+  bool is_active = 14;
+  int32 request_count = 15;
+  optional google.protobuf.Timestamp last_used_at = 16;
+  map<string, string> metadata = 17;
 }
 
-// 订阅请求日志模型
+// ????????????????????????
 message SubscriptionLog {
-  string id = 1;                                    // 内部ID
-  string subscription_id = 2;                       // 使用的订阅ID
-  int32 user_id = 3;                                // 用户ID
-  SubscriptionType type = 4;                        // 订阅类型
-  string client_ip = 5;                             // 客户端IP
-  string user_agent = 6;                            // User-Agent
-  google.protobuf.Timestamp requested_at = 7;       // 请求时间
-  int32 route_count = 8;                            // 返回的线路数量
-  bool success = 9;                                 // 是否成功
-  optional string error_message = 10;               // 错误信息
-  int32 response_size = 11;                         // 响应大小（字节）
-  int32 processing_time_ms = 12;                    // 处理时间（毫秒）
+  string id = 1;
+  string subscription_id = 2;
+  int32 user_id = 3;
+  SubscriptionType type = 4;
+  string client_ip = 5;
+  string user_agent = 6;
+  google.protobuf.Timestamp requested_at = 7;
+  int32 route_count = 8;
+  bool success = 9;
+  optional string error_message = 10;
+  int32 response_size = 11;
+  int32 processing_time_ms = 12;
 }
 
-// 弃用的token模型（保留用于兼容性）
+// ?????????token?????????????????????????????????
 message SubscriptionToken {
-  string id = 1;                                    // 内部ID
-  string token = 2;                                 // token值
-  int32 user_id = 3;                                // 关联的用户ID
-  string description = 4;                           // token描述
-  google.protobuf.Timestamp created_at = 5;         // 创建时间
-  google.protobuf.Timestamp updated_at = 6;         // 更新时间
-  optional google.protobuf.Timestamp expires_at = 7; // 过期时间
-  bool is_active = 8;                               // 是否激活
-  int32 request_count = 9;                          // 请求次数
-  optional google.protobuf.Timestamp last_used_at = 10; // 最后使用时间
-  map<string, string> metadata = 11;               // 元数据
-} 
+  string id = 1;
+  string token = 2;
+  int32 user_id = 3;
+  string description = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+  optional google.protobuf.Timestamp expires_at = 7;
+  bool is_active = 8;
+  int32 request_count = 9;
+  optional google.protobuf.Timestamp last_used_at = 10;
+  map<string, string> metadata = 11;
+}

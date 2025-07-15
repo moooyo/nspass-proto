@@ -177,7 +177,7 @@
           },
           {
             "name": "type",
-            "description": "按类型过滤\n\n - SUBSCRIPTION_TYPE_SURGE: Surge格式\n - SUBSCRIPTION_TYPE_SHADOWSOCKS: Shadowsocks格式\n - SUBSCRIPTION_TYPE_QUANTUMULT_X: QuantumultX格式\n - SUBSCRIPTION_TYPE_LOON: Loon格式\n - SUBSCRIPTION_TYPE_STASH: Stash格式\n - SUBSCRIPTION_TYPE_CLASH: Clash格式\n - SUBSCRIPTION_TYPE_V2RAY: V2Ray格式",
+            "description": "按类型过滤",
             "in": "query",
             "required": false,
             "type": "string",
@@ -5524,8 +5524,7 @@
         "SUBSCRIPTION_TYPE_V2RAY"
       ],
       "default": "SUBSCRIPTION_TYPE_UNSPECIFIED",
-      "description": "- SUBSCRIPTION_TYPE_SURGE: Surge格式\n - SUBSCRIPTION_TYPE_SHADOWSOCKS: Shadowsocks格式\n - SUBSCRIPTION_TYPE_QUANTUMULT_X: QuantumultX格式\n - SUBSCRIPTION_TYPE_LOON: Loon格式\n - SUBSCRIPTION_TYPE_STASH: Stash格式\n - SUBSCRIPTION_TYPE_CLASH: Clash格式\n - SUBSCRIPTION_TYPE_V2RAY: V2Ray格式",
-      "title": "订阅类型枚举"
+      "title": "??????????????????"
     },
     "v1TypeStats": {
       "type": "object",

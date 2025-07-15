@@ -33,6 +33,5 @@ message ForwardRule {
   int64 last_active_time = 15;        // 最后活跃时间（Unix时间戳）
   int64 created_at = 16;              // 创建时间（Unix时间戳）
   int64 updated_at = 17;              // 更新时间（Unix时间戳）
-  string egress_id = 18;              // 出口ID
-  string egress_name = 19;            // 出口名称 - 用于显示
+  string egress_name = 18;            // 出口名称 - 用于显示
 } 

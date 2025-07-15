@@ -6,8 +6,6 @@ import "model/node.proto";
 
 option go_package = "github.com/moooyo/nspass-proto/generated/model;model";
 
-
-
 // 服务器信息
 message Server {
   uint32 id = 1;                      // 主键ID
@@ -38,7 +36,3 @@ message ServerCapability {
   string key = 3;
   string value = 4;
 }
-
-
-
- 
