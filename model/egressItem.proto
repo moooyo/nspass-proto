@@ -8,22 +8,27 @@ option go_package = "github.com/moooyo/nspass-proto/generated/model;model";
 
 // 出口项目消息
 message EgressItem {
-  string id = 1;
-  string egressName = 2;  // 改为egressName用于显示
-  string serverId = 3;
-  EgressMode egressMode = 4;
-  string egressConfig = 5;
+  int32 id = 1;                  // 自增主键ID
+  string egressId = 2;           // 业务ID（用户可见的标识）
+  string egressName = 3;         // 显示名称
+  string serverId = 4;
+  EgressMode egressMode = 5;
+  string egressConfig = 6;
   
   // 直出模式字段
-  optional string targetAddress = 6;
+  optional string targetAddress = 7;
   
   // iptables模式字段
-  optional ForwardType forwardType = 7;
-  optional string destAddress = 8;
-  optional string destPort = 9;
+  optional ForwardType forwardType = 8;
+  optional string destAddress = 9;
+  optional string destPort = 10;
   
   // shadowsocks-2022模式字段
-  optional string password = 10;
-  optional bool supportUdp = 11;
-  optional int32 port = 12;  // shadowsocks端口
-} 
+  optional string password = 11;
+  optional bool supportUdp = 12;
+  optional int32 port = 13;  // shadowsocks端口
+  
+  // 时间戳
+  int64 createdAt = 14;
+  int64 updatedAt = 15;
+}

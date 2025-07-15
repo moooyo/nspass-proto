@@ -31,13 +31,13 @@ message ForwardPathNode {
 
 // 转发路径规则
 message ForwardPathRule {
-  string id = 1;                           // 规则ID
+  int32 id = 1;                            // 自增主键ID
   uint32 user_id = 2;                      // 用户ID
   string name = 3;                         // 规则名称
   ForwardPathRuleType type = 4;            // 转发类型
   ForwardPathRuleStatus status = 5;        // 状态
   repeated ForwardPathNode path = 6;       // 转发路径节点列表
-  string egress_id = 7;                   // 出口ID
+  int32 egress_id = 7;                     // 出口ID (使用自增ID)
   string egress_name = 8;                  // 出口名称（用于显示）
   int64 traffic_up = 9;                    // 上行流量（字节）
   int64 traffic_down = 10;                 // 下行流量（字节）
@@ -47,28 +47,24 @@ message ForwardPathRule {
 
 // 转发路径规则创建请求
 message ForwardPathRuleCreateRequest {
-  string name = 1;                         // 规则名称
-  ForwardPathRuleType type = 2;            // 转发类型
-  repeated string path_server_ids = 3;     // 路径服务器ID列表
-  string egress_id = 4;                   // 出口ID
-  // 注意：egress_name 应该由后端根据 egress_id 自动填充，不需要前端传入
+  ForwardPathRuleType type = 1;            // 转发类型
+  repeated string path_server_ids = 2;     // 路径服务器ID列表
+  int32 egress_id = 3;                     // 出口ID (使用自增ID)
 }
 
 // 转发路径规则更新请求
 message ForwardPathRuleUpdateRequest {
-  string id = 1;                           // 规则ID
-  optional string name = 2;                // 规则名称
-  optional ForwardPathRuleType type = 3;   // 转发类型
-  optional ForwardPathRuleStatus status = 4; // 状态
-  repeated string path_server_ids = 5;     // 路径服务器ID列表
-  optional string egress_id = 6;          // 出口ID
-  // 注意：egress_name 应该由后端根据 egress_id 自动填充，不需要前端传入
+  int32 id = 1;                            // 规则ID (使用自增ID)
+  optional ForwardPathRuleType type = 2;   // 转发类型
+  optional ForwardPathRuleStatus status = 3; // 状态
+  repeated string path_server_ids = 4;     // 路径服务器ID列表
+  optional int32 egress_id = 5;            // 出口ID (使用自增ID)
 }
 
 // iptables规则配置
 message IptablesRuleConfig {
-  string id = 1;                           // 配置ID
-  string forward_path_rule_id = 2;         // 所属转发路径规则ID
+  int32 id = 1;                            // 配置ID（自增）
+  int32 forward_path_rule_id = 2;          // 所属转发路径规则ID
   string server_id = 3;                    // 服务器ID
   string chain = 4;                        // iptables链名
   string rule = 5;                         // 完整的iptables规则

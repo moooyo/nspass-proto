@@ -30,7 +30,7 @@ message CreateForwardPathRuleRequest {
   string name = 1;                         // 规则名称
   nspass.model.v1.ForwardPathRuleType type = 2; // 转发类型
   repeated string path_server_ids = 3;     // 路径服务器ID列表
-  string egress_id = 4;                   // 出口ID
+  int32 egress_id = 4;                     // 出口ID (使用自增ID)
   // 注意：egress_name 由后端根据 egress_id 自动填充
 }
 
@@ -42,7 +42,7 @@ message CreateForwardPathRuleResponse {
 
 // 获取单个转发路径规则请求
 message GetForwardPathRuleRequest {
-  string id = 1;                           // 规则ID
+  int32 id = 1;                            // 规则ID (使用自增ID)
 }
 
 // 获取单个转发路径规则响应
@@ -53,12 +53,12 @@ message GetForwardPathRuleResponse {
 
 // 更新转发路径规则请求
 message UpdateForwardPathRuleRequest {
-  string id = 1;                           // 规则ID
+  int32 id = 1;                            // 规则ID (使用自增ID)
   optional string name = 2;                // 规则名称
   optional nspass.model.v1.ForwardPathRuleType type = 3; // 转发类型
   optional nspass.model.v1.ForwardPathRuleStatus status = 4; // 状态
   repeated string path_server_ids = 5;     // 路径服务器ID列表
-  optional string egress_id = 6;          // 出口ID
+  optional int32 egress_id = 6;            // 出口ID (使用自增ID)
   // 注意：egress_name 由后端根据 egress_id 自动填充
 }
 
@@ -70,7 +70,7 @@ message UpdateForwardPathRuleResponse {
 
 // 删除转发路径规则请求
 message DeleteForwardPathRuleRequest {
-  string id = 1;                           // 规则ID
+  int32 id = 1;                            // 规则ID (使用自增ID)
 }
 
 // 删除转发路径规则响应
@@ -80,7 +80,7 @@ message DeleteForwardPathRuleResponse {
 
 // 启用转发路径规则请求
 message EnableForwardPathRuleRequest {
-  string id = 1;                           // 规则ID
+  int32 id = 1;                            // 规则ID (使用自增ID)
 }
 
 // 启用转发路径规则响应
@@ -90,7 +90,7 @@ message EnableForwardPathRuleResponse {
 
 // 禁用转发路径规则请求
 message DisableForwardPathRuleRequest {
-  string id = 1;                           // 规则ID
+  int32 id = 1;                            // 规则ID (使用自增ID)
 }
 
 // 禁用转发路径规则响应
@@ -100,7 +100,7 @@ message DisableForwardPathRuleResponse {
 
 // 获取转发路径规则流量统计请求
 message GetForwardPathRuleTrafficRequest {
-  string id = 1;                           // 规则ID
+  int32 id = 1;                            // 规则ID (使用自增ID)
   optional int32 days = 2;                 // 统计天数，默认7天
 }
 

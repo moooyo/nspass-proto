@@ -3184,9 +3184,11 @@
         "parameters": [
           {
             "name": "id",
+            "description": "使用自增主键ID",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "tags": [
@@ -3213,9 +3215,11 @@
         "parameters": [
           {
             "name": "id",
+            "description": "使用自增主键ID",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "tags": [
@@ -3242,9 +3246,11 @@
         "parameters": [
           {
             "name": "id",
+            "description": "使用自增主键ID",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           },
           {
             "name": "body",
@@ -3281,9 +3287,11 @@
         "parameters": [
           {
             "name": "id",
+            "description": "使用自增主键ID",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           },
           {
             "name": "days",
@@ -3320,9 +3328,11 @@
         "parameters": [
           {
             "name": "id",
+            "description": "使用自增主键ID",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           },
           {
             "name": "body",
@@ -4129,10 +4139,11 @@
         "parameters": [
           {
             "name": "id",
-            "description": "规则ID",
+            "description": "规则ID (使用自增ID)",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "tags": [
@@ -4159,10 +4170,11 @@
         "parameters": [
           {
             "name": "id",
-            "description": "规则ID",
+            "description": "规则ID (使用自增ID)",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "tags": [
@@ -4189,10 +4201,11 @@
         "parameters": [
           {
             "name": "id",
-            "description": "规则ID",
+            "description": "规则ID (使用自增ID)",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           },
           {
             "name": "body",
@@ -4229,10 +4242,11 @@
         "parameters": [
           {
             "name": "id",
-            "description": "规则ID",
+            "description": "规则ID (使用自增ID)",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           },
           {
             "name": "body",
@@ -4269,10 +4283,11 @@
         "parameters": [
           {
             "name": "id",
-            "description": "规则ID",
+            "description": "规则ID (使用自增ID)",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           },
           {
             "name": "body",
@@ -4309,10 +4324,11 @@
         "parameters": [
           {
             "name": "id",
-            "description": "规则ID",
+            "description": "规则ID (使用自增ID)",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           },
           {
             "name": "days",
@@ -8474,9 +8490,13 @@
     "EgressManagementServiceUpdateEgressBody": {
       "type": "object",
       "properties": {
+        "egressId": {
+          "type": "string",
+          "title": "业务ID（可更新）"
+        },
         "egressName": {
           "type": "string",
-          "title": "改为egressName用于显示"
+          "title": "显示名称"
         },
         "serverId": {
           "type": "string"
@@ -8524,9 +8544,13 @@
     "v1CreateEgressRequest": {
       "type": "object",
       "properties": {
+        "egressId": {
+          "type": "string",
+          "title": "业务ID（用户指定）"
+        },
         "egressName": {
           "type": "string",
-          "title": "改为egressName用于显示"
+          "title": "显示名称"
         },
         "serverId": {
           "type": "string"
@@ -8586,11 +8610,17 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "integer",
+          "format": "int32",
+          "title": "自增主键ID"
+        },
+        "egressId": {
+          "type": "string",
+          "title": "业务ID（用户可见的标识）"
         },
         "egressName": {
           "type": "string",
-          "title": "改为egressName用于显示"
+          "title": "显示名称"
         },
         "serverId": {
           "type": "string"
@@ -8626,6 +8656,15 @@
           "type": "integer",
           "format": "int32",
           "title": "shadowsocks端口"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "时间戳"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "int64"
         }
       },
       "title": "出口项目消息"
@@ -9560,8 +9599,9 @@
           "title": "路径服务器ID列表"
         },
         "egressId": {
-          "type": "string",
-          "title": "出口ID"
+          "type": "integer",
+          "format": "int32",
+          "title": "出口ID (使用自增ID)"
         }
       },
       "title": "更新转发路径规则请求"
@@ -9585,8 +9625,9 @@
           "title": "路径服务器ID列表"
         },
         "egressId": {
-          "type": "string",
-          "title": "出口ID"
+          "type": "integer",
+          "format": "int32",
+          "title": "出口ID (使用自增ID)"
         }
       },
       "title": "创建转发路径规则请求"
@@ -9658,8 +9699,9 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "title": "规则ID"
+          "type": "integer",
+          "format": "int32",
+          "title": "自增主键ID"
         },
         "userId": {
           "type": "integer",
@@ -9687,8 +9729,9 @@
           "title": "转发路径节点列表"
         },
         "egressId": {
-          "type": "string",
-          "title": "出口ID"
+          "type": "integer",
+          "format": "int32",
+          "title": "出口ID (使用自增ID)"
         },
         "egressName": {
           "type": "string",
