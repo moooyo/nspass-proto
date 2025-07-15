@@ -9579,10 +9579,6 @@
     "ForwardPathRuleServiceUpdateForwardPathRuleBody": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string",
-          "title": "规则名称"
-        },
         "type": {
           "$ref": "#/definitions/v1ForwardPathRuleType",
           "title": "转发类型"
@@ -9609,10 +9605,6 @@
     "v1CreateForwardPathRuleRequest": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string",
-          "title": "规则名称"
-        },
         "type": {
           "$ref": "#/definitions/v1ForwardPathRuleType",
           "title": "转发类型"
