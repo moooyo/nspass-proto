@@ -20,9 +20,9 @@ message GetForwardPathRulesRequest {
 
 // 获取转发路径规则列表响应
 message GetForwardPathRulesResponse {
-  nspass.common.v1.ApiResponse response = 1;
-  repeated nspass.model.v1.ForwardPathRule rules = 2;
-  nspass.common.v1.PaginationResponse pagination = 3;
+  nspass.common.v1.ApiResponseStatus status = 1;
+  repeated nspass.model.v1.ForwardPathRule data = 2;
+  optional nspass.common.v1.PaginationResponse pagination = 3;
 }
 
 // 创建转发路径规则请求
@@ -35,8 +35,8 @@ message CreateForwardPathRuleRequest {
 
 // 创建转发路径规则响应
 message CreateForwardPathRuleResponse {
-  nspass.common.v1.ApiResponse response = 1;
-  nspass.model.v1.ForwardPathRule rule = 2;
+  nspass.common.v1.ApiResponseStatus status = 1;
+  optional nspass.model.v1.ForwardPathRule data = 2;
 }
 
 // 获取单个转发路径规则请求
@@ -46,8 +46,8 @@ message GetForwardPathRuleRequest {
 
 // 获取单个转发路径规则响应
 message GetForwardPathRuleResponse {
-  nspass.common.v1.ApiResponse response = 1;
-  nspass.model.v1.ForwardPathRule rule = 2;
+  nspass.common.v1.ApiResponseStatus status = 1;
+  optional nspass.model.v1.ForwardPathRule data = 2;
 }
 
 // 更新转发路径规则请求
@@ -62,8 +62,8 @@ message UpdateForwardPathRuleRequest {
 
 // 更新转发路径规则响应
 message UpdateForwardPathRuleResponse {
-  nspass.common.v1.ApiResponse response = 1;
-  nspass.model.v1.ForwardPathRule rule = 2;
+  nspass.common.v1.ApiResponseStatus status = 1;
+  optional nspass.model.v1.ForwardPathRule data = 2;
 }
 
 // 删除转发路径规则请求
@@ -73,7 +73,7 @@ message DeleteForwardPathRuleRequest {
 
 // 删除转发路径规则响应
 message DeleteForwardPathRuleResponse {
-  nspass.common.v1.ApiResponse response = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
 }
 
 // 启用转发路径规则请求
@@ -83,7 +83,7 @@ message EnableForwardPathRuleRequest {
 
 // 启用转发路径规则响应
 message EnableForwardPathRuleResponse {
-  nspass.common.v1.ApiResponse response = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
 }
 
 // 禁用转发路径规则请求
@@ -93,7 +93,7 @@ message DisableForwardPathRuleRequest {
 
 // 禁用转发路径规则响应
 message DisableForwardPathRuleResponse {
-  nspass.common.v1.ApiResponse response = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
 }
 
 // 获取转发路径规则流量统计请求
@@ -104,10 +104,10 @@ message GetForwardPathRuleTrafficRequest {
 
 // 转发路径规则流量统计响应
 message GetForwardPathRuleTrafficResponse {
-  nspass.common.v1.ApiResponse response = 1;
-  int64 total_upload = 2;                  // 总上行流量
-  int64 total_download = 3;                // 总下行流量
-  repeated TrafficDataPoint daily_stats = 4; // 每日统计
+  nspass.common.v1.ApiResponseStatus status = 1;
+  optional int64 total_upload = 4;                  // 总上行流量
+  optional int64 total_download = 5;                // 总下行流量
+  repeated TrafficDataPoint daily_stats = 6; // 每日统计
 }
 
 // 流量数据点

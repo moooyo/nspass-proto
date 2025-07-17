@@ -109,36 +109,36 @@ message RenamePasskeyRequest {
 // === 响应消息 ===
 
 message PasskeyRegistrationOptionsResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional PasskeyRegistrationOptions data = 2;
 }
 
 message PasskeyRegistrationResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional PasskeyCredential data = 2;
 }
 
 message PasskeyAuthenticationOptionsResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional PasskeyAuthenticationOptions data = 2;
 }
 
 message PasskeyAuthenticationResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional PasskeyLoginData data = 2;
 }
 
 message PasskeyListResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional PasskeyListData data = 2;
 }
 
 message DeletePasskeyResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
 }
 
 message RenamePasskeyResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional PasskeyCredential data = 2;
 }
 
@@ -150,7 +150,7 @@ service PasskeyService {
   // 
   // 生成注册新Passkey凭据所需的挑战和选项。
   // 用户在注册Passkey前必须先调用此接口获取注册选项。
-  rpc GetRegistrationOptions(nspass.common.v1.ApiResponse) returns (PasskeyRegistrationOptionsResponse) {
+  rpc GetRegistrationOptions(nspass.common.v1.ApiResponseStatus) returns (PasskeyRegistrationOptionsResponse) {
     option (google.api.http) = {
       post: "/v1/auth/passkey/registration/options"
     };
@@ -171,7 +171,7 @@ service PasskeyService {
   // 
   // 生成Passkey登录认证所需的挑战和选项。
   // 用户点击Passkey登录时首先调用此接口。
-  rpc GetAuthenticationOptions(nspass.common.v1.ApiResponse) returns (PasskeyAuthenticationOptionsResponse) {
+  rpc GetAuthenticationOptions(nspass.common.v1.ApiResponseStatus) returns (PasskeyAuthenticationOptionsResponse) {
     option (google.api.http) = {
       post: "/v1/auth/passkey/authentication/options"
     };

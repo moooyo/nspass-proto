@@ -16,7 +16,7 @@ message UploadAvatarData {
 // === 响应消息 ===
 
 message UploadAvatarResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional UploadAvatarData data = 2;
 }
 

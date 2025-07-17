@@ -44,22 +44,22 @@ message DeleteUserConfigRequest {
 // === 响应消息 ===
 
 message GetUserConfigResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional UserConfig data = 2;
 }
 
 message GetUserConfigsResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   repeated UserConfig data = 2;
 }
 
 message UpdateUserConfigResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional UserConfig data = 2;
 }
 
 message DeleteUserConfigResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
 }
 
 // === 服务定义 ===
@@ -113,6 +113,6 @@ message GetUserConfigHistoryRequest {
 }
 
 message GetUserConfigHistoryResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional UserConfig data = 2;
 } 

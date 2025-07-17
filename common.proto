@@ -18,8 +18,8 @@ message PaginationResponse {
   int32 totalPages = 4;
 }
 
-// 通用API响应封装
-message ApiResponse {
+// 通用API响应状态封装
+message ApiResponseStatus {
   bool success = 1;
   optional string message = 2;
   optional string errorCode = 3;

@@ -95,36 +95,36 @@ message ResetUserTrafficRequest {
 // === 响应消息 ===
 
 message GetUsersResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   repeated UserListItem data = 2;
-  nspass.common.v1.PaginationResponse pagination = 3;
+  optional nspass.common.v1.PaginationResponse pagination = 3;
 }
 
 message GetUserDetailResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional UserDetail data = 2;
 }
 
 message CreateUserResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional UserDetail data = 2;
 }
 
 message UpdateUserResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional UserDetail data = 2;
 }
 
 message DeleteUserResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
 }
 
 message ResetUserPasswordResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
 }
 
 message ResetUserTrafficResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
 }
 
 // === 服务定义 ===

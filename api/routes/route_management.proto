@@ -23,7 +23,7 @@ message CreateRouteRequest {
 
 // 创建线路响应
 message CreateRouteResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional nspass.model.v1.Route data = 2;
 }
 
@@ -34,7 +34,7 @@ message GetRouteRequest {
 
 // 获取线路响应
 message GetRouteResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional nspass.model.v1.Route data = 2;
 }
 
@@ -54,7 +54,7 @@ message UpdateRouteRequest {
 
 // 更新线路响应
 message UpdateRouteResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional nspass.model.v1.Route data = 2;
 }
 
@@ -65,7 +65,7 @@ message DeleteRouteRequest {
 
 // 删除线路响应
 message DeleteRouteResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
 }
 
 // 批量删除线路请求
@@ -90,9 +90,9 @@ message ListRoutesRequest {
 
 // 列出线路响应
 message ListRoutesResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   repeated nspass.model.v1.Route data = 2;
-  nspass.common.v1.PaginationResponse pagination = 3;
+  optional nspass.common.v1.PaginationResponse pagination = 3;
 }
 
 // 搜索线路请求
@@ -105,9 +105,9 @@ message SearchRoutesRequest {
 
 // 搜索线路响应
 message SearchRoutesResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   repeated nspass.model.v1.Route data = 2;
-  nspass.common.v1.PaginationResponse pagination = 3;
+  optional nspass.common.v1.PaginationResponse pagination = 3;
 }
 
 // 更新线路状态请求
@@ -118,7 +118,7 @@ message UpdateRouteStatusRequest {
 
 // 更新线路状态响应
 message UpdateRouteStatusResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional nspass.model.v1.Route data = 2;
 }
 
@@ -141,9 +141,9 @@ message GenerateRouteConfigRequest {
 
 // 生成线路配置响应
 message GenerateRouteConfigResponse {
-  nspass.common.v1.ApiResponse status = 1;
-  string config = 2;     // 生成的配置内容
-  string format = 3;     // 配置格式
+  nspass.common.v1.ApiResponseStatus status = 1;
+  optional string config = 4;     // 生成的配置内容
+  optional string format = 5;     // 配置格式
 }
 
 // 验证线路连通性请求
@@ -154,10 +154,10 @@ message ValidateRouteConnectivityRequest {
 
 // 验证线路连通性响应
 message ValidateRouteConnectivityResponse {
-  nspass.common.v1.ApiResponse status = 1;
-  bool is_reachable = 2;               // 是否可达
-  optional int32 latency_ms = 3;       // 延迟(毫秒)
-  optional string error_message = 4;   // 错误信息
+  nspass.common.v1.ApiResponseStatus status = 1;
+  optional bool is_reachable = 4;               // 是否可达
+  optional int32 latency_ms = 5;       // 延迟(毫秒)
+  optional string error_message = 6;   // 错误信息
 }
 
 // 线路管理服务

@@ -38,7 +38,7 @@ message CreateSubscriptionRequest {
 
 // 创建订阅响应
 message CreateSubscriptionResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional SubscriptionData data = 2;
 }
 
@@ -68,9 +68,9 @@ message GetSubscriptionsRequest {
 
 // 获取用户订阅列表响应
 message GetSubscriptionsResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   repeated SubscriptionData data = 2;
-  nspass.common.v1.PaginationResponse pagination = 3;
+  optional nspass.common.v1.PaginationResponse pagination = 3;
 }
 
 // 更新订阅请求
@@ -87,7 +87,7 @@ message UpdateSubscriptionRequest {
 
 // 更新订阅响应
 message UpdateSubscriptionResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional SubscriptionData data = 2;
 }
 
@@ -98,7 +98,7 @@ message DeleteSubscriptionRequest {
 
 // 删除订阅响应
 message DeleteSubscriptionResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
 }
 
 // 获取订阅统计请求
@@ -110,7 +110,7 @@ message GetSubscriptionStatsRequest {
 
 // 获取订阅统计响应
 message GetSubscriptionStatsResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional SubscriptionStats data = 2;
 }
 

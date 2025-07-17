@@ -4,7 +4,6 @@ package nspass.api.agent.v1;
 
 option go_package = "github.com/moooyo/nspass-proto/generated/api/agent;agent";
 
-import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 import "model/websocket.proto";
 import "model/node.proto";

@@ -139,42 +139,42 @@ message GetRuleTrafficStatsRequest {
 // === 响应消息 ===
 
 message GetRulesResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   repeated ForwardRule data = 2;
-  nspass.common.v1.PaginationResponse pagination = 3;
+  optional nspass.common.v1.PaginationResponse pagination = 3;
 }
 
 message CreateRuleResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional ForwardRule data = 2;
 }
 
 message GetRuleResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional ForwardRule data = 2;
 }
 
 message UpdateRuleResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional ForwardRule data = 2;
 }
 
 message DeleteRuleResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
 }
 
 message BatchDeleteRulesResponse {
-  nspass.common.v1.ApiResponse status = 1;
-  int32 deletedCount = 2;
+  nspass.common.v1.ApiResponseStatus status = 1;
+  optional int32 deletedCount = 4;
 }
 
 message ToggleRuleResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional ForwardRule data = 2;
 }
 
 message GetRuleTrafficStatsResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional RuleTrafficStats data = 2;
 }
 

@@ -49,12 +49,12 @@ message LoginData {
 // === 响应消息 ===
 
 message RegisterResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional UserBasicInfo data = 2;
 }
 
 message LoginResponse {
-  nspass.common.v1.ApiResponse status = 1;
+  nspass.common.v1.ApiResponseStatus status = 1;
   optional LoginData data = 2;
 }
 
