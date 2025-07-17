@@ -5213,7 +5213,7 @@
         }
       }
     },
-    "v1ApiResponse": {
+    "v1ApiResponseStatus": {
       "type": "object",
       "properties": {
         "success": {
@@ -5226,7 +5226,7 @@
           "type": "string"
         }
       },
-      "title": "通用API响应封装"
+      "title": "通用API响应状态封装"
     },
     "v1CreateSubscriptionRequest": {
       "type": "object",
@@ -5282,7 +5282,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1SubscriptionData"
@@ -5312,7 +5312,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       },
       "title": "删除订阅响应"
@@ -5339,7 +5339,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1SubscriptionStats"
@@ -5351,7 +5351,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -5547,7 +5547,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1SubscriptionData"
@@ -5581,7 +5581,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1LogSummary"
@@ -5592,7 +5592,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -5607,7 +5607,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1RuleStatusStats"
@@ -5618,7 +5618,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -5633,7 +5633,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -5648,7 +5648,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1SystemHealth"
@@ -5659,7 +5659,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1SystemOverview"
@@ -5670,7 +5670,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1SystemPerformance"
@@ -5681,7 +5681,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -5696,7 +5696,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -5711,7 +5711,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -5726,7 +5726,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -5830,7 +5830,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       }
     },
@@ -6116,7 +6116,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1DnsConfig"
@@ -6128,7 +6128,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       },
       "title": "删除DNS配置响应"
@@ -6183,7 +6183,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -6202,7 +6202,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1DnsConfig"
@@ -6295,7 +6295,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "deletedCount": {
           "type": "integer",
@@ -6347,7 +6347,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1ForwardRule"
@@ -6358,7 +6358,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       }
     },
@@ -6458,7 +6458,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1ForwardRule"
@@ -6469,7 +6469,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1RuleTrafficStats"
@@ -6480,7 +6480,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -6541,7 +6541,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1ForwardRule"
@@ -6569,7 +6569,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1ForwardRule"
@@ -6580,7 +6580,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1TrafficStats"
@@ -6602,7 +6602,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       }
     },
@@ -6682,7 +6682,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       }
     },
@@ -6736,7 +6736,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1LoginData"
@@ -6773,7 +6773,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1UserBasicInfo"
@@ -6804,7 +6804,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1UserInfo"
@@ -6815,7 +6815,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1UserInfo"
@@ -6901,7 +6901,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1TwoFactorAuthData"
@@ -6945,7 +6945,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1VerifyTwoFactorAuthData"
@@ -6965,7 +6965,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       }
     },
@@ -7003,7 +7003,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1PasskeyAuthenticationOptions"
@@ -7040,7 +7040,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1PasskeyLoginData"
@@ -7101,7 +7101,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1PasskeyListData"
@@ -7190,7 +7190,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1PasskeyRegistrationOptions"
@@ -7231,7 +7231,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1PasskeyCredential"
@@ -7260,7 +7260,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1PasskeyCredential"
@@ -7350,7 +7350,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1UserDetail"
@@ -7361,7 +7361,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       }
     },
@@ -7369,7 +7369,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1UserDetail"
@@ -7380,7 +7380,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -7398,7 +7398,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       }
     },
@@ -7406,7 +7406,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       }
     },
@@ -7414,7 +7414,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1UserDetail"
@@ -7520,7 +7520,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1UploadAvatarData"
@@ -7545,7 +7545,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       }
     },
@@ -7553,7 +7553,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1UserConfig"
@@ -7564,7 +7564,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1UserConfig"
@@ -7575,7 +7575,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -7590,7 +7590,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1UserConfig"
@@ -7643,7 +7643,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -7667,7 +7667,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       }
     },
@@ -7675,7 +7675,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -7789,7 +7789,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -7805,7 +7805,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "removedConfigs": {
           "type": "integer",
@@ -7826,7 +7826,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1IptablesConfig"
@@ -7838,7 +7838,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1IptablesRebuildTask"
@@ -7850,7 +7850,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -7869,7 +7869,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1IptablesServerConfig"
@@ -7881,7 +7881,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -7912,7 +7912,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1IptablesScript"
@@ -8198,7 +8198,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1IptablesRebuildTask"
@@ -8210,7 +8210,22 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
+        },
+        "totalRules": {
+          "type": "integer",
+          "format": "int32",
+          "title": "总规则数"
+        },
+        "validRules": {
+          "type": "integer",
+          "format": "int32",
+          "title": "有效规则数"
+        },
+        "invalidRules": {
+          "type": "integer",
+          "format": "int32",
+          "title": "无效规则数"
         },
         "isValid": {
           "type": "boolean",
@@ -8229,21 +8244,6 @@
             "type": "string"
           },
           "title": "验证警告"
-        },
-        "totalRules": {
-          "type": "integer",
-          "format": "int32",
-          "title": "总规则数"
-        },
-        "validRules": {
-          "type": "integer",
-          "format": "int32",
-          "title": "有效规则数"
-        },
-        "invalidRules": {
-          "type": "integer",
-          "format": "int32",
-          "title": "无效规则数"
         }
       },
       "title": "验证服务器iptables配置响应"
@@ -8264,7 +8264,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       }
     },
@@ -8309,7 +8309,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1ServerItem"
@@ -8320,7 +8320,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       }
     },
@@ -8328,7 +8328,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1ServerItem"
@@ -8339,7 +8339,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -8357,7 +8357,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       }
     },
@@ -8468,7 +8468,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1ServerItem"
@@ -8590,7 +8590,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1EgressItem"
@@ -8601,7 +8601,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       }
     },
@@ -8683,7 +8683,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -8698,7 +8698,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -8716,7 +8716,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1EgressItem"
@@ -8727,7 +8727,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "connectionsCount": {
           "type": "integer",
@@ -8746,10 +8746,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
-        },
-        "success": {
-          "type": "boolean"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "latency": {
           "type": "integer",
@@ -8764,7 +8761,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1EgressItem"
@@ -8796,7 +8793,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "valid": {
           "type": "boolean"
@@ -8980,7 +8977,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1Route"
@@ -8992,7 +8989,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       },
       "title": "删除线路响应"
@@ -9040,7 +9037,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "config": {
           "type": "string",
@@ -9057,7 +9054,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1Route"
@@ -9069,7 +9066,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -9216,7 +9213,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -9322,7 +9319,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1Route"
@@ -9334,7 +9331,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1Route"
@@ -9346,7 +9343,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "isReachable": {
           "type": "boolean",
@@ -9393,7 +9390,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -9429,7 +9426,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1SettingItem"
@@ -9440,7 +9437,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       }
     },
@@ -9448,7 +9445,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1SettingItem"
@@ -9459,7 +9456,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -9518,7 +9515,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1SettingItem"
@@ -9626,10 +9623,10 @@
     "v1CreateForwardPathRuleResponse": {
       "type": "object",
       "properties": {
-        "response": {
-          "$ref": "#/definitions/v1ApiResponse"
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
-        "rule": {
+        "data": {
           "$ref": "#/definitions/v1ForwardPathRule"
         }
       },
@@ -9638,8 +9635,8 @@
     "v1DeleteForwardPathRuleResponse": {
       "type": "object",
       "properties": {
-        "response": {
-          "$ref": "#/definitions/v1ApiResponse"
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       },
       "title": "删除转发路径规则响应"
@@ -9647,8 +9644,8 @@
     "v1DisableForwardPathRuleResponse": {
       "type": "object",
       "properties": {
-        "response": {
-          "$ref": "#/definitions/v1ApiResponse"
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       },
       "title": "禁用转发路径规则响应"
@@ -9656,8 +9653,8 @@
     "v1EnableForwardPathRuleResponse": {
       "type": "object",
       "properties": {
-        "response": {
-          "$ref": "#/definitions/v1ApiResponse"
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
         }
       },
       "title": "启用转发路径规则响应"
@@ -9779,7 +9776,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -9794,10 +9791,10 @@
     "v1GetForwardPathRuleResponse": {
       "type": "object",
       "properties": {
-        "response": {
-          "$ref": "#/definitions/v1ApiResponse"
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
-        "rule": {
+        "data": {
           "$ref": "#/definitions/v1ForwardPathRule"
         }
       },
@@ -9806,8 +9803,8 @@
     "v1GetForwardPathRuleTrafficResponse": {
       "type": "object",
       "properties": {
-        "response": {
-          "$ref": "#/definitions/v1ApiResponse"
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "totalUpload": {
           "type": "string",
@@ -9833,10 +9830,10 @@
     "v1GetForwardPathRulesResponse": {
       "type": "object",
       "properties": {
-        "response": {
-          "$ref": "#/definitions/v1ApiResponse"
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
-        "rules": {
+        "data": {
           "type": "array",
           "items": {
             "type": "object",
@@ -9853,7 +9850,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "type": "array",
@@ -9946,7 +9943,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v1ApiResponse"
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
         "data": {
           "$ref": "#/definitions/v1IptablesRebuildTask"
@@ -9957,10 +9954,10 @@
     "v1UpdateForwardPathRuleResponse": {
       "type": "object",
       "properties": {
-        "response": {
-          "$ref": "#/definitions/v1ApiResponse"
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
         },
-        "rule": {
+        "data": {
           "$ref": "#/definitions/v1ForwardPathRule"
         }
       },
