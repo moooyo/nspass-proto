@@ -117,6 +117,16 @@ message TrafficDataPoint {
   int64 download = 3;                      // 下行流量
 }
 
+// 重建所有转发路径规则iptables规则请求
+message RebuildAllIptablesRulesRequest {
+  // 空消息，不需要参数
+}
+
+// 重建所有转发路径规则iptables规则响应
+message RebuildAllIptablesRulesResponse {
+  nspass.common.v1.ApiResponseStatus status = 1;
+}
+
 // 转发路径规则管理服务
 service ForwardPathRuleService {
   // 获取转发路径规则列表
@@ -176,6 +186,14 @@ service ForwardPathRuleService {
   rpc GetForwardPathRuleTraffic(GetForwardPathRuleTrafficRequest) returns (GetForwardPathRuleTrafficResponse) {
     option (google.api.http) = {
       get: "/v1/forward-path-rules/{id}/traffic"
+    };
+  }
+
+  // 重建所有转发路径规则的iptables规则
+  rpc RebuildAllIptablesRules(RebuildAllIptablesRulesRequest) returns (RebuildAllIptablesRulesResponse) {
+    option (google.api.http) = {
+      post: "/v1/forward-path-rules/rebuild-iptables"
+      body: "*"
     };
   }
 

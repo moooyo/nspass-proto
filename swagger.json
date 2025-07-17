@@ -4118,6 +4118,40 @@
         ]
       }
     },
+    "/v1/forward-path-rules/rebuild-iptables": {
+      "post": {
+        "summary": "重建所有转发路径规则的iptables规则",
+        "operationId": "ForwardPathRuleService_RebuildAllIptablesRules",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RebuildAllIptablesRulesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "空消息，不需要参数",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RebuildAllIptablesRulesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ForwardPathRuleService"
+        ]
+      }
+    },
     "/v1/forward-path-rules/{id}": {
       "get": {
         "summary": "获取单个转发路径规则",
@@ -9938,6 +9972,20 @@
         }
       },
       "title": "iptables配置信息（用于前端显示）"
+    },
+    "v1RebuildAllIptablesRulesRequest": {
+      "type": "object",
+      "description": "空消息，不需要参数",
+      "title": "重建所有转发路径规则iptables规则请求"
+    },
+    "v1RebuildAllIptablesRulesResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
+        }
+      },
+      "title": "重建所有转发路径规则iptables规则响应"
     },
     "v1RebuildForwardPathRuleIptablesResponse": {
       "type": "object",
