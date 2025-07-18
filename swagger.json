@@ -8751,6 +8751,11 @@
             "type": "string"
           },
           "title": "元数据"
+        },
+        "forwardPathRuleId": {
+          "type": "integer",
+          "format": "int32",
+          "title": "关联的转发路径规则ID（仅用于系统生成的线路）"
         }
       },
       "title": "线路模型"

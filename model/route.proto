@@ -83,4 +83,5 @@ message Route {
   string created_by = 12;                          // 创建者
   optional string description = 13;                // 描述
   map<string, string> metadata = 14;               // 元数据
+  optional int32 forward_path_rule_id = 15;        // 关联的转发路径规则ID（仅用于系统生成的线路）
 }
