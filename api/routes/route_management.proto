@@ -11,14 +11,13 @@ import "model/route.proto";
 
 // 创建线路请求
 message CreateRouteRequest {
-  string route_id = 1;                             // 线路ID (可选，不填自动生成)
-  string route_name = 2;                           // 线路名称
-  string entry_point = 3;                          // 入口(IP或域名)
-  int32 port = 4;                                  // 端口
-  nspass.model.v1.Protocol protocol = 5;           // 协议类型
-  nspass.model.v1.ProtocolParams protocol_params = 6; // 协议参数
-  optional string description = 7;                 // 描述
-  map<string, string> metadata = 8;               // 元数据
+  string route_name = 1;                           // 线路名称
+  string entry_point = 2;                          // 入口(IP或域名)
+  int32 port = 3;                                  // 端口
+  nspass.model.v1.Protocol protocol = 4;           // 协议类型
+  nspass.model.v1.ProtocolParams protocol_params = 5; // 协议参数
+  optional string description = 6;                 // 描述
+  map<string, string> metadata = 7;               // 元数据
 }
 
 // 创建线路响应
@@ -29,7 +28,7 @@ message CreateRouteResponse {
 
 // 获取线路请求
 message GetRouteRequest {
-  string id = 1; // 可以是内部ID或route_id
+  int32 id = 1; // 数据库自增主键ID
 }
 
 // 获取线路响应
@@ -40,14 +39,13 @@ message GetRouteResponse {
 
 // 更新线路请求
 message UpdateRouteRequest {
-  string id = 1; // 可以是内部ID或route_id
-  optional string route_id = 2;
-  optional string route_name = 3;
-  optional string entry_point = 4;
-  optional int32 port = 5;
-  optional nspass.model.v1.Protocol protocol = 6;
-  optional nspass.model.v1.ProtocolParams protocol_params = 7;
-  optional string description = 8;
+  int32 id = 1; // 数据库自增主键ID
+  optional string route_name = 2;
+  optional string entry_point = 3;
+  optional int32 port = 4;
+  optional nspass.model.v1.Protocol protocol = 5;
+  optional nspass.model.v1.ProtocolParams protocol_params = 6;
+  optional string description = 7;
   map<string, string> metadata = 9;
   google.protobuf.FieldMask update_mask = 10;      // 指定要更新的字段
 }
@@ -60,7 +58,7 @@ message UpdateRouteResponse {
 
 // 删除线路请求
 message DeleteRouteRequest {
-  string id = 1; // 可以是内部ID或route_id
+  int32 id = 1; // 数据库自增主键ID
 }
 
 // 删除线路响应
@@ -70,7 +68,7 @@ message DeleteRouteResponse {
 
 // 批量删除线路请求
 message BatchDeleteRoutesRequest {
-  repeated string ids = 1; // 可以是内部ID或route_id的混合
+  repeated int32 ids = 1; // 数据库自增主键ID列表
 }
 
 // 批量删除线路响应
@@ -112,7 +110,7 @@ message SearchRoutesResponse {
 
 // 更新线路状态请求
 message UpdateRouteStatusRequest {
-  string id = 1;
+  int32 id = 1; // 数据库自增主键ID
   nspass.model.v1.RouteStatus status = 2;
 }
 
@@ -124,7 +122,7 @@ message UpdateRouteStatusResponse {
 
 // 批量更新线路状态请求
 message BatchUpdateRouteStatusRequest {
-  repeated string ids = 1;
+  repeated int32 ids = 1; // 数据库自增主键ID列表
   nspass.model.v1.RouteStatus status = 2;
 }
 
@@ -135,7 +133,7 @@ message BatchUpdateRouteStatusResponse {
 
 // 生成线路配置请求
 message GenerateRouteConfigRequest {
-  string id = 1;
+  int32 id = 1; // 数据库自增主键ID
   string format = 2; // 配置格式: "json", "yaml", "uri"等
 }
 
@@ -148,7 +146,7 @@ message GenerateRouteConfigResponse {
 
 // 验证线路连通性请求
 message ValidateRouteConnectivityRequest {
-  string id = 1;
+  int32 id = 1; // 数据库自增主键ID
   optional int32 timeout_seconds = 2; // 超时时间，默认30秒
 }
 
