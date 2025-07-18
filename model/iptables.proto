@@ -72,27 +72,7 @@ message IptablesServerConfig {
   int64 last_updated = 7;              // 最后更新时间
 }
 
-// iptables重建操作状态
-enum IptablesRebuildStatus {
-  IPTABLES_REBUILD_STATUS_UNSPECIFIED = 0;
-  IPTABLES_REBUILD_STATUS_PENDING = 1;     // 等待中
-  IPTABLES_REBUILD_STATUS_RUNNING = 2;     // 执行中
-  IPTABLES_REBUILD_STATUS_SUCCESS = 3;     // 成功
-  IPTABLES_REBUILD_STATUS_FAILED = 4;      // 失败
-}
 
-// iptables重建任务
-message IptablesRebuildTask {
-  string task_id = 1;                      // 任务ID
-  string server_id = 2;                    // 服务器ID
-  IptablesRebuildStatus status = 3;        // 重建状态
-  int32 total_rules = 4;                   // 总规则数
-  int32 processed_rules = 5;               // 已处理规则数
-  int32 failed_rules = 6;                  // 失败规则数
-  optional string error_message = 7;       // 错误信息
-  int64 started_at = 8;                    // 开始时间
-  int64 completed_at = 9;                  // 完成时间
-}
 
 // iptables生成的规则
 message IptablesGeneratedRule {

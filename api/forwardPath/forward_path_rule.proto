@@ -206,26 +206,10 @@ service ForwardPathRuleService {
     };
   }
 
-  // 重建转发路径规则iptables配置
-  rpc RebuildForwardPathRuleIptables(nspass.api.iptables.v1.RebuildForwardPathRuleIptablesRequest) returns (nspass.api.iptables.v1.RebuildForwardPathRuleIptablesResponse) {
-    option (google.api.http) = {
-      post: "/v1/forward-path-rules/{rule_id}/iptables/rebuild"
-      body: "*"
-    };
-  }
-
   // 获取服务器iptables配置（只读，用于前端查询）
   rpc GetServerIptablesConfig(nspass.api.iptables.v1.GetServerIptablesConfigRequest) returns (nspass.api.iptables.v1.GetServerIptablesConfigResponse) {
     option (google.api.http) = {
       get: "/v1/servers/{server_id}/iptables"
-    };
-  }
-
-  // 重建服务器iptables配置（后端管理接口）
-  rpc RebuildServerIptables(nspass.api.iptables.v1.RebuildServerIptablesRequest) returns (nspass.api.iptables.v1.RebuildServerIptablesResponse) {
-    option (google.api.http) = {
-      post: "/v1/servers/{server_id}/iptables/rebuild"
-      body: "*"
     };
   }
 }

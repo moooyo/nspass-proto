@@ -2305,111 +2305,6 @@
         ]
       }
     },
-    "/v1/iptables/batch-rebuild": {
-      "post": {
-        "summary": "批量重建多个服务器iptables配置",
-        "operationId": "IptablesConfigService_BatchRebuildServersIptables",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1BatchRebuildServersIptablesResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1BatchRebuildServersIptablesRequest"
-            }
-          }
-        ],
-        "tags": [
-          "IptablesConfigService"
-        ]
-      }
-    },
-    "/v1/iptables/rebuild-tasks/{taskId}": {
-      "get": {
-        "summary": "获取重建任务状态",
-        "operationId": "IptablesConfigService_GetRebuildTaskStatus",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetRebuildTaskStatusResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "taskId",
-            "description": "任务ID",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "IptablesConfigService"
-        ]
-      }
-    },
-    "/v1/servers/{serverId}/iptables/cleanup": {
-      "post": {
-        "summary": "清理服务器iptables配置",
-        "operationId": "IptablesConfigService_CleanupServerIptables",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1CleanupServerIptablesResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "serverId",
-            "description": "服务器ID",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/IptablesConfigServiceCleanupServerIptablesBody"
-            }
-          }
-        ],
-        "tags": [
-          "IptablesConfigService"
-        ]
-      }
-    },
     "/v1/servers/{serverId}/iptables/configs": {
       "get": {
         "summary": "获取服务器iptables配置列表",
@@ -2582,46 +2477,6 @@
         ]
       }
     },
-    "/v1/servers/{serverId}/iptables/rebuild": {
-      "post": {
-        "summary": "重建服务器iptables配置（后端管理接口）",
-        "operationId": "ForwardPathRuleService_RebuildServerIptables",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1RebuildServerIptablesResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "serverId",
-            "description": "服务器ID",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ForwardPathRuleServiceRebuildServerIptablesBody"
-            }
-          }
-        ],
-        "tags": [
-          "ForwardPathRuleService"
-        ]
-      }
-    },
     "/v1/servers/{serverId}/iptables/rules": {
       "get": {
         "summary": "获取服务器iptables生成的规则",
@@ -2700,46 +2555,6 @@
             "in": "query",
             "required": false,
             "type": "string"
-          }
-        ],
-        "tags": [
-          "IptablesConfigService"
-        ]
-      }
-    },
-    "/v1/servers/{serverId}/iptables/validate": {
-      "post": {
-        "summary": "验证服务器iptables配置",
-        "operationId": "IptablesConfigService_ValidateServerIptables",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1ValidateServerIptablesResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "serverId",
-            "description": "服务器ID",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/IptablesConfigServiceValidateServerIptablesBody"
-            }
           }
         ],
         "tags": [
@@ -4403,46 +4218,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          }
-        ],
-        "tags": [
-          "ForwardPathRuleService"
-        ]
-      }
-    },
-    "/v1/forward-path-rules/{ruleId}/iptables/rebuild": {
-      "post": {
-        "summary": "重建转发路径规则iptables配置",
-        "operationId": "ForwardPathRuleService_RebuildForwardPathRuleIptables",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1RebuildForwardPathRuleIptablesResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "ruleId",
-            "description": "规则ID",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ForwardPathRuleServiceRebuildForwardPathRuleIptablesBody"
-            }
           }
         ],
         "tags": [
@@ -7741,121 +7516,6 @@
       },
       "title": "登录历史项"
     },
-    "IptablesConfigServiceCleanupServerIptablesBody": {
-      "type": "object",
-      "properties": {
-        "removeDisabled": {
-          "type": "boolean",
-          "title": "移除禁用配置"
-        },
-        "removeOutdated": {
-          "type": "boolean",
-          "title": "移除过时配置"
-        },
-        "daysThreshold": {
-          "type": "integer",
-          "format": "int32",
-          "title": "天数阈值"
-        }
-      },
-      "title": "清理服务器iptables配置请求"
-    },
-    "IptablesConfigServiceRebuildServerIptablesBody": {
-      "type": "object",
-      "properties": {
-        "forceRebuild": {
-          "type": "boolean",
-          "title": "强制重建"
-        },
-        "backupExisting": {
-          "type": "boolean",
-          "title": "备份现有配置"
-        },
-        "includeConfigs": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "title": "包含的配置名称（空则全部）"
-        },
-        "excludeConfigs": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "title": "排除的配置名称"
-        }
-      },
-      "title": "重建服务器iptables配置请求"
-    },
-    "IptablesConfigServiceValidateServerIptablesBody": {
-      "type": "object",
-      "properties": {
-        "dryRun": {
-          "type": "boolean",
-          "title": "仅验证不执行"
-        }
-      },
-      "title": "验证服务器iptables配置请求"
-    },
-    "v1BatchRebuildServersIptablesRequest": {
-      "type": "object",
-      "properties": {
-        "serverIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "title": "服务器ID列表"
-        },
-        "forceRebuild": {
-          "type": "boolean",
-          "title": "强制重建"
-        },
-        "backupExisting": {
-          "type": "boolean",
-          "title": "备份现有配置"
-        }
-      },
-      "title": "批量重建多个服务器iptables配置请求"
-    },
-    "v1BatchRebuildServersIptablesResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponseStatus"
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1IptablesRebuildTask"
-          }
-        }
-      },
-      "title": "批量重建多个服务器iptables配置响应"
-    },
-    "v1CleanupServerIptablesResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponseStatus"
-        },
-        "removedConfigs": {
-          "type": "integer",
-          "format": "int32",
-          "title": "移除的配置数"
-        },
-        "removedConfigNames": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "title": "移除的配置名称"
-        }
-      },
-      "title": "清理服务器iptables配置响应"
-    },
     "v1GetIptablesConfigResponse": {
       "type": "object",
       "properties": {
@@ -7867,18 +7527,6 @@
         }
       },
       "title": "获取单个iptables配置响应"
-    },
-    "v1GetRebuildTaskStatusResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponseStatus"
-        },
-        "data": {
-          "$ref": "#/definitions/v1IptablesRebuildTask"
-        }
-      },
-      "title": "获取重建任务状态响应"
     },
     "v1GetServerIptablesConfigsResponse": {
       "type": "object",
@@ -8086,66 +7734,6 @@
       "description": "- IPTABLES_PROTOCOL_TCP: TCP协议\n - IPTABLES_PROTOCOL_UDP: UDP协议\n - IPTABLES_PROTOCOL_ICMP: ICMP协议\n - IPTABLES_PROTOCOL_ALL: 所有协议",
       "title": "iptables协议类型枚举"
     },
-    "v1IptablesRebuildStatus": {
-      "type": "string",
-      "enum": [
-        "IPTABLES_REBUILD_STATUS_UNSPECIFIED",
-        "IPTABLES_REBUILD_STATUS_PENDING",
-        "IPTABLES_REBUILD_STATUS_RUNNING",
-        "IPTABLES_REBUILD_STATUS_SUCCESS",
-        "IPTABLES_REBUILD_STATUS_FAILED"
-      ],
-      "default": "IPTABLES_REBUILD_STATUS_UNSPECIFIED",
-      "description": "- IPTABLES_REBUILD_STATUS_PENDING: 等待中\n - IPTABLES_REBUILD_STATUS_RUNNING: 执行中\n - IPTABLES_REBUILD_STATUS_SUCCESS: 成功\n - IPTABLES_REBUILD_STATUS_FAILED: 失败",
-      "title": "iptables重建操作状态"
-    },
-    "v1IptablesRebuildTask": {
-      "type": "object",
-      "properties": {
-        "taskId": {
-          "type": "string",
-          "title": "任务ID"
-        },
-        "serverId": {
-          "type": "string",
-          "title": "服务器ID"
-        },
-        "status": {
-          "$ref": "#/definitions/v1IptablesRebuildStatus",
-          "title": "重建状态"
-        },
-        "totalRules": {
-          "type": "integer",
-          "format": "int32",
-          "title": "总规则数"
-        },
-        "processedRules": {
-          "type": "integer",
-          "format": "int32",
-          "title": "已处理规则数"
-        },
-        "failedRules": {
-          "type": "integer",
-          "format": "int32",
-          "title": "失败规则数"
-        },
-        "errorMessage": {
-          "type": "string",
-          "title": "错误信息"
-        },
-        "startedAt": {
-          "type": "string",
-          "format": "int64",
-          "title": "开始时间"
-        },
-        "completedAt": {
-          "type": "string",
-          "format": "int64",
-          "title": "完成时间"
-        }
-      },
-      "title": "iptables重建任务"
-    },
     "v1IptablesScript": {
       "type": "object",
       "properties": {
@@ -8227,60 +7815,6 @@
       "default": "IPTABLES_TABLE_TYPE_UNSPECIFIED",
       "description": "- IPTABLES_TABLE_TYPE_FILTER: filter表\n - IPTABLES_TABLE_TYPE_NAT: nat表\n - IPTABLES_TABLE_TYPE_MANGLE: mangle表\n - IPTABLES_TABLE_TYPE_RAW: raw表",
       "title": "iptables表类型枚举"
-    },
-    "v1RebuildServerIptablesResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponseStatus"
-        },
-        "data": {
-          "$ref": "#/definitions/v1IptablesRebuildTask"
-        }
-      },
-      "title": "重建服务器iptables配置响应"
-    },
-    "v1ValidateServerIptablesResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponseStatus"
-        },
-        "totalRules": {
-          "type": "integer",
-          "format": "int32",
-          "title": "总规则数"
-        },
-        "validRules": {
-          "type": "integer",
-          "format": "int32",
-          "title": "有效规则数"
-        },
-        "invalidRules": {
-          "type": "integer",
-          "format": "int32",
-          "title": "无效规则数"
-        },
-        "isValid": {
-          "type": "boolean",
-          "title": "是否有效"
-        },
-        "validationErrors": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "title": "验证错误"
-        },
-        "validationWarnings": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "title": "验证警告"
-        }
-      },
-      "title": "验证服务器iptables配置响应"
     },
     "v1BatchDeleteServersRequest": {
       "type": "object",
@@ -9564,48 +9098,6 @@
       "type": "object",
       "title": "启用转发路径规则请求"
     },
-    "ForwardPathRuleServiceRebuildForwardPathRuleIptablesBody": {
-      "type": "object",
-      "properties": {
-        "forceRebuild": {
-          "type": "boolean",
-          "title": "强制重建"
-        },
-        "backupExisting": {
-          "type": "boolean",
-          "title": "备份现有配置"
-        }
-      },
-      "title": "重建转发路径规则iptables配置请求"
-    },
-    "ForwardPathRuleServiceRebuildServerIptablesBody": {
-      "type": "object",
-      "properties": {
-        "forceRebuild": {
-          "type": "boolean",
-          "title": "强制重建"
-        },
-        "backupExisting": {
-          "type": "boolean",
-          "title": "备份现有配置"
-        },
-        "includeConfigs": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "title": "包含的配置名称（空则全部）"
-        },
-        "excludeConfigs": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "title": "排除的配置名称"
-        }
-      },
-      "title": "重建服务器iptables配置请求"
-    },
     "ForwardPathRuleServiceUpdateForwardPathRuleBody": {
       "type": "object",
       "properties": {
@@ -9986,18 +9478,6 @@
         }
       },
       "title": "重建所有转发路径规则iptables规则响应"
-    },
-    "v1RebuildForwardPathRuleIptablesResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/v1ApiResponseStatus"
-        },
-        "data": {
-          "$ref": "#/definitions/v1IptablesRebuildTask"
-        }
-      },
-      "title": "重建转发路径规则iptables配置响应"
     },
     "v1UpdateForwardPathRuleResponse": {
       "type": "object",

@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package nspass.model.v1;
+
+import "model/forwardRule.proto";
+import "model/forwardPath.proto";
+
+option go_package = "github.com/moooyo/nspass-proto/generated/model;model";
+
+// 转发规则数据库存储结构
+// 用于存储在数据库中，不包含完整的IP和端口信息，只存储引用
+message ForwardRuleDbModel {
+  uint32 id = 1;                           // 主键ID
+  uint32 user_id = 2;                      // 用户ID
+  string name = 3;                         // 规则名称
+  uint32 server_id = 4;                    // 服务器ID (引用servers表的id)
+  uint32 egress_id = 5;                    // 出口ID (引用egress_items表的id)
+  ForwardRuleType forward_type = 6;        // 转发类型
+  int32 source_port = 7;                   // 源端口
+  int32 target_port = 8;                   // 目标端口
+  optional string password = 9;            // 密码 (用于SS2022等模式)
+  bool support_udp = 10;                   // 支持UDP
+  string status = 11;                      // 状态
+  int64 traffic_up = 12;                   // 上行流量
+  int64 traffic_down = 13;                 // 下行流量
+  int64 last_active_time = 14;             // 最后活跃时间（Unix时间戳）
+  int64 created_at = 15;                   // 创建时间（Unix时间戳）
+  int64 updated_at = 16;                   // 更新时间（Unix时间戳）
+}
+
+// 转发路径节点数据库存储结构
+message ForwardPathNodeDbModel {
+  int32 id = 1;                            // 主键ID
+  int32 rule_id = 2;                       // 所属转发路径规则ID
+  uint32 server_id = 3;                    // 服务器ID (引用servers表的id)
+  int32 port = 4;                          // 在此服务器上使用的端口
+  int32 order_index = 5;                   // 在路径中的顺序
+}
+
+// 转发路径规则数据库存储结构
+message ForwardPathRuleDbModel {
+  int32 id = 1;                            // 自增主键ID
+  uint32 user_id = 2;                      // 用户ID
+  string name = 3;                         // 规则名称
+  ForwardPathRuleType type = 4;            // 转发类型
+  ForwardPathRuleStatus status = 5;        // 状态
+  uint32 egress_id = 6;                    // 出口ID (引用egress_items表的id)
+  int64 traffic_up = 7;                    // 上行流量（字节）
+  int64 traffic_down = 8;                  // 下行流量（字节）
+  int64 created_at = 9;                    // 创建时间（Unix时间戳）
+  int64 updated_at = 10;                   // 更新时间（Unix时间戳）
+  repeated ForwardPathNodeDbModel path = 11; // 转发路径节点列表 (仅在需要时加载)
+}
+
+// iptables规则配置数据库存储结构
+message IptablesRuleConfigDbModel {
+  int32 id = 1;                            // 配置ID（自增）
+  int32 forward_path_rule_id = 2;          // 所属转发路径规则ID
+  uint32 server_id = 3;                    // 服务器ID (引用servers表的id)
+  string chain = 4;                        // iptables链名
+  string rule_template = 5;                // iptables规则模板 (不包含具体IP)
+  string rule_type = 6;                    // 规则类型 (tcp/udp)
+  int32 source_port = 7;                   // 源端口
+  uint32 target_server_id = 8;             // 目标服务器ID (引用servers表的id，如果是服务器跳转)
+  uint32 target_egress_id = 9;             // 目标出口ID (引用egress_items表的id，如果是出口跳转)
+  int32 target_port = 10;                  // 目标端口
+  bool is_applied = 11;                    // 是否已应用
+  int64 created_at = 12;                   // 创建时间
+  int64 updated_at = 13;                   // 更新时间
+}

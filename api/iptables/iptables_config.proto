@@ -79,78 +79,7 @@ message GetIptablesConfigResponse {
   nspass.model.v1.IptablesConfig data = 4;
 }
 
-// ========================= 后端重建接口 =========================
 
-// 重建服务器iptables配置请求
-message RebuildServerIptablesRequest {
-  string server_id = 1;                         // 服务器ID
-  optional bool force_rebuild = 2;              // 强制重建
-  optional bool backup_existing = 3;            // 备份现有配置
-  repeated string include_configs = 4;          // 包含的配置名称（空则全部）
-  repeated string exclude_configs = 5;          // 排除的配置名称
-}
-
-// 重建服务器iptables配置响应
-message RebuildServerIptablesResponse {
-  nspass.common.v1.ApiResponseStatus status = 1;
-  nspass.model.v1.IptablesRebuildTask data = 4;
-}
-
-// 获取重建任务状态请求
-message GetRebuildTaskStatusRequest {
-  string task_id = 1;                           // 任务ID
-}
-
-// 获取重建任务状态响应
-message GetRebuildTaskStatusResponse {
-  nspass.common.v1.ApiResponseStatus status = 1;
-  nspass.model.v1.IptablesRebuildTask data = 4;
-}
-
-// 批量重建多个服务器iptables配置请求
-message BatchRebuildServersIptablesRequest {
-  repeated string server_ids = 1;               // 服务器ID列表
-  optional bool force_rebuild = 2;              // 强制重建
-  optional bool backup_existing = 3;            // 备份现有配置
-}
-
-// 批量重建多个服务器iptables配置响应
-message BatchRebuildServersIptablesResponse {
-  nspass.common.v1.ApiResponseStatus status = 1;
-  repeated nspass.model.v1.IptablesRebuildTask data = 2;
-}
-
-// 验证服务器iptables配置请求
-message ValidateServerIptablesRequest {
-  string server_id = 1;                         // 服务器ID
-  optional bool dry_run = 2;                    // 仅验证不执行
-}
-
-// 验证服务器iptables配置响应
-message ValidateServerIptablesResponse {
-  nspass.common.v1.ApiResponseStatus status = 1;
-  optional int32 total_rules = 2;                        // 总规则数
-  optional int32 valid_rules = 3;                        // 有效规则数
-  optional int32 invalid_rules = 4;                      // 无效规则数
-  optional bool is_valid = 5;                            // 是否有效
-  repeated string validation_errors = 6;        // 验证错误
-  repeated string validation_warnings = 7;      // 验证警告
-}
-
-// 清理服务器iptables配置请求
-message CleanupServerIptablesRequest {
-  string server_id = 1;                         // 服务器ID
-  optional bool remove_disabled = 2;            // 移除禁用配置
-  optional bool remove_outdated = 3;            // 移除过时配置
-  optional int32 days_threshold = 4;            // 天数阈值
-}
-
-// 清理服务器iptables配置响应
-message CleanupServerIptablesResponse {
-  nspass.common.v1.ApiResponseStatus status = 1;
-  optional int32 removed_configs = 4;                    // 移除的配置数
-  repeated string removed_config_names = 5;     // 移除的配置名称
-}
 
 // ========================= 转发路径规则相关消息 =========================
 
@@ -163,19 +92,6 @@ message GetForwardPathRuleIptablesRequest {
 message GetForwardPathRuleIptablesResponse {
   nspass.common.v1.ApiResponseStatus status = 1;
   repeated nspass.model.v1.IptablesConfigInfo data = 2;
-}
-
-// 重建转发路径规则iptables配置请求
-message RebuildForwardPathRuleIptablesRequest {
-  string rule_id = 1;                           // 规则ID
-  optional bool force_rebuild = 2;              // 强制重建
-  optional bool backup_existing = 3;            // 备份现有配置
-}
-
-// 重建转发路径规则iptables配置响应
-message RebuildForwardPathRuleIptablesResponse {
-  nspass.common.v1.ApiResponseStatus status = 1;
-  nspass.model.v1.IptablesRebuildTask data = 4;
 }
 
 // 获取服务器iptables配置请求（简化版，用于转发路径规则接口）
@@ -227,47 +143,6 @@ service IptablesConfigService {
   rpc GetIptablesConfig(GetIptablesConfigRequest) returns (GetIptablesConfigResponse) {
     option (google.api.http) = {
       get: "/v1/servers/{server_id}/iptables/configs/{config_name}"
-    };
-  }
-
-  // ===================== 后端重建接口 =====================
-
-  // 重建服务器iptables配置
-  rpc RebuildServerIptables(RebuildServerIptablesRequest) returns (RebuildServerIptablesResponse) {
-    option (google.api.http) = {
-      post: "/v1/servers/{server_id}/iptables/rebuild"
-      body: "*"
-    };
-  }
-
-  // 获取重建任务状态
-  rpc GetRebuildTaskStatus(GetRebuildTaskStatusRequest) returns (GetRebuildTaskStatusResponse) {
-    option (google.api.http) = {
-      get: "/v1/iptables/rebuild-tasks/{task_id}"
-    };
-  }
-
-  // 批量重建多个服务器iptables配置
-  rpc BatchRebuildServersIptables(BatchRebuildServersIptablesRequest) returns (BatchRebuildServersIptablesResponse) {
-    option (google.api.http) = {
-      post: "/v1/iptables/batch-rebuild"
-      body: "*"
-    };
-  }
-
-  // 验证服务器iptables配置
-  rpc ValidateServerIptables(ValidateServerIptablesRequest) returns (ValidateServerIptablesResponse) {
-    option (google.api.http) = {
-      post: "/v1/servers/{server_id}/iptables/validate"
-      body: "*"
-    };
-  }
-
-  // 清理服务器iptables配置
-  rpc CleanupServerIptables(CleanupServerIptablesRequest) returns (CleanupServerIptablesResponse) {
-    option (google.api.http) = {
-      post: "/v1/servers/{server_id}/iptables/cleanup"
-      body: "*"
     };
   }
 }
