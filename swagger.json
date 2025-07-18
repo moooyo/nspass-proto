@@ -3431,10 +3431,11 @@
         "parameters": [
           {
             "name": "id",
-            "description": "可以是内部ID或route_id",
+            "description": "数据库自增主键ID",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "tags": [
@@ -3461,10 +3462,11 @@
         "parameters": [
           {
             "name": "id",
-            "description": "可以是内部ID或route_id",
+            "description": "数据库自增主键ID",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "tags": [
@@ -3491,10 +3493,11 @@
         "parameters": [
           {
             "name": "id",
-            "description": "可以是内部ID或route_id",
+            "description": "数据库自增主键ID",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           },
           {
             "name": "body",
@@ -3531,9 +3534,11 @@
         "parameters": [
           {
             "name": "id",
+            "description": "数据库自增主键ID",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           },
           {
             "name": "format",
@@ -3569,9 +3574,11 @@
         "parameters": [
           {
             "name": "id",
+            "description": "数据库自增主键ID",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           },
           {
             "name": "body",
@@ -3608,9 +3615,11 @@
         "parameters": [
           {
             "name": "id",
+            "description": "数据库自增主键ID",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           },
           {
             "name": "body",
@@ -8375,9 +8384,6 @@
     "RouteManagementServiceUpdateRouteBody": {
       "type": "object",
       "properties": {
-        "routeId": {
-          "type": "string"
-        },
         "routeName": {
           "type": "string"
         },
@@ -8436,9 +8442,10 @@
         "ids": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           },
-          "title": "可以是内部ID或route_id的混合"
+          "title": "数据库自增主键ID列表"
         }
       },
       "title": "批量删除线路请求"
@@ -8479,8 +8486,10 @@
         "ids": {
           "type": "array",
           "items": {
-            "type": "string"
-          }
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": "数据库自增主键ID列表"
         },
         "status": {
           "$ref": "#/definitions/v1RouteStatus"
@@ -8500,10 +8509,6 @@
     "v1CreateRouteRequest": {
       "type": "object",
       "properties": {
-        "routeId": {
-          "type": "string",
-          "title": "线路ID (可选，不填自动生成)"
-        },
         "routeName": {
           "type": "string",
           "title": "线路名称"
@@ -8685,12 +8690,9 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "title": "内部ID"
-        },
-        "routeId": {
-          "type": "string",
-          "title": "用户可见的线路ID"
+          "type": "integer",
+          "format": "int32",
+          "title": "数据库自增主键ID"
         },
         "routeName": {
           "type": "string",
@@ -8727,13 +8729,13 @@
         },
         "createdAt": {
           "type": "string",
-          "format": "date-time",
-          "title": "创建时间"
+          "format": "int64",
+          "title": "创建时间（Unix时间戳）"
         },
         "updatedAt": {
           "type": "string",
-          "format": "date-time",
-          "title": "更新时间"
+          "format": "int64",
+          "title": "更新时间（Unix时间戳）"
         },
         "createdBy": {
           "type": "string",
