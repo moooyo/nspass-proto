@@ -6,23 +6,22 @@ option go_package = "github.com/moooyo/nspass-proto/generated/model;model";
 
 // iptables配置信息
 message IptablesConfig {
-  int32 id = 1;                         // 配置ID
+  int32 id = 1;                         // 配置ID (数据库自增主键)
   string server_id = 2;                 // 服务器ID
-  string config_name = 3;               // 配置名称
-  string table_name = 4;                // 表名 (filter/nat/mangle/raw)
-  string chain_name = 5;                // 链名
-  string rule_action = 6;               // 规则动作
-  optional string source_ip = 7;        // 源IP
-  optional string source_port = 8;      // 源端口
-  optional string dest_ip = 9;          // 目标IP
-  optional string dest_port = 10;       // 目标端口
-  string protocol = 11;                 // 协议 (tcp/udp/icmp/all)
-  optional string interface = 12;       // 网络接口
-  optional string rule_comment = 13;    // 规则注释
-  int32 priority = 14;                  // 优先级
-  bool is_enabled = 15;                 // 是否启用
-  int64 created_at = 16;                // 创建时间（Unix时间戳）
-  int64 updated_at = 17;                // 更新时间（Unix时间戳）
+  string table_name = 3;                // 表名 (filter/nat/mangle/raw)
+  string chain_name = 4;                // 链名
+  string rule_action = 5;               // 规则动作
+  optional string source_ip = 6;        // 源IP
+  optional string source_port = 7;      // 源端口
+  optional string dest_ip = 8;          // 目标IP
+  optional string dest_port = 9;        // 目标端口
+  string protocol = 10;                 // 协议 (tcp/udp/icmp/all)
+  optional string interface = 11;       // 网络接口
+  optional string rule_comment = 12;    // 规则注释
+  int32 priority = 13;                  // 优先级
+  bool is_enabled = 14;                 // 是否启用
+  int64 created_at = 15;                // 创建时间（Unix时间戳）
+  int64 updated_at = 16;                // 更新时间（Unix时间戳）
 }
 
 // iptables规则状态枚举
@@ -76,11 +75,11 @@ message IptablesServerConfig {
 
 // iptables生成的规则
 message IptablesGeneratedRule {
-  string rule_command = 1;                 // 生成的iptables命令
-  string config_name = 2;                  // 对应的配置名称
-  int32 priority = 3;                      // 优先级
-  bool is_valid = 4;                       // 是否有效
-  optional string error_message = 5;       // 错误信息（如果无效）
+  int32 config_id = 1;                    // 对应的配置ID
+  string rule_command = 2;                // 生成的iptables命令
+  int32 priority = 3;                     // 优先级
+  bool is_valid = 4;                      // 是否有效
+  optional string error_message = 5;      // 错误信息（如果无效）
 }
 
 // iptables脚本
@@ -93,11 +92,11 @@ message IptablesScript {
 
 // iptables配置信息（用于前端显示）
 message IptablesConfigInfo {
-  string server_id = 1;                    // 服务器ID
-  string server_name = 2;                  // 服务器名称
-  string config_name = 3;                  // 配置名称
-  string table_name = 4;                   // 表名
-  string chain_name = 5;                   // 链名
+  int32 id = 1;                        // 配置ID (数据库自增主键)
+  string server_id = 2;                // 服务器ID
+  string server_name = 3;              // 服务器名称
+  string table_name = 4;               // 表名
+  string chain_name = 5;               // 链名
   string rule_action = 6;                  // 规则动作
   optional string source_ip = 7;           // 源IP
   optional string source_port = 8;         // 源端口

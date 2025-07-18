@@ -70,7 +70,7 @@ message GetServerIptablesScriptResponse {
 // 获取单个iptables配置请求
 message GetIptablesConfigRequest {
   string server_id = 1;                         // 服务器ID
-  string config_name = 2;                       // 配置名称
+  int32 config_id = 2;                          // 配置ID
 }
 
 // 获取单个iptables配置响应
@@ -142,7 +142,7 @@ service IptablesConfigService {
   // 获取单个iptables配置
   rpc GetIptablesConfig(GetIptablesConfigRequest) returns (GetIptablesConfigResponse) {
     option (google.api.http) = {
-      get: "/v1/servers/{server_id}/iptables/configs/{config_name}"
+      get: "/v1/servers/{server_id}/iptables/configs/{config_id}"
     };
   }
 }

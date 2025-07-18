@@ -2406,7 +2406,7 @@
         ]
       }
     },
-    "/v1/servers/{serverId}/iptables/configs/{configName}": {
+    "/v1/servers/{serverId}/iptables/configs/{configId}": {
       "get": {
         "summary": "获取单个iptables配置",
         "operationId": "IptablesConfigService_GetIptablesConfig",
@@ -2433,11 +2433,12 @@
             "type": "string"
           },
           {
-            "name": "configName",
-            "description": "配置名称",
+            "name": "configId",
+            "description": "配置ID",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "tags": [
@@ -7622,15 +7623,11 @@
         "id": {
           "type": "integer",
           "format": "int32",
-          "title": "配置ID"
+          "title": "配置ID (数据库自增主键)"
         },
         "serverId": {
           "type": "string",
           "title": "服务器ID"
-        },
-        "configName": {
-          "type": "string",
-          "title": "配置名称"
         },
         "tableName": {
           "type": "string",
@@ -7697,13 +7694,14 @@
     "v1IptablesGeneratedRule": {
       "type": "object",
       "properties": {
+        "configId": {
+          "type": "integer",
+          "format": "int32",
+          "title": "对应的配置ID"
+        },
         "ruleCommand": {
           "type": "string",
           "title": "生成的iptables命令"
-        },
-        "configName": {
-          "type": "string",
-          "title": "对应的配置名称"
         },
         "priority": {
           "type": "integer",
@@ -9391,6 +9389,11 @@
     "v1IptablesConfigInfo": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "title": "配置ID (数据库自增主键)"
+        },
         "serverId": {
           "type": "string",
           "title": "服务器ID"
@@ -9398,10 +9401,6 @@
         "serverName": {
           "type": "string",
           "title": "服务器名称"
-        },
-        "configName": {
-          "type": "string",
-          "title": "配置名称"
         },
         "tableName": {
           "type": "string",
