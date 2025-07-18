@@ -68,3 +68,36 @@ message IptablesRuleConfigDbModel {
   int64 created_at = 12;                   // 创建时间
   int64 updated_at = 13;                   // 更新时间
 }
+
+// 系统iptables配置数据库存储结构
+// 用于存储系统级别的iptables配置，采用动态引用方式
+message IptablesConfigDbModel {
+  int32 id = 1;                            // 配置ID（自增）
+  string config_name = 2;                  // 配置名称
+  uint32 server_id = 3;                    // 服务器ID (引用servers表的id)
+  string table_name = 4;                   // iptables表名 (nat/filter/mangle等)
+  string chain_name = 5;                   // iptables链名 (INPUT/OUTPUT/FORWARD等)
+  string rule_action = 6;                  // 规则动作 (ACCEPT/DROP/REJECT等)
+  string protocol = 7;                     // 协议类型 (tcp/udp/icmp等)
+  optional string interface = 8;           // 网络接口
+  optional string rule_comment = 9;        // 规则注释
+  int32 priority = 10;                     // 规则优先级
+  bool is_enabled = 11;                    // 是否启用
+  
+  // 源相关字段（支持引用方式）
+  optional int32 source_port = 12;         // 源端口（固定值）
+  optional uint32 source_server_id = 13;   // 源服务器ID (引用servers表的id)
+  optional uint32 source_egress_id = 14;   // 源出口ID (引用egress_items表的id)
+  
+  // 目标相关字段（支持引用方式）
+  optional int32 dest_port = 15;           // 目标端口（固定值）
+  optional uint32 dest_server_id = 16;     // 目标服务器ID (引用servers表的id)
+  optional uint32 dest_egress_id = 17;     // 目标出口ID (引用egress_items表的id)
+  
+  // 规则模板和生成
+  string rule_template = 18;               // iptables规则模板 (不包含具体IP)
+  optional string generated_rule = 19;     // 完整生成的规则（包含解析后的IP）
+  
+  int64 created_at = 20;                   // 创建时间
+  int64 updated_at = 21;                   // 更新时间
+}
