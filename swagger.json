@@ -7696,6 +7696,28 @@
           "type": "string",
           "format": "int64",
           "title": "更新时间（Unix时间戳）"
+        },
+        "sourceServerId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "源服务器ID (引用servers表的id)",
+          "title": "源引用字段"
+        },
+        "sourceEgressId": {
+          "type": "integer",
+          "format": "int64",
+          "title": "源出口ID (引用egress_items表的id)"
+        },
+        "destServerId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "目标服务器ID (引用servers表的id)",
+          "title": "目标引用字段"
+        },
+        "destEgressId": {
+          "type": "integer",
+          "format": "int64",
+          "title": "目标出口ID (引用egress_items表的id)"
         }
       },
       "title": "iptables配置信息"

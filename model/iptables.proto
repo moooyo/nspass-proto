@@ -22,6 +22,14 @@ message IptablesConfig {
   bool is_enabled = 14;                 // 是否启用
   int64 created_at = 15;                // 创建时间（Unix时间戳）
   int64 updated_at = 16;                // 更新时间（Unix时间戳）
+  
+  // 源引用字段
+  optional uint32 source_server_id = 17; // 源服务器ID (引用servers表的id)
+  optional uint32 source_egress_id = 18; // 源出口ID (引用egress_items表的id)
+  
+  // 目标引用字段
+  optional uint32 dest_server_id = 19;   // 目标服务器ID (引用servers表的id)
+  optional uint32 dest_egress_id = 20;   // 目标出口ID (引用egress_items表的id)
 }
 
 // iptables规则状态枚举
