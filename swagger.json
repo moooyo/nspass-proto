@@ -3771,6 +3771,60 @@
         ]
       }
     },
+    "/v1/settings/agent/report-base-url": {
+      "get": {
+        "summary": "获取Agent上报Base URL设置",
+        "operationId": "SettingsManagementService_GetAgentReportBaseUrl",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAgentReportBaseUrlResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "SettingsManagementService"
+        ]
+      },
+      "put": {
+        "summary": "更新Agent上报Base URL设置",
+        "operationId": "SettingsManagementService_UpdateAgentReportBaseUrl",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateAgentReportBaseUrlResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateAgentReportBaseUrlRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SettingsManagementService"
+        ]
+      }
+    },
     "/v1/settings/batch": {
       "post": {
         "summary": "批量更新设置",
@@ -9134,6 +9188,18 @@
         }
       }
     },
+    "v1GetAgentReportBaseUrlResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
+        },
+        "baseUrl": {
+          "type": "string"
+        }
+      },
+      "title": "Agent上报Base URL响应"
+    },
     "v1GetSettingResponse": {
       "type": "object",
       "properties": {
@@ -9188,6 +9254,26 @@
         }
       },
       "title": "设置项"
+    },
+    "v1UpdateAgentReportBaseUrlRequest": {
+      "type": "object",
+      "properties": {
+        "baseUrl": {
+          "type": "string"
+        }
+      },
+      "title": "更新Agent上报Base URL设置请求"
+    },
+    "v1UpdateAgentReportBaseUrlResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
+        },
+        "baseUrl": {
+          "type": "string"
+        }
+      }
     },
     "v1UpdateSettingRequest": {
       "type": "object",

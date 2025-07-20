@@ -55,6 +55,15 @@ message BatchUpdateSettingsRequest {
   repeated UpdateSettingRequest settings = 1;
 }
 
+// 获取Agent上报Base URL设置请求
+message GetAgentReportBaseUrlRequest {
+}
+
+// 更新Agent上报Base URL设置请求
+message UpdateAgentReportBaseUrlRequest {
+  string baseUrl = 1;
+}
+
 // === 响应消息 ===
 
 message GetSettingsResponse {
@@ -84,6 +93,17 @@ message DeleteSettingResponse {
 message BatchUpdateSettingsResponse {
   nspass.common.v1.ApiResponseStatus status = 1;
   repeated SettingItem data = 2;
+}
+
+// Agent上报Base URL响应
+message GetAgentReportBaseUrlResponse {
+  nspass.common.v1.ApiResponseStatus status = 1;
+  string baseUrl = 2;
+}
+
+message UpdateAgentReportBaseUrlResponse {
+  nspass.common.v1.ApiResponseStatus status = 1;
+  string baseUrl = 2;
 }
 
 // === 服务定义 ===
@@ -130,6 +150,21 @@ service SettingsManagementService {
   rpc BatchUpdateSettings(BatchUpdateSettingsRequest) returns (BatchUpdateSettingsResponse) {
     option (google.api.http) = {
       post: "/v1/settings/batch"
+      body: "*"
+    };
+  }
+
+  // 获取Agent上报Base URL设置
+  rpc GetAgentReportBaseUrl(GetAgentReportBaseUrlRequest) returns (GetAgentReportBaseUrlResponse) {
+    option (google.api.http) = {
+      get: "/v1/settings/agent/report-base-url"
+    };
+  }
+
+  // 更新Agent上报Base URL设置
+  rpc UpdateAgentReportBaseUrl(UpdateAgentReportBaseUrlRequest) returns (UpdateAgentReportBaseUrlResponse) {
+    option (google.api.http) = {
+      put: "/v1/settings/agent/report-base-url"
       body: "*"
     };
   }
