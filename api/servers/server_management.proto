@@ -95,6 +95,15 @@ message RestartServerRequest {
   string id = 1;
 }
 
+// 重新生成单个服务器token请求
+message RegenerateServerTokenRequest {
+  string id = 1;
+}
+
+// 重新生成所有服务器token请求
+message RegenerateAllServerTokensRequest {
+}
+
 // === 响应消息 ===
 
 message GetServersResponse {
@@ -128,6 +137,18 @@ message BatchDeleteServersResponse {
 
 message RestartServerResponse {
   nspass.common.v1.ApiResponseStatus status = 1;
+}
+
+// 重新生成单个服务器token响应
+message RegenerateServerTokenResponse {
+  nspass.common.v1.ApiResponseStatus status = 1;
+  optional ServerItem data = 2;
+}
+
+// 重新生成所有服务器token响应
+message RegenerateAllServerTokensResponse {
+  nspass.common.v1.ApiResponseStatus status = 1;
+  repeated ServerItem data = 2;
 }
 
 // === 服务定义 ===
@@ -204,6 +225,27 @@ service ServerManagementService {
   rpc RestartServer(RestartServerRequest) returns (RestartServerResponse) {
     option (google.api.http) = {
       post: "/v1/servers/{id}/restart"
+    };
+  }
+
+  // 重新生成单个服务器token
+  // 
+  // 为指定服务器重新生成认证token。
+  // 用于token泄露或定期更换token的场景。
+  rpc RegenerateServerToken(RegenerateServerTokenRequest) returns (RegenerateServerTokenResponse) {
+    option (google.api.http) = {
+      post: "/v1/servers/{id}/regenerate-token"
+    };
+  }
+
+  // 重新生成所有服务器token
+  // 
+  // 为所有服务器重新生成认证token。
+  // 用于批量更新token或安全事件响应。
+  rpc RegenerateAllServerTokens(RegenerateAllServerTokensRequest) returns (RegenerateAllServerTokensResponse) {
+    option (google.api.http) = {
+      post: "/v1/servers/regenerate-all-tokens"
+      body: "*"
     };
   }
 } 

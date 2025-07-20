@@ -2695,6 +2695,40 @@
         ]
       }
     },
+    "/v1/servers/regenerate-all-tokens": {
+      "post": {
+        "summary": "重新生成所有服务器token",
+        "description": "为所有服务器重新生成认证token。\n用于批量更新token或安全事件响应。",
+        "operationId": "ServerManagementService_RegenerateAllServerTokens",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RegenerateAllServerTokensResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RegenerateAllServerTokensRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ServerManagementService"
+        ]
+      }
+    },
     "/v1/servers/{id}": {
       "get": {
         "summary": "获取服务器详情",
@@ -2788,6 +2822,38 @@
             "schema": {
               "$ref": "#/definitions/v1UpdateServerRequest"
             }
+          }
+        ],
+        "tags": [
+          "ServerManagementService"
+        ]
+      }
+    },
+    "/v1/servers/{id}/regenerate-token": {
+      "post": {
+        "summary": "重新生成单个服务器token",
+        "description": "为指定服务器重新生成认证token。\n用于token泄露或定期更换token的场景。",
+        "operationId": "ServerManagementService_RegenerateServerToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RegenerateServerTokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "tags": [
@@ -7949,6 +8015,38 @@
           "$ref": "#/definitions/v1PaginationResponse"
         }
       }
+    },
+    "v1RegenerateAllServerTokensRequest": {
+      "type": "object",
+      "title": "重新生成所有服务器token请求"
+    },
+    "v1RegenerateAllServerTokensResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1ServerItem"
+          }
+        }
+      },
+      "title": "重新生成所有服务器token响应"
+    },
+    "v1RegenerateServerTokenResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
+        },
+        "data": {
+          "$ref": "#/definitions/v1ServerItem"
+        }
+      },
+      "title": "重新生成单个服务器token响应"
     },
     "v1RestartServerResponse": {
       "type": "object",
