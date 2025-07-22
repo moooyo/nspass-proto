@@ -95,15 +95,20 @@ message BatchUpdateSettingsResponse {
   repeated SettingItem data = 2;
 }
 
+// Agent上报Base URL数据结构
+message AgentReportBaseUrlData {
+  string baseUrl = 1;
+}
+
 // Agent上报Base URL响应
 message GetAgentReportBaseUrlResponse {
   nspass.common.v1.ApiResponseStatus status = 1;
-  string baseUrl = 2;
+  optional AgentReportBaseUrlData data = 2;
 }
 
 message UpdateAgentReportBaseUrlResponse {
   nspass.common.v1.ApiResponseStatus status = 1;
-  string baseUrl = 2;
+  optional AgentReportBaseUrlData data = 2;
 }
 
 // === 服务定义 ===
