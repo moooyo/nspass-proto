@@ -9120,6 +9120,15 @@
       },
       "title": "更新设置请求"
     },
+    "v1AgentReportBaseUrlData": {
+      "type": "object",
+      "properties": {
+        "baseUrl": {
+          "type": "string"
+        }
+      },
+      "title": "Agent上报Base URL数据结构"
+    },
     "v1BatchUpdateSettingsRequest": {
       "type": "object",
       "properties": {
@@ -9194,8 +9203,8 @@
         "status": {
           "$ref": "#/definitions/v1ApiResponseStatus"
         },
-        "baseUrl": {
-          "type": "string"
+        "data": {
+          "$ref": "#/definitions/v1AgentReportBaseUrlData"
         }
       },
       "title": "Agent上报Base URL响应"
@@ -9270,8 +9279,8 @@
         "status": {
           "$ref": "#/definitions/v1ApiResponseStatus"
         },
-        "baseUrl": {
-          "type": "string"
+        "data": {
+          "$ref": "#/definitions/v1AgentReportBaseUrlData"
         }
       }
     },
