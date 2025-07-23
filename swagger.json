@@ -22,6 +22,425 @@
     "application/json"
   ],
   "paths": {
+    "/api/v1/agent/tasks": {
+      "post": {
+        "summary": "发送任务给Agent",
+        "operationId": "AgentWebSocketService_SendTask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SendTaskResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SendTaskRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AgentWebSocketService"
+        ]
+      }
+    },
+    "/api/v1/agent/tasks/{taskId}": {
+      "get": {
+        "summary": "获取任务详情",
+        "operationId": "AgentWebSocketService_GetTask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetTaskResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "taskId",
+            "description": "任务ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AgentWebSocketService"
+        ]
+      },
+      "delete": {
+        "summary": "取消任务",
+        "operationId": "AgentWebSocketService_CancelTask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CancelTaskResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "taskId",
+            "description": "任务ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "reason",
+            "description": "取消原因",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AgentWebSocketService"
+        ]
+      }
+    },
+    "/api/v1/agent/websocket": {
+      "get": {
+        "summary": "建立WebSocket连接",
+        "operationId": "AgentWebSocketService_Connect",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ConnectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "agentId",
+            "description": "Agent ID",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "token",
+            "description": "认证Token",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "description": "Agent版本",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "metadata",
+            "description": "元数据",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AgentWebSocketService"
+        ]
+      }
+    },
+    "/api/v1/agent/{agentId}/metrics": {
+      "get": {
+        "summary": "获取监控数据",
+        "operationId": "AgentWebSocketService_GetMetrics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetMetricsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "agentId",
+            "description": "Agent ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "metricsType",
+            "description": "监控类型\n\n - METRICS_TYPE_SYSTEM: 系统监控\n - METRICS_TYPE_TRAFFIC: 流量监控\n - METRICS_TYPE_CONNECTION: 连接监控\n - METRICS_TYPE_PERFORMANCE: 性能监控\n - METRICS_TYPE_ERROR: 错误监控",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "METRICS_TYPE_UNSPECIFIED",
+              "METRICS_TYPE_SYSTEM",
+              "METRICS_TYPE_TRAFFIC",
+              "METRICS_TYPE_CONNECTION",
+              "METRICS_TYPE_PERFORMANCE",
+              "METRICS_TYPE_ERROR"
+            ],
+            "default": "METRICS_TYPE_UNSPECIFIED"
+          },
+          {
+            "name": "startTime",
+            "description": "开始时间",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endTime",
+            "description": "结束时间",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "AgentWebSocketService"
+        ]
+      }
+    },
+    "/api/v1/agent/{agentId}/metrics/history": {
+      "get": {
+        "summary": "获取监控数据历史",
+        "operationId": "AgentWebSocketService_GetMetricsHistory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetMetricsHistoryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "agentId",
+            "description": "Agent ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "metricsType",
+            "description": "监控类型\n\n - METRICS_TYPE_SYSTEM: 系统监控\n - METRICS_TYPE_TRAFFIC: 流量监控\n - METRICS_TYPE_CONNECTION: 连接监控\n - METRICS_TYPE_PERFORMANCE: 性能监控\n - METRICS_TYPE_ERROR: 错误监控",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "METRICS_TYPE_UNSPECIFIED",
+              "METRICS_TYPE_SYSTEM",
+              "METRICS_TYPE_TRAFFIC",
+              "METRICS_TYPE_CONNECTION",
+              "METRICS_TYPE_PERFORMANCE",
+              "METRICS_TYPE_ERROR"
+            ],
+            "default": "METRICS_TYPE_UNSPECIFIED"
+          },
+          {
+            "name": "startTime",
+            "description": "开始时间",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endTime",
+            "description": "结束时间",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "interval",
+            "description": "采样间隔(秒)",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "description": "页码",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "description": "每页大小",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "AgentWebSocketService"
+        ]
+      }
+    },
+    "/api/v1/agent/{agentId}/status": {
+      "get": {
+        "summary": "获取Agent状态",
+        "operationId": "AgentWebSocketService_GetAgentStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAgentStatusResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "agentId",
+            "description": "Agent ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AgentWebSocketService"
+        ]
+      }
+    },
+    "/api/v1/agent/{agentId}/tasks": {
+      "get": {
+        "summary": "获取任务列表",
+        "operationId": "AgentWebSocketService_ListTasks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListTasksResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "agentId",
+            "description": "Agent ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "description": "任务状态过滤\n\n - TASK_STATUS_PENDING: 等待执行\n - TASK_STATUS_RUNNING: 执行中\n - TASK_STATUS_COMPLETED: 已完成\n - TASK_STATUS_FAILED: 执行失败\n - TASK_STATUS_CANCELLED: 已取消",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "TASK_STATUS_UNSPECIFIED",
+              "TASK_STATUS_PENDING",
+              "TASK_STATUS_RUNNING",
+              "TASK_STATUS_COMPLETED",
+              "TASK_STATUS_FAILED",
+              "TASK_STATUS_CANCELLED"
+            ],
+            "default": "TASK_STATUS_UNSPECIFIED"
+          },
+          {
+            "name": "page",
+            "description": "页码",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "description": "每页大小",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "startTime",
+            "description": "开始时间",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endTime",
+            "description": "结束时间",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "AgentWebSocketService"
+        ]
+      }
+    },
     "/s/{subscriptionId}": {
       "get": {
         "summary": "获取订阅内容",
@@ -4889,6 +5308,20 @@
       ],
       "default": "NODE_STATUS_UNSPECIFIED",
       "title": "节点状态"
+    },
+    "v1SendTaskRequest": {
+      "type": "object",
+      "properties": {
+        "agentId": {
+          "type": "string",
+          "title": "Agent ID"
+        },
+        "task": {
+          "$ref": "#/definitions/v1TaskMessage",
+          "title": "任务消息"
+        }
+      },
+      "title": "发送任务请求"
     },
     "v1SendTaskResponse": {
       "type": "object",

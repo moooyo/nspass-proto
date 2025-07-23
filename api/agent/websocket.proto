@@ -4,6 +4,7 @@ package nspass.api.agent.v1;
 
 option go_package = "github.com/moooyo/nspass-proto/generated/api/agent;agent";
 
+import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 import "model/websocket.proto";
 import "model/node.proto";
@@ -11,28 +12,61 @@ import "model/node.proto";
 // Agent WebSocket服务
 service AgentWebSocketService {
   // 建立WebSocket连接
-  rpc Connect(ConnectRequest) returns (ConnectResponse);
+  rpc Connect(ConnectRequest) returns (ConnectResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/agent/websocket"
+    };
+  };
   
   // 发送任务给Agent
-  rpc SendTask(SendTaskRequest) returns (SendTaskResponse);
+  rpc SendTask(SendTaskRequest) returns (SendTaskResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/agent/tasks"
+      body: "*"
+    };
+  };
   
   // 获取Agent状态
-  rpc GetAgentStatus(GetAgentStatusRequest) returns (GetAgentStatusResponse);
+  rpc GetAgentStatus(GetAgentStatusRequest) returns (GetAgentStatusResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/agent/{agent_id}/status"
+    };
+  };
   
   // 获取任务列表
-  rpc ListTasks(ListTasksRequest) returns (ListTasksResponse);
+  rpc ListTasks(ListTasksRequest) returns (ListTasksResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/agent/{agent_id}/tasks"
+    };
+  };
   
   // 获取任务详情
-  rpc GetTask(GetTaskRequest) returns (GetTaskResponse);
+  rpc GetTask(GetTaskRequest) returns (GetTaskResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/agent/tasks/{task_id}"
+    };
+  };
   
   // 取消任务
-  rpc CancelTask(CancelTaskRequest) returns (CancelTaskResponse);
+  rpc CancelTask(CancelTaskRequest) returns (CancelTaskResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/agent/tasks/{task_id}"
+    };
+  };
   
   // 获取监控数据
-  rpc GetMetrics(GetMetricsRequest) returns (GetMetricsResponse);
+  rpc GetMetrics(GetMetricsRequest) returns (GetMetricsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/agent/{agent_id}/metrics"
+    };
+  };
   
   // 获取监控数据历史
-  rpc GetMetricsHistory(GetMetricsHistoryRequest) returns (GetMetricsHistoryResponse);
+  rpc GetMetricsHistory(GetMetricsHistoryRequest) returns (GetMetricsHistoryResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/agent/{agent_id}/metrics/history"
+    };
+  };
 }
 
 // 连接请求
