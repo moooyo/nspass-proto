@@ -10,6 +10,19 @@ import "model/websocket.proto";
 import "model/node.proto";
 
 // Agent WebSocket服务
+// 
+// 🔐 服务器认证约定：
+// ┌─────────────────────────────────────────────────────────────┐
+// │ HTTP API认证:                                                │
+// │   Header: Server-ID = <服务器ID>                             │
+// │   Header: Server-Token = <服务器Token>                       │
+// │                                                             │
+// │ gRPC API认证:                                                │
+// │   Metadata: server-id = <服务器ID>                           │
+// │   Metadata: server-token = <服务器Token>                     │
+// └─────────────────────────────────────────────────────────────┘
+//
+// 详细的认证约定参见: nspass.model.v1.ServerAuthHeaders (定义在 model/auth.proto)
 service AgentWebSocketService {
   // 建立WebSocket连接
   rpc Connect(ConnectRequest) returns (ConnectResponse) {

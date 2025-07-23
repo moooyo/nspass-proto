@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package nspass.model.v1;
+
+option go_package = "github.com/moooyo/nspass-proto/generated/model;model";
+
+// ================================
+// Agent/服务器认证协议约定定义
+// ================================
+
+// 服务器认证Header约定
+// 用于Agent与后端服务器之间的认证
+message ServerAuthHeaders {
+  // HTTP Header名称约定（固定值，用于文档说明）
+  string server_id_header = 1;     // "Server-ID" - 服务器ID Header名称
+  string server_token_header = 2;  // "Server-Token" - 服务器Token Header名称
+  
+  // gRPC Metadata名称约定（固定值，用于文档说明）
+  string server_id_metadata = 3;   // "server-id" - 服务器ID Metadata名称
+  string server_token_metadata = 4; // "server-token" - 服务器Token Metadata名称
+}
+
+// 服务器认证上下文
+message ServerAuthContext {
+  string server_id = 1;            // 服务器ID
+  string token = 2;                // 服务器Token
+  string name = 3;                 // 服务器名称
+  int64 issued_at = 4;             // Token签发时间
+  int64 expires_at = 5;            // Token过期时间
+  bool is_active = 6;              // 是否激活
+  int64 last_access_at = 7;        // 最后访问时间
+}
+
+// 服务器认证结果
+message ServerAuthResult {
+  bool success = 1;                // 认证是否成功
+  string error_code = 2;           // 错误代码
+  string error_message = 3;        // 错误信息
+  ServerAuthContext context = 4;   // 认证上下文（成功时）
+}
