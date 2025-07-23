@@ -7,6 +7,63 @@ option go_package = "github.com/moooyo/nspass-proto/generated/model;model";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/any.proto";
 
+// ========================================================================
+// WebSocket 通信协议说明
+// ========================================================================
+//
+// NSPass WebSocket 通信统一使用 JSON 格式进行数据交换。
+//
+// 连接方式:
+//   - 连接URL: ws://server:port/ws?agent_id={agent_id}&token={token}
+//   - 或通过Header传递token: Authorization: Bearer {token}
+//
+// 消息格式:
+//   所有WebSocket消息都使用JSON格式，基于WebSocketMessage结构：
+//   {
+//     "id": "msg_1234567890",
+//     "type": "WEBSOCKET_MESSAGE_TYPE_HEARTBEAT",
+//     "timestamp": "2025-07-23T07:20:00Z",
+//     "payload": { /* 具体消息内容 */ },
+//     "correlation_id": "optional_correlation_id"
+//   }
+//
+// 消息发送:
+//   - 使用WebSocket的文本消息类型(TEXT_MESSAGE)
+//   - 消息内容必须是有效的JSON字符串
+//   - 时间戳使用RFC3339格式
+//
+// 消息接收:
+//   - 服务端发送的消息同样为JSON格式
+//   - Agent需要解析JSON并根据type字段处理不同类型的消息
+//
+// 错误处理:
+//   - 无效的JSON格式会导致连接错误
+//   - 建议Agent实现重连机制
+//
+// 示例代码 (JavaScript):
+//   const message = {
+//     id: "msg_" + Date.now(),
+//     type: "WEBSOCKET_MESSAGE_TYPE_HEARTBEAT",
+//     timestamp: new Date().toISOString(),
+//     payload: {
+//       agent_id: "agent_001",
+//       status: "online"
+//     }
+//   };
+//   websocket.send(JSON.stringify(message));
+//
+// 示例代码 (Go):
+//   message := &WebSocketMessage{
+//     Id:        generateMessageID(),
+//     Type:      WebSocketMessageType_WEBSOCKET_MESSAGE_TYPE_HEARTBEAT,
+//     Timestamp: timestamppb.Now(),
+//     Payload:   payload,
+//   }
+//   data, _ := json.Marshal(message)
+//   conn.WriteMessage(websocket.TextMessage, data)
+//
+// ========================================================================
+
 // WebSocket消息类型
 enum WebSocketMessageType {
   WEBSOCKET_MESSAGE_TYPE_UNSPECIFIED = 0;
