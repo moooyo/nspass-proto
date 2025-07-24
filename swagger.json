@@ -5304,9 +5304,11 @@
         "NODE_STATUS_ONLINE",
         "NODE_STATUS_OFFLINE",
         "NODE_STATUS_MAINTENANCE",
-        "NODE_STATUS_ERROR"
+        "NODE_STATUS_ERROR",
+        "NODE_STATUS_PENDING_INSTALL"
       ],
       "default": "NODE_STATUS_UNSPECIFIED",
+      "description": "- NODE_STATUS_PENDING_INSTALL: 等待安装",
       "title": "节点状态"
     },
     "v1SendTaskRequest": {
