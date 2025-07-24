@@ -11,33 +11,43 @@ import "google/protobuf/any.proto";
 // WebSocket 通信协议说明
 // ========================================================================
 //
-// NSPass WebSocket 通信统一使用 JSON 格式进行数据交换。
+// NSPass WebSocket 通信统一使用 Protocol Buffers 二进制格式进行数据交换。
 //
 // 连接方式:
 //   - 连接URL: ws://server:port/ws?agent_id={agent_id}&token={token}
 //   - 或通过Header传递token: Authorization: Bearer {token}
 //
 // 消息格式:
-//   所有WebSocket消息都使用JSON格式，基于WebSocketMessage结构：
-//   {
-//     "id": "msg_1234567890",
-//     "type": "WEBSOCKET_MESSAGE_TYPE_HEARTBEAT",
-//     "timestamp": "2025-07-23T07:20:00Z",
-//     "payload": { /* 具体消息内容 */ },
-//     "correlation_id": "optional_correlation_id"
-//   }
+//   所有WebSocket消息都使用Protocol Buffers二进制格式，基于WebSocketMessage结构：
+//   - 使用websocket.BinaryMessage类型发送和接收
+//   - 消息体为WebSocketMessage的protobuf序列化数据
 //
-// 消息发送:
-//   - 使用WebSocket的文本消息类型(TEXT_MESSAGE)
-//   - 消息内容必须是有效的JSON字符串
-//   - 时间戳使用RFC3339格式
+// 任务执行与ACK机制:
+//   1. 任务发送流程：
+//      - 后端创建WebSocketMessage，设置：
+//        * id: 随机生成的消息ID（用于传输层标识）
+//        * correlation_id: 任务ID（用于业务逻辑关联）
+//        * payload: TaskMessage（任务详情）
 //
-// 消息接收:
-//   - 服务端发送的消息同样为JSON格式
-//   - Agent需要解析JSON并根据type字段处理不同类型的消息
+//   2. 任务ACK流程：
+//      - Agent执行任务完成后，创建ACK响应：
+//        * 创建AckMessage设置执行结果
+//        * 将AckMessage放入WebSocketMessage.payload
+//        * 重要：在WebSocketMessage.correlation_id中设置原始任务ID
+//
+//   3. 后端ACK处理：
+//      - 从WebSocketMessage.correlation_id获取原始任务ID
+//      - 使用该任务ID更新数据库中的任务状态
+//      - 不使用AckMessage.message_id作为任务ID
+//
+// 关键原则:
+//   - WebSocketMessage.id：传输层消息标识，每次通信唯一
+//   - WebSocketMessage.correlation_id：业务层关联标识，用于请求响应匹配
+//   - 任务ID始终通过correlation_id传递，确保业务逻辑正确性
 //
 // 错误处理:
-//   - 无效的JSON格式会导致连接错误
+//   - 无效的protobuf格式会导致连接错误
+//   - 缺少correlation_id的ACK消息会被拒绝处理
 //   - 建议Agent实现重连机制
 //
 // 示例代码 (JavaScript):
@@ -106,26 +116,49 @@ enum MetricsType {
 }
 
 // WebSocket消息
+// 
+// WebSocket消息是所有通信的基础结构，支持请求-响应模式的关联。
+// 当发送任务给Agent时，会设置correlation_id为任务ID，Agent在ACK响应时
+// 必须在WebSocket消息级别设置相同的correlation_id来关联原始请求。
+//
+// 重要说明：
+// 1. 发送任务时：WebSocketMessage.id = 随机消息ID，WebSocketMessage.correlation_id = 任务ID
+// 2. ACK响应时：Agent必须在WebSocketMessage.correlation_id中设置原始任务ID
+// 3. 后端处理ACK时，使用WebSocketMessage.correlation_id来获取原始任务ID，而不是AckMessage.message_id
 message WebSocketMessage {
-  string id = 1;                                    // 消息ID
-  WebSocketMessageType type = 2;                    // 消息类型
-  google.protobuf.Timestamp timestamp = 3;         // 时间戳
-  google.protobuf.Any payload = 4;                 // 消息载荷
-  string correlation_id = 5;                       // 关联ID，用于请求响应匹配
+  string id = 1;                                    // 消息ID：每条WebSocket消息的唯一标识符，用于消息传输层面的识别
+  WebSocketMessageType type = 2;                    // 消息类型：指定消息的处理类型（任务、ACK、心跳等）
+  google.protobuf.Timestamp timestamp = 3;         // 时间戳：消息创建时间
+  google.protobuf.Any payload = 4;                 // 消息载荷：实际的业务数据，根据type字段决定具体类型
+  string correlation_id = 5;                       // 关联ID：用于请求响应匹配的业务标识符，对于任务消息为任务ID
 }
 
 // 任务消息
+//
+// TaskMessage定义了要发送给Agent执行的任务详情。当后端需要Agent执行某个任务时，
+// 会创建TaskMessage并通过WebSocket发送给目标Agent。
+//
+// 重要说明：
+// 1. task_id是任务的唯一标识符，Agent必须在ACK响应中通过correlation_id返回此ID
+// 2. parameters字段包含任务执行所需的具体参数，类型根据task_type确定
+// 3. Agent收到任务后应立即开始执行，并在完成时发送ACK响应
+//
+// 发送流程：
+// 1. 后端创建TaskMessage实例，设置所有必要字段
+// 2. 将TaskMessage放入WebSocketMessage.payload中
+// 3. 设置WebSocketMessage.correlation_id = TaskMessage.task_id
+// 4. 通过WebSocket发送给指定Agent
 message TaskMessage {
-  string task_id = 1;                              // 任务ID
-  TaskType task_type = 2;                          // 任务类型
-  string title = 3;                                // 任务标题
-  string description = 4;                          // 任务描述
-  google.protobuf.Any parameters = 5;              // 任务参数
-  google.protobuf.Timestamp created_at = 6;        // 创建时间
-  google.protobuf.Timestamp deadline = 7;          // 截止时间
-  int32 priority = 8;                              // 优先级 (1-10, 10最高)
-  int32 retry_count = 9;                           // 重试次数
-  int32 max_retries = 10;                          // 最大重试次数
+  string task_id = 1;                              // 任务ID：任务的唯一标识符，用于后续状态跟踪和ACK关联
+  TaskType task_type = 2;                          // 任务类型：定义任务的执行类型和行为
+  string title = 3;                                // 任务标题：任务的简短描述
+  string description = 4;                          // 任务描述：任务的详细说明
+  google.protobuf.Any parameters = 5;              // 任务参数：执行任务所需的具体参数，类型根据task_type确定
+  google.protobuf.Timestamp created_at = 6;        // 创建时间：任务创建的时间戳
+  google.protobuf.Timestamp deadline = 7;          // 截止时间：任务必须完成的最后期限
+  int32 priority = 8;                              // 优先级：任务执行优先级 (1-10, 10最高)
+  int32 retry_count = 9;                           // 重试次数：当前已重试的次数
+  int32 max_retries = 10;                          // 最大重试次数：任务失败时的最大重试限制
 }
 
 // 监控数据消息
@@ -145,12 +178,26 @@ message HeartbeatMessage {
   map<string, string> metadata = 4;               // 元数据
 }
 
-// 确认消息
+// 确认消息（ACK）
+//
+// ACK消息用于确认收到并处理某个消息，特别是任务消息的执行结果。
+// 
+// 重要说明：
+// 1. message_id字段仅用于标识被确认的WebSocket消息ID，不应用于业务逻辑
+// 2. 业务逻辑中的任务ID关联应通过外层WebSocketMessage.correlation_id字段获取
+// 3. result字段通常包含TaskResult类型的数据，包含任务执行的详细结果
+//
+// 处理流程：
+// 1. Agent收到任务 -> 执行任务 -> 创建ACK消息
+// 2. ACK消息中设置success/error_message/result表示执行结果  
+// 3. 将ACK消息放入WebSocketMessage.payload中
+// 4. 重要：在外层WebSocketMessage.correlation_id中设置原始任务ID
+// 5. 后端通过WebSocketMessage.correlation_id获取任务ID进行状态更新
 message AckMessage {
-  string message_id = 1;                           // 原消息ID
-  bool success = 2;                                // 是否成功
-  string error_message = 3;                        // 错误信息
-  google.protobuf.Any result = 4;                 // 结果数据
+  string message_id = 1;                           // 原WebSocket消息ID：被确认的消息的传输层标识符
+  bool success = 2;                                // 是否成功：任务执行是否成功的标志
+  string error_message = 3;                        // 错误信息：任务执行失败时的错误描述
+  google.protobuf.Any result = 4;                 // 结果数据：任务执行结果，通常为TaskResult类型
 }
 
 // 错误消息
@@ -162,12 +209,20 @@ message ErrorMessage {
 }
 
 // 任务执行结果
+//
+// TaskResult包含任务执行的详细结果信息，通常作为AckMessage.result字段的内容。
+// 该结构提供了任务执行状态、时间信息和输出内容的完整记录。
+//
+// 使用场景：
+// 1. Agent执行任务完成后，创建TaskResult实例
+// 2. 将TaskResult序列化后放入AckMessage.result字段
+// 3. 后端解析TaskResult获取任务执行详情并更新数据库
 message TaskResult {
-  string task_id = 1;                              // 任务ID
-  TaskStatus status = 2;                           // 任务状态
-  google.protobuf.Timestamp started_at = 3;       // 开始时间
-  google.protobuf.Timestamp completed_at = 4;     // 完成时间
-  string output = 5;                               // 输出信息
+  string task_id = 1;                              // 任务ID：与原始任务保持一致的标识符
+  TaskStatus status = 2;                           // 任务状态：执行结果状态（成功、失败等）
+  google.protobuf.Timestamp started_at = 3;       // 开始时间：任务实际开始执行的时间
+  google.protobuf.Timestamp completed_at = 4;     // 完成时间：任务执行完成的时间
+  string output = 5;                               // 输出信息：任务执行过程中的输出内容或日志
   string error_message = 6;                        // 错误信息
   google.protobuf.Any result_data = 7;            // 结果数据
 }
