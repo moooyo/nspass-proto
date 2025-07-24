@@ -1,0 +1,128 @@
+syntax = "proto3";
+
+package nspass.api.agent.v1;
+
+option go_package = "github.com/moooyo/nspass-proto/generated/api/agent;agent";
+
+import "google/api/annotations.proto";
+import "common.proto";
+
+// Agent 基础服务
+// 提供 Agent 注册、心跳等核心功能，使用 Server-Token 认证
+service AgentBasicService {
+  // 服务器注册 - 不需要认证
+  rpc RegisterServer(RegisterServerRequest) returns (RegisterServerResponse) {
+    option (google.api.http) = {
+      post: "/v1/agent/register"
+      body: "*"
+    };
+  };
+  
+  // 服务器心跳 - 需要服务器认证
+  rpc HeartBeat(HeartBeatRequest) returns (HeartBeatResponse) {
+    option (google.api.http) = {
+      post: "/v1/agent/heartbeat"
+      body: "*"
+    };
+  };
+  
+  // 获取服务器信息 - 需要服务器认证
+  rpc GetServerInfo(GetServerInfoRequest) returns (GetServerInfoResponse) {
+    option (google.api.http) = {
+      get: "/v1/agent/info"
+    };
+  };
+  
+  // 上报服务器统计信息 - 需要服务器认证
+  rpc ReportServerStats(ReportServerStatsRequest) returns (ReportServerStatsResponse) {
+    option (google.api.http) = {
+      post: "/v1/agent/stats"
+      body: "*"
+    };
+  };
+  
+  // 获取服务器配置 - 需要服务器认证
+  rpc GetServerConfig(GetServerConfigRequest) returns (GetServerConfigResponse) {
+    option (google.api.http) = {
+      get: "/v1/agent/config"
+    };
+  };
+}
+
+// ========================================================================
+// 请求和响应消息定义
+// ========================================================================
+
+// 服务器注册请求
+message RegisterServerRequest {
+  string server_id = 1;                            // 服务器ID
+  string name = 2;                                 // 服务器名称
+  string token = 3;                                // 认证Token
+  string expires_at = 4;                           // 过期时间 (RFC3339格式)
+}
+
+// 服务器注册响应
+message RegisterServerResponse {
+  nspass.common.v1.ApiResponseStatus status = 1;   // 标准响应状态
+}
+
+// 心跳请求
+message HeartBeatRequest {
+  optional string status = 1;                      // 状态信息
+  map<string, string> metadata = 2;               // 元数据
+}
+
+// 心跳响应
+message HeartBeatResponse {
+  nspass.common.v1.ApiResponseStatus status = 1;   // 标准响应状态
+}
+
+// 获取服务器信息请求
+message GetServerInfoRequest {
+  // 空请求，通过认证上下文获取服务器信息
+}
+
+// 服务器信息响应
+message GetServerInfoResponse {
+  nspass.common.v1.ApiResponseStatus status = 1;   // 标准响应状态
+  optional ServerBasicInfo data = 2;               // 服务器信息
+}
+
+// 服务器基础信息
+message ServerBasicInfo {
+  string server_id = 1;                            // 服务器ID
+  string name = 2;                                 // 服务器名称
+  string status = 3;                               // 状态
+  optional string version = 4;                     // 版本
+  optional string region = 5;                      // 地区
+  string last_heartbeat = 6;                       // 最后心跳时间
+  map<string, string> metadata = 7;               // 元数据
+}
+
+// 上报服务器统计请求
+message ReportServerStatsRequest {
+  double cpu = 1;                                  // CPU使用率
+  double memory = 2;                               // 内存使用率
+  double disk = 3;                                 // 磁盘使用率
+  int32 connections = 4;                           // 连接数
+  double upload_traffic = 5;                       // 上传流量 (MB)
+  double download_traffic = 6;                     // 下载流量 (MB)
+  int32 active_rules = 7;                          // 活跃规则数
+  map<string, string> custom_metrics = 8;         // 自定义指标
+}
+
+// 上报服务器统计响应
+message ReportServerStatsResponse {
+  nspass.common.v1.ApiResponseStatus status = 1;   // 标准响应状态
+}
+
+// 获取服务器配置请求
+message GetServerConfigRequest {
+  // 空请求，通过认证上下文获取配置
+}
+
+// 服务器配置响应
+message GetServerConfigResponse {
+  nspass.common.v1.ApiResponseStatus status = 1;   // 标准响应状态
+  optional string data = 2;                        // 配置数据 (JSON格式)
+} 

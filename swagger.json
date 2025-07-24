@@ -22,7 +22,932 @@
     "application/json"
   ],
   "paths": {
-    "/api/v1/agent/tasks": {
+    "/v1/agent/config": {
+      "get": {
+        "summary": "获取服务器配置",
+        "operationId": "AgentHttpService_GetServerConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetServerConfigResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "AgentHttpService"
+        ]
+      }
+    },
+    "/v1/agent/heartbeat": {
+      "post": {
+        "summary": "服务器心跳",
+        "operationId": "AgentHttpService_HeartBeat",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1HeartBeatResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1HeartBeatRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AgentHttpService"
+        ]
+      }
+    },
+    "/v1/agent/info": {
+      "get": {
+        "summary": "获取服务器信息",
+        "operationId": "AgentHttpService_GetServerInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetServerInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "AgentHttpService"
+        ]
+      }
+    },
+    "/v1/agent/register": {
+      "post": {
+        "summary": "注册服务器",
+        "operationId": "AgentHttpService_RegisterServer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RegisterServerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RegisterServerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AgentHttpService"
+        ]
+      }
+    },
+    "/v1/agent/stats": {
+      "post": {
+        "summary": "报告服务器统计信息",
+        "operationId": "AgentHttpService_ReportServerStats",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ReportServerStatsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ReportServerStatsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AgentHttpService"
+        ]
+      }
+    },
+    "/v1/agent/config/{serverId}": {
+      "get": {
+        "summary": "根据ID获取服务器配置",
+        "operationId": "AgentHttpService_GetServerConfigById",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetServerConfigResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverId",
+            "description": "服务器ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AgentHttpService"
+        ]
+      }
+    },
+    "/v1/agent/servers": {
+      "get": {
+        "summary": "获取服务器列表",
+        "operationId": "AgentHttpService_GetServersList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetServersListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "description": "页码",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "description": "每页大小",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "AgentHttpService"
+        ]
+      },
+      "post": {
+        "summary": "获取服务器列表",
+        "operationId": "AgentHttpService_GetServersList2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetServersListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetServersListRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AgentHttpService"
+        ]
+      }
+    },
+    "/v1/agent/servers/deactivate": {
+      "post": {
+        "summary": "停用服务器",
+        "operationId": "AgentHttpService_DeactivateServer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeactivateServerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1DeactivateServerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AgentHttpService"
+        ]
+      }
+    },
+    "/v1/agent/servers/status": {
+      "post": {
+        "summary": "更新服务器状态",
+        "operationId": "AgentHttpService_UpdateServerStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateServerStatusResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateServerStatusRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AgentHttpService"
+        ]
+      }
+    },
+    "/v1/agent/stats/history": {
+      "get": {
+        "summary": "获取服务器统计历史",
+        "operationId": "AgentHttpService_GetServerStatsHistory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetServerStatsHistoryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverId",
+            "description": "服务器ID",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "days",
+            "description": "统计天数",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "description": "页码",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "description": "每页大小",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "AgentHttpService"
+        ]
+      }
+    },
+    "/v1/agent/status": {
+      "get": {
+        "summary": "更新Agent状态",
+        "operationId": "AgentHttpService_UpdateAgentStatus2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateAgentStatusResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "status",
+            "description": "状态",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AgentHttpService"
+        ]
+      },
+      "post": {
+        "summary": "更新Agent状态",
+        "operationId": "AgentHttpService_UpdateAgentStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateAgentStatusResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateAgentStatusRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AgentHttpService"
+        ]
+      }
+    },
+    "/v1/agent/websocket": {
+      "get": {
+        "summary": "建立WebSocket连接",
+        "description": "此端点提供WebSocket连接建立的HTTP升级入口。\n实际的WebSocket通信使用Protocol Buffers二进制格式，\n所有消息都基于WebSocketMessage结构，使用correlation_id进行业务关联。\n\nWebSocket连接建立后，任务发送和ACK响应都通过WebSocket进行，\n而不是通过下面的HTTP API端点。",
+        "operationId": "AgentWebSocketService_Connect",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ConnectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "agentId",
+            "description": "Agent ID",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "token",
+            "description": "认证Token",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "description": "Agent版本",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "metadata",
+            "description": "元数据",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AgentWebSocketService"
+        ]
+      }
+    },
+    "/v1/agent/ws/agents": {
+      "get": {
+        "summary": "获取所有Agent列表",
+        "operationId": "AgentManagementService_ListAgents",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListAgentsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "status",
+            "description": "状态过滤\n\n - NODE_STATUS_PENDING_INSTALL: 等待安装",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "NODE_STATUS_UNSPECIFIED",
+              "NODE_STATUS_ONLINE",
+              "NODE_STATUS_OFFLINE",
+              "NODE_STATUS_MAINTENANCE",
+              "NODE_STATUS_ERROR",
+              "NODE_STATUS_PENDING_INSTALL"
+            ],
+            "default": "NODE_STATUS_UNSPECIFIED"
+          },
+          {
+            "name": "page",
+            "description": "页码",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "description": "每页大小",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "keyword",
+            "description": "关键词搜索",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AgentManagementService"
+        ]
+      }
+    },
+    "/v1/agent/ws/agents/{agentId}": {
+      "get": {
+        "summary": "获取Agent详情",
+        "operationId": "AgentManagementService_GetAgent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAgentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "agentId",
+            "description": "Agent ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AgentManagementService"
+        ]
+      },
+      "delete": {
+        "summary": "强制断开Agent连接",
+        "operationId": "AgentManagementService_DisconnectAgent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DisconnectAgentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "agentId",
+            "description": "Agent ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "reason",
+            "description": "断开原因",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AgentManagementService"
+        ]
+      }
+    },
+    "/v1/agent/ws/broadcast": {
+      "post": {
+        "summary": "批量发送任务",
+        "operationId": "AgentManagementService_BroadcastTask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1BroadcastTaskResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1BroadcastTaskRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AgentManagementService"
+        ]
+      }
+    },
+    "/v1/agent/ws/metrics": {
+      "get": {
+        "summary": "获取监控数据",
+        "operationId": "AgentWebSocketService_GetMetrics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetMetricsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "agentId",
+            "description": "Agent ID",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "metricsType",
+            "description": "监控类型\n\n - METRICS_TYPE_SYSTEM: 系统监控\n - METRICS_TYPE_TRAFFIC: 流量监控\n - METRICS_TYPE_CONNECTION: 连接监控\n - METRICS_TYPE_PERFORMANCE: 性能监控\n - METRICS_TYPE_ERROR: 错误监控",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "METRICS_TYPE_UNSPECIFIED",
+              "METRICS_TYPE_SYSTEM",
+              "METRICS_TYPE_TRAFFIC",
+              "METRICS_TYPE_CONNECTION",
+              "METRICS_TYPE_PERFORMANCE",
+              "METRICS_TYPE_ERROR"
+            ],
+            "default": "METRICS_TYPE_UNSPECIFIED"
+          },
+          {
+            "name": "startTime",
+            "description": "开始时间",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endTime",
+            "description": "结束时间",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "AgentWebSocketService"
+        ]
+      }
+    },
+    "/v1/agent/ws/metrics/history": {
+      "get": {
+        "summary": "获取监控数据历史",
+        "operationId": "AgentWebSocketService_GetMetricsHistory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetMetricsHistoryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "agentId",
+            "description": "Agent ID",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "metricsType",
+            "description": "监控类型\n\n - METRICS_TYPE_SYSTEM: 系统监控\n - METRICS_TYPE_TRAFFIC: 流量监控\n - METRICS_TYPE_CONNECTION: 连接监控\n - METRICS_TYPE_PERFORMANCE: 性能监控\n - METRICS_TYPE_ERROR: 错误监控",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "METRICS_TYPE_UNSPECIFIED",
+              "METRICS_TYPE_SYSTEM",
+              "METRICS_TYPE_TRAFFIC",
+              "METRICS_TYPE_CONNECTION",
+              "METRICS_TYPE_PERFORMANCE",
+              "METRICS_TYPE_ERROR"
+            ],
+            "default": "METRICS_TYPE_UNSPECIFIED"
+          },
+          {
+            "name": "startTime",
+            "description": "开始时间",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endTime",
+            "description": "结束时间",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "interval",
+            "description": "采样间隔(秒)",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "description": "页码",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "description": "每页大小",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "AgentWebSocketService"
+        ]
+      }
+    },
+    "/v1/agent/ws/stats": {
+      "get": {
+        "summary": "获取Agent统计信息",
+        "operationId": "AgentManagementService_GetAgentStats",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAgentStatsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "startTime",
+            "description": "开始时间",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endTime",
+            "description": "结束时间",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "AgentManagementService"
+        ]
+      }
+    },
+    "/v1/agent/ws/tasks": {
+      "get": {
+        "summary": "获取任务列表",
+        "operationId": "AgentWebSocketService_ListTasks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListTasksResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "agentId",
+            "description": "Agent ID",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "description": "任务状态过滤\n\n - TASK_STATUS_PENDING: 等待执行\n - TASK_STATUS_RUNNING: 执行中\n - TASK_STATUS_COMPLETED: 已完成\n - TASK_STATUS_FAILED: 执行失败\n - TASK_STATUS_CANCELLED: 已取消",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "TASK_STATUS_UNSPECIFIED",
+              "TASK_STATUS_PENDING",
+              "TASK_STATUS_RUNNING",
+              "TASK_STATUS_COMPLETED",
+              "TASK_STATUS_FAILED",
+              "TASK_STATUS_CANCELLED"
+            ],
+            "default": "TASK_STATUS_UNSPECIFIED"
+          },
+          {
+            "name": "page",
+            "description": "页码",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "description": "每页大小",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "startTime",
+            "description": "开始时间",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endTime",
+            "description": "结束时间",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "AgentWebSocketService"
+        ]
+      },
       "post": {
         "summary": "发送任务给Agent",
         "description": "注意：实际的任务发送是通过WebSocket连接进行的，此HTTP API仅用于测试或管理目的。\n真实的任务发送流程：\n1. 后端通过WebSocket发送TaskMessage，设置correlation_id为任务ID\n2. Agent通过WebSocket返回AckMessage，在外层WebSocketMessage.correlation_id中设置任务ID\n3. 后端通过correlation_id获取任务ID并更新状态",
@@ -56,7 +981,7 @@
         ]
       }
     },
-    "/api/v1/agent/tasks/{taskId}": {
+    "/v1/agent/ws/tasks/{taskId}": {
       "get": {
         "summary": "获取任务详情",
         "operationId": "AgentWebSocketService_GetTask",
@@ -125,213 +1050,7 @@
         ]
       }
     },
-    "/api/v1/agent/websocket": {
-      "get": {
-        "summary": "建立WebSocket连接",
-        "description": "此端点提供WebSocket连接建立的HTTP升级入口。\n实际的WebSocket通信使用Protocol Buffers二进制格式，\n所有消息都基于WebSocketMessage结构，使用correlation_id进行业务关联。\n\nWebSocket连接建立后，任务发送和ACK响应都通过WebSocket进行，\n而不是通过下面的HTTP API端点。",
-        "operationId": "AgentWebSocketService_Connect",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1ConnectResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "agentId",
-            "description": "Agent ID",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "token",
-            "description": "认证Token",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "version",
-            "description": "Agent版本",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "metadata",
-            "description": "元数据",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "AgentWebSocketService"
-        ]
-      }
-    },
-    "/api/v1/agent/{agentId}/metrics": {
-      "get": {
-        "summary": "获取监控数据",
-        "operationId": "AgentWebSocketService_GetMetrics",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetMetricsResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "agentId",
-            "description": "Agent ID",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "metricsType",
-            "description": "监控类型\n\n - METRICS_TYPE_SYSTEM: 系统监控\n - METRICS_TYPE_TRAFFIC: 流量监控\n - METRICS_TYPE_CONNECTION: 连接监控\n - METRICS_TYPE_PERFORMANCE: 性能监控\n - METRICS_TYPE_ERROR: 错误监控",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "METRICS_TYPE_UNSPECIFIED",
-              "METRICS_TYPE_SYSTEM",
-              "METRICS_TYPE_TRAFFIC",
-              "METRICS_TYPE_CONNECTION",
-              "METRICS_TYPE_PERFORMANCE",
-              "METRICS_TYPE_ERROR"
-            ],
-            "default": "METRICS_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "startTime",
-            "description": "开始时间",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "name": "endTime",
-            "description": "结束时间",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "date-time"
-          }
-        ],
-        "tags": [
-          "AgentWebSocketService"
-        ]
-      }
-    },
-    "/api/v1/agent/{agentId}/metrics/history": {
-      "get": {
-        "summary": "获取监控数据历史",
-        "operationId": "AgentWebSocketService_GetMetricsHistory",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetMetricsHistoryResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "agentId",
-            "description": "Agent ID",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "metricsType",
-            "description": "监控类型\n\n - METRICS_TYPE_SYSTEM: 系统监控\n - METRICS_TYPE_TRAFFIC: 流量监控\n - METRICS_TYPE_CONNECTION: 连接监控\n - METRICS_TYPE_PERFORMANCE: 性能监控\n - METRICS_TYPE_ERROR: 错误监控",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "METRICS_TYPE_UNSPECIFIED",
-              "METRICS_TYPE_SYSTEM",
-              "METRICS_TYPE_TRAFFIC",
-              "METRICS_TYPE_CONNECTION",
-              "METRICS_TYPE_PERFORMANCE",
-              "METRICS_TYPE_ERROR"
-            ],
-            "default": "METRICS_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "startTime",
-            "description": "开始时间",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "name": "endTime",
-            "description": "结束时间",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "name": "interval",
-            "description": "采样间隔(秒)",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "page",
-            "description": "页码",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "pageSize",
-            "description": "每页大小",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "tags": [
-          "AgentWebSocketService"
-        ]
-      }
-    },
-    "/api/v1/agent/{agentId}/status": {
+    "/v1/agent/{agentId}/status": {
       "get": {
         "summary": "获取Agent状态",
         "operationId": "AgentWebSocketService_GetAgentStatus",
@@ -356,86 +1075,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          }
-        ],
-        "tags": [
-          "AgentWebSocketService"
-        ]
-      }
-    },
-    "/api/v1/agent/{agentId}/tasks": {
-      "get": {
-        "summary": "获取任务列表",
-        "operationId": "AgentWebSocketService_ListTasks",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1ListTasksResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "agentId",
-            "description": "Agent ID",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "status",
-            "description": "任务状态过滤\n\n - TASK_STATUS_PENDING: 等待执行\n - TASK_STATUS_RUNNING: 执行中\n - TASK_STATUS_COMPLETED: 已完成\n - TASK_STATUS_FAILED: 执行失败\n - TASK_STATUS_CANCELLED: 已取消",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "TASK_STATUS_UNSPECIFIED",
-              "TASK_STATUS_PENDING",
-              "TASK_STATUS_RUNNING",
-              "TASK_STATUS_COMPLETED",
-              "TASK_STATUS_FAILED",
-              "TASK_STATUS_CANCELLED"
-            ],
-            "default": "TASK_STATUS_UNSPECIFIED"
-          },
-          {
-            "name": "page",
-            "description": "页码",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "pageSize",
-            "description": "每页大小",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "startTime",
-            "description": "开始时间",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "name": "endTime",
-            "description": "结束时间",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "date-time"
           }
         ],
         "tags": [
@@ -4810,16 +5449,432 @@
     }
   },
   "definitions": {
+    "googlerpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
         "@type": {
-          "type": "string",
-          "description": "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+          "type": "string"
         }
       },
-      "additionalProperties": {},
-      "description": "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+      "additionalProperties": {}
+    },
+    "v1ApiResponseStatus": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "errorCode": {
+          "type": "string"
+        }
+      },
+      "title": "通用API响应状态封装"
+    },
+    "v1GetServerConfigResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus",
+          "title": "标准响应状态"
+        },
+        "data": {
+          "type": "string",
+          "title": "配置数据 (JSON格式)"
+        }
+      },
+      "title": "服务器配置响应"
+    },
+    "v1GetServerInfoResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus",
+          "title": "标准响应状态"
+        },
+        "data": {
+          "$ref": "#/definitions/v1ServerBasicInfo",
+          "title": "服务器信息"
+        }
+      },
+      "title": "服务器信息响应"
+    },
+    "v1HeartBeatRequest": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "title": "状态信息"
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "元数据"
+        }
+      },
+      "title": "心跳请求"
+    },
+    "v1HeartBeatResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus",
+          "title": "标准响应状态"
+        }
+      },
+      "title": "心跳响应"
+    },
+    "v1RegisterServerRequest": {
+      "type": "object",
+      "properties": {
+        "serverId": {
+          "type": "string",
+          "title": "服务器ID"
+        },
+        "name": {
+          "type": "string",
+          "title": "服务器名称"
+        },
+        "token": {
+          "type": "string",
+          "title": "认证Token"
+        },
+        "expiresAt": {
+          "type": "string",
+          "title": "过期时间 (RFC3339格式)"
+        }
+      },
+      "title": "服务器注册请求"
+    },
+    "v1RegisterServerResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus",
+          "title": "标准响应状态"
+        }
+      },
+      "title": "服务器注册响应"
+    },
+    "v1ReportServerStatsRequest": {
+      "type": "object",
+      "properties": {
+        "cpu": {
+          "type": "number",
+          "format": "double",
+          "title": "CPU使用率"
+        },
+        "memory": {
+          "type": "number",
+          "format": "double",
+          "title": "内存使用率"
+        },
+        "disk": {
+          "type": "number",
+          "format": "double",
+          "title": "磁盘使用率"
+        },
+        "connections": {
+          "type": "integer",
+          "format": "int32",
+          "title": "连接数"
+        },
+        "uploadTraffic": {
+          "type": "number",
+          "format": "double",
+          "title": "上传流量 (MB)"
+        },
+        "downloadTraffic": {
+          "type": "number",
+          "format": "double",
+          "title": "下载流量 (MB)"
+        },
+        "activeRules": {
+          "type": "integer",
+          "format": "int32",
+          "title": "活跃规则数"
+        },
+        "customMetrics": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "自定义指标"
+        }
+      },
+      "title": "上报服务器统计请求"
+    },
+    "v1ReportServerStatsResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus",
+          "title": "标准响应状态"
+        }
+      },
+      "title": "上报服务器统计响应"
+    },
+    "v1ServerBasicInfo": {
+      "type": "object",
+      "properties": {
+        "serverId": {
+          "type": "string",
+          "title": "服务器ID"
+        },
+        "name": {
+          "type": "string",
+          "title": "服务器名称"
+        },
+        "status": {
+          "type": "string",
+          "title": "状态"
+        },
+        "version": {
+          "type": "string",
+          "title": "版本"
+        },
+        "region": {
+          "type": "string",
+          "title": "地区"
+        },
+        "lastHeartbeat": {
+          "type": "string",
+          "title": "最后心跳时间"
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "元数据"
+        }
+      },
+      "title": "服务器基础信息"
+    },
+    "v1DeactivateServerRequest": {
+      "type": "object",
+      "properties": {
+        "serverId": {
+          "type": "string",
+          "title": "服务器ID"
+        }
+      },
+      "title": "停用服务器请求"
+    },
+    "v1DeactivateServerResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
+        },
+        "success": {
+          "type": "boolean",
+          "title": "兼容现有接口格式"
+        },
+        "message": {
+          "type": "string",
+          "title": "兼容现有接口格式"
+        }
+      },
+      "title": "停用服务器响应"
+    },
+    "v1GetServerStatsHistoryResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
+        },
+        "success": {
+          "type": "boolean",
+          "title": "兼容现有接口格式"
+        },
+        "message": {
+          "type": "string",
+          "title": "兼容现有接口格式"
+        },
+        "data": {
+          "type": "string",
+          "title": "统计历史数据 (JSON字符串)"
+        }
+      },
+      "title": "获取服务器统计历史响应"
+    },
+    "v1GetServersListRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "title": "页码"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "title": "每页大小"
+        }
+      },
+      "title": "获取服务器列表请求"
+    },
+    "v1GetServersListResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
+        },
+        "success": {
+          "type": "boolean",
+          "title": "兼容现有接口格式"
+        },
+        "message": {
+          "type": "string",
+          "title": "兼容现有接口格式"
+        },
+        "data": {
+          "type": "string",
+          "title": "服务器列表数据 (JSON字符串)"
+        }
+      },
+      "title": "获取服务器列表响应"
+    },
+    "v1NetworkTraffic": {
+      "type": "object",
+      "properties": {
+        "upload": {
+          "type": "string",
+          "format": "uint64",
+          "title": "上传流量"
+        },
+        "download": {
+          "type": "string",
+          "format": "uint64",
+          "title": "下载流量"
+        }
+      },
+      "title": "网络流量信息"
+    },
+    "v1ServerInfoData": {
+      "type": "object",
+      "properties": {
+        "serverId": {
+          "type": "string",
+          "title": "服务器ID"
+        },
+        "name": {
+          "type": "string",
+          "title": "服务器名称"
+        },
+        "isActive": {
+          "type": "boolean",
+          "title": "是否激活"
+        },
+        "issuedAt": {
+          "type": "string",
+          "title": "签发时间"
+        },
+        "expiresAt": {
+          "type": "string",
+          "title": "过期时间"
+        },
+        "lastAccessAt": {
+          "type": "string",
+          "title": "最后访问时间"
+        }
+      },
+      "title": "服务器信息数据"
+    },
+    "v1UpdateAgentStatusRequest": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "title": "状态"
+        }
+      },
+      "title": "更新Agent状态请求"
+    },
+    "v1UpdateAgentStatusResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
+        },
+        "success": {
+          "type": "boolean",
+          "title": "兼容现有接口格式"
+        },
+        "message": {
+          "type": "string",
+          "title": "兼容现有接口格式"
+        },
+        "serverId": {
+          "type": "string",
+          "title": "服务器ID"
+        },
+        "agentStatus": {
+          "type": "string",
+          "title": "Agent状态"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "时间戳"
+        }
+      },
+      "title": "更新Agent状态响应"
+    },
+    "v1UpdateServerStatusRequest": {
+      "type": "object",
+      "properties": {
+        "serverId": {
+          "type": "string",
+          "title": "服务器ID"
+        },
+        "status": {
+          "type": "string",
+          "title": "状态"
+        }
+      },
+      "title": "更新服务器状态请求"
+    },
+    "v1UpdateServerStatusResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
+        },
+        "success": {
+          "type": "boolean",
+          "title": "兼容现有接口格式"
+        },
+        "message": {
+          "type": "string",
+          "title": "兼容现有接口格式"
+        }
+      },
+      "title": "更新服务器状态响应"
     },
     "rpcStatus": {
       "type": "object",
@@ -4901,6 +5956,23 @@
         }
       },
       "title": "Agent信息"
+    },
+    "v1BroadcastTaskRequest": {
+      "type": "object",
+      "properties": {
+        "agentIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Agent ID列表"
+        },
+        "task": {
+          "$ref": "#/definitions/v1TaskMessage",
+          "title": "任务消息"
+        }
+      },
+      "title": "批量发送任务请求"
     },
     "v1BroadcastTaskResponse": {
       "type": "object",
@@ -5571,40 +6643,6 @@
         }
       },
       "title": "更新订阅请求"
-    },
-    "googlerpcStatus": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        },
-        "details": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/protobufAny"
-          }
-        }
-      }
-    },
-    "v1ApiResponseStatus": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean"
-        },
-        "message": {
-          "type": "string"
-        },
-        "errorCode": {
-          "type": "string"
-        }
-      },
-      "title": "通用API响应状态封装"
     },
     "v1CreateSubscriptionRequest": {
       "type": "object",
@@ -10153,6 +11191,12 @@
     }
   },
   "tags": [
+    {
+      "name": "AgentBasicService"
+    },
+    {
+      "name": "AgentHttpService"
+    },
     {
       "name": "AgentWebSocketService"
     },

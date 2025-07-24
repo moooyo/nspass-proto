@@ -9,6 +9,7 @@ import "google/protobuf/timestamp.proto";
 import "model/websocket.proto";
 import "model/node.proto";
 
+
 // Agent WebSocket服务
 // 
 // WebSocket通信协议说明：
@@ -94,7 +95,7 @@ service AgentWebSocketService {
   // 而不是通过下面的HTTP API端点。
   rpc Connect(ConnectRequest) returns (ConnectResponse) {
     option (google.api.http) = {
-      get: "/api/v1/agent/websocket"
+      get: "/v1/agent/websocket"
     };
   };
   
@@ -107,7 +108,7 @@ service AgentWebSocketService {
   // 3. 后端通过correlation_id获取任务ID并更新状态
   rpc SendTask(SendTaskRequest) returns (SendTaskResponse) {
     option (google.api.http) = {
-      post: "/api/v1/agent/tasks"
+      post: "/v1/agent/ws/tasks"
       body: "*"
     };
   };
@@ -115,42 +116,42 @@ service AgentWebSocketService {
   // 获取Agent状态
   rpc GetAgentStatus(GetAgentStatusRequest) returns (GetAgentStatusResponse) {
     option (google.api.http) = {
-      get: "/api/v1/agent/{agent_id}/status"
+      get: "/v1/agent/{agent_id}/status"
     };
   };
   
   // 获取任务列表
   rpc ListTasks(ListTasksRequest) returns (ListTasksResponse) {
     option (google.api.http) = {
-      get: "/api/v1/agent/{agent_id}/tasks"
+      get: "/v1/agent/ws/tasks"
     };
   };
   
   // 获取任务详情
   rpc GetTask(GetTaskRequest) returns (GetTaskResponse) {
     option (google.api.http) = {
-      get: "/api/v1/agent/tasks/{task_id}"
+      get: "/v1/agent/ws/tasks/{task_id}"
     };
   };
   
   // 取消任务
   rpc CancelTask(CancelTaskRequest) returns (CancelTaskResponse) {
     option (google.api.http) = {
-      delete: "/api/v1/agent/tasks/{task_id}"
+      delete: "/v1/agent/ws/tasks/{task_id}"
     };
   };
   
   // 获取监控数据
   rpc GetMetrics(GetMetricsRequest) returns (GetMetricsResponse) {
     option (google.api.http) = {
-      get: "/api/v1/agent/{agent_id}/metrics"
+      get: "/v1/agent/ws/metrics"
     };
   };
   
   // 获取监控数据历史
   rpc GetMetricsHistory(GetMetricsHistoryRequest) returns (GetMetricsHistoryResponse) {
     option (google.api.http) = {
-      get: "/api/v1/agent/{agent_id}/metrics/history"
+      get: "/v1/agent/ws/metrics/history"
     };
   };
 }
@@ -304,19 +305,40 @@ message GetMetricsHistoryResponse {
 // Agent管理服务
 service AgentManagementService {
   // 获取所有Agent列表
-  rpc ListAgents(ListAgentsRequest) returns (ListAgentsResponse);
+  rpc ListAgents(ListAgentsRequest) returns (ListAgentsResponse) {
+    option (google.api.http) = {
+      get: "/v1/agent/ws/agents"
+    };
+  };
   
   // 获取Agent详情
-  rpc GetAgent(GetAgentRequest) returns (GetAgentResponse);
+  rpc GetAgent(GetAgentRequest) returns (GetAgentResponse) {
+    option (google.api.http) = {
+      get: "/v1/agent/ws/agents/{agent_id}"
+    };
+  };
   
   // 强制断开Agent连接
-  rpc DisconnectAgent(DisconnectAgentRequest) returns (DisconnectAgentResponse);
+  rpc DisconnectAgent(DisconnectAgentRequest) returns (DisconnectAgentResponse) {
+    option (google.api.http) = {
+      delete: "/v1/agent/ws/agents/{agent_id}"
+    };
+  };
   
   // 批量发送任务
-  rpc BroadcastTask(BroadcastTaskRequest) returns (BroadcastTaskResponse);
+  rpc BroadcastTask(BroadcastTaskRequest) returns (BroadcastTaskResponse) {
+    option (google.api.http) = {
+      post: "/v1/agent/ws/broadcast"
+      body: "*"
+    };
+  };
   
   // 获取Agent统计信息
-  rpc GetAgentStats(GetAgentStatsRequest) returns (GetAgentStatsResponse);
+  rpc GetAgentStats(GetAgentStatsRequest) returns (GetAgentStatsResponse) {
+    option (google.api.http) = {
+      get: "/v1/agent/ws/stats"
+    };
+  };
 }
 
 // 获取Agent列表请求
@@ -408,3 +430,5 @@ message GetAgentStatsResponse {
   map<string, int32> tasks_by_type = 9;            // 按类型统计的任务数
   map<string, int32> agents_by_status = 10;        // 按状态统计的Agent数
 }
+
+
