@@ -347,10 +347,10 @@ message HealthCheckTaskParams {
   map<string, string> additional_params = 3;       // 附加参数
 }
 
-message EgressConfig {
+message AgentEgressConfigs {
   repeated nspass.model.v1.EgressItem egress_items = 1; // 出口配置项列表
 }
 
-message IptablesConfig {
+message AgentIptablesConfigs {
   repeated nspass.model.v1.IptablesConfig iptables_rules = 1; // IPTables规则列表
 }
