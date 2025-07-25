@@ -7,6 +7,9 @@ option go_package = "github.com/moooyo/nspass-proto/generated/model;model";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/any.proto";
 
+import "model/egressItem.proto";
+import "model/iptables.proto";
+
 // ========================================================================
 // WebSocket 通信协议说明
 // ========================================================================
@@ -342,4 +345,12 @@ message HealthCheckTaskParams {
   repeated string check_types = 1;                 // 检查类型列表
   int32 timeout = 2;                               // 超时时间(秒)
   map<string, string> additional_params = 3;       // 附加参数
+}
+
+message EgressConfig {
+  repeated nspass.model.v1.EgressItem egress_items = 1; // 出口配置项列表
+}
+
+message IPTablesConfig {
+  repeated nspass.model.v1.IptablesConfig iptables_rules = 1; // IPTables规则列表
 }
