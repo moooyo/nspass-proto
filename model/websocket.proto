@@ -74,14 +74,20 @@ import "google/protobuf/any.proto";
 //
 // ========================================================================
 
-// WebSocket消息类型
 enum WebSocketMessageType {
-  WEBSOCKET_MESSAGE_TYPE_UNSPECIFIED = 0;
-  WEBSOCKET_MESSAGE_TYPE_TASK = 1;        // 任务下发
-  WEBSOCKET_MESSAGE_TYPE_METRICS = 2;     // 监控数据上报
-  WEBSOCKET_MESSAGE_TYPE_HEARTBEAT = 3;   // 心跳
-  WEBSOCKET_MESSAGE_TYPE_ACK = 4;         // 确认消息
-  WEBSOCKET_MESSAGE_TYPE_ERROR = 5;       // 错误消息
+  WEBSOCKET_MESSAGE_AGENT_TYPE_UNKNOWN                  = 0;
+  WEBSOCKET_MESSAGE_AGENT_TYPE_HEARTBEAT                = 1;
+  WEBSOCKET_MESSAGE_AGENT_TYPE_ACK                      = 2;
+  WEBSOCKET_MESSAGE_AGENT_TYPE_METRICS                  = 3;
+  WEBSOCKET_MESSAGE_AGENT_TYPE_ACTIVITY                 = 4;
+
+  WEBSOCKET_MESSAGE_SERVER_TYPE_ACK                     = 50;
+  WEBSOCKET_MESSAGE_SERVER_TYPE_HEARTBEAT               = 51;
+  WEBSOCKET_MESSAGE_SERVER_TYPE_TASK                    = 52;
+  WEBSOCKET_MESSAGE_SERVER_TYPE_EGRESS_CONFIG           = 53;
+  WEBSOCKET_MESSAGE_SERVER_TYPE_IPTABLES_CONFIG         = 54;
+  WEBSOCKET_MESSAGE_SERVER_TYPE_EGRESS_CONFIG_CHANGE    = 55;
+  WEBSOCKET_MESSAGE_SERVER_TYPE_IPTABLES_CONFIG_CHANGE  = 56;
 }
 
 // 任务类型
@@ -125,13 +131,15 @@ enum MetricsType {
 // 1. 发送任务时：WebSocketMessage.id = 随机消息ID，WebSocketMessage.correlation_id = 任务ID
 // 2. ACK响应时：Agent必须在WebSocketMessage.correlation_id中设置原始任务ID
 // 3. 后端处理ACK时，使用WebSocketMessage.correlation_id来获取原始任务ID，而不是AckMessage.message_id
+
 message WebSocketMessage {
-  string id = 1;                                    // 消息ID：每条WebSocket消息的唯一标识符，用于消息传输层面的识别
-  WebSocketMessageType type = 2;                    // 消息类型：指定消息的处理类型（任务、ACK、心跳等）
-  google.protobuf.Timestamp timestamp = 3;         // 时间戳：消息创建时间
-  google.protobuf.Any payload = 4;                 // 消息载荷：实际的业务数据，根据type字段决定具体类型
-  string correlation_id = 5;                       // 关联ID：用于请求响应匹配的业务标识符，对于任务消息为任务ID
+  string message_id                   = 1;                          // 消息ID：传输层唯一标识符
+  WebSocketMessageType  message_type  = 2;         // Agent消息类型
+  google.protobuf.Timestamp timestamp = 3;          // 时间戳
+  google.protobuf.Any payload         = 4;                  // 消息载荷
+  string correlation_id               = 5;                        // 关联ID：用于请求响应匹配的业务标识符
 }
+
 
 // 任务消息
 //
@@ -172,10 +180,10 @@ message MetricsMessage {
 
 // 心跳消息
 message HeartbeatMessage {
-  string agent_id = 1;                             // Agent ID
-  google.protobuf.Timestamp timestamp = 2;        // 时间戳
-  string status = 3;                               // 状态
-  map<string, string> metadata = 4;               // 元数据
+  string agent_id = 1;                              // Agent ID
+  google.protobuf.Timestamp timestamp = 2;          // 时间戳
+  string status = 3;                                // 状态
+  map<string, string> metadata = 4;                 // 元数据
 }
 
 // 确认消息（ACK）
@@ -202,10 +210,10 @@ message AckMessage {
 
 // 错误消息
 message ErrorMessage {
-  string code = 1;                                 // 错误代码
-  string message = 2;                              // 错误消息
-  string details = 3;                              // 错误详情
-  google.protobuf.Timestamp timestamp = 4;        // 时间戳
+  string code = 1;                                  // 错误代码
+  string message = 2;                               // 错误消息
+  string details = 3;                               // 错误详情
+  google.protobuf.Timestamp timestamp = 4;          // 时间戳
 }
 
 // 任务执行结果
