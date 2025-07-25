@@ -351,6 +351,6 @@ message EgressConfig {
   repeated nspass.model.v1.EgressItem egress_items = 1; // 出口配置项列表
 }
 
-message IPTablesConfig {
+message IptablesConfig {
   repeated nspass.model.v1.IptablesConfig iptables_rules = 1; // IPTables规则列表
 }
