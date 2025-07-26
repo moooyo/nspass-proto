@@ -2980,7 +2980,9 @@
               "EGRESS_MODE_UNSPECIFIED",
               "EGRESS_MODE_DIRECT",
               "EGRESS_MODE_IPTABLES",
-              "EGRESS_MODE_SS2022"
+              "EGRESS_MODE_SS2022",
+              "EGRESS_MODE_TROJAN",
+              "EGRESS_MODE_SNELL"
             ],
             "default": "EGRESS_MODE_UNSPECIFIED"
           }
