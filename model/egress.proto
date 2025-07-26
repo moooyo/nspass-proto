@@ -10,6 +10,8 @@ enum EgressMode {
   EGRESS_MODE_DIRECT = 1;
   EGRESS_MODE_IPTABLES = 2;
   EGRESS_MODE_SS2022 = 3;
+  EGRESS_MODE_TROJAN = 4;
+  EGRESS_MODE_SNELL = 5;
 }
 
 // 转发类型枚举
