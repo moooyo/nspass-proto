@@ -83,6 +83,7 @@ enum WebSocketMessageType {
   WEBSOCKET_MESSAGE_AGENT_TYPE_ACK                      = 2;
   WEBSOCKET_MESSAGE_AGENT_TYPE_METRICS                  = 3;
   WEBSOCKET_MESSAGE_AGENT_TYPE_ACTIVITY                 = 4;
+  WEBSOCKET_MESSAGE_AGENT_TYPE_TASK_ACK                 = 5;
 
   WEBSOCKET_MESSAGE_SERVER_TYPE_ACK                     = 50;
   WEBSOCKET_MESSAGE_SERVER_TYPE_HEARTBEAT               = 51;
