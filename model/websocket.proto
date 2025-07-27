@@ -84,6 +84,7 @@ enum WebSocketMessageType {
   WEBSOCKET_MESSAGE_AGENT_TYPE_METRICS                  = 3;
   WEBSOCKET_MESSAGE_AGENT_TYPE_ACTIVITY                 = 4;
   WEBSOCKET_MESSAGE_AGENT_TYPE_TASK_ACK                 = 5;
+  WEBSOCKET_MESSAGE_AGENT_TYPE_IPINFO                   = 6;
 
   WEBSOCKET_MESSAGE_SERVER_TYPE_ACK                     = 50;
   WEBSOCKET_MESSAGE_SERVER_TYPE_HEARTBEAT               = 51;
@@ -180,6 +181,12 @@ message MetricsMessage {
   google.protobuf.Timestamp timestamp = 3;        // 时间戳
   google.protobuf.Any data = 4;                   // 监控数据
   map<string, string> labels = 5;                 // 标签
+}
+
+// IP信息
+message IpInfo {
+  string ipv4_address             = 1;                        // IPv4地址
+  repeated string ipv6_address    = 2;                        // IPv6地址
 }
 
 // 心跳消息
