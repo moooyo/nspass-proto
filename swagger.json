@@ -7383,7 +7383,8 @@
         "ingressIpv4": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "object",
+            "$ref": "#/definitions/v1IngressIpv4Entry"
           },
           "title": "入口IPv4地址数组，用于生成额外的线路配置"
         }
@@ -7437,6 +7438,20 @@
           "$ref": "#/definitions/v1PaginationResponse"
         }
       }
+    },
+    "v1IngressIpv4Entry": {
+      "type": "object",
+      "properties": {
+        "ip": {
+          "type": "string",
+          "title": "IPv4地址"
+        },
+        "comment": {
+          "type": "string",
+          "title": "备注信息（例如运营商信息）"
+        }
+      },
+      "title": "入口IPv4地址条目"
     },
     "v1RegenerateAllServerTokensRequest": {
       "type": "object",
@@ -7522,6 +7537,14 @@
         "availablePorts": {
           "type": "string",
           "title": "可用端口范围，格式：10000-20000;30001;30002"
+        },
+        "ingressIpv4": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1IngressIpv4Entry"
+          },
+          "title": "入口IPv4地址数组，用于生成额外的线路配置"
         }
       },
       "title": "服务器项"
@@ -7581,7 +7604,8 @@
         "ingressIpv4": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "object",
+            "$ref": "#/definitions/v1IngressIpv4Entry"
           },
           "title": "入口IPv4地址数组，用于生成额外的线路配置"
         }
