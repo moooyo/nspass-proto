@@ -7379,6 +7379,13 @@
         "availablePorts": {
           "type": "string",
           "title": "可用端口范围，格式：10000-20000;30001;30002"
+        },
+        "ingressIpv4": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "入口IPv4地址数组，用于生成额外的线路配置"
         }
       },
       "title": "创建服务器请求"
@@ -7570,6 +7577,13 @@
         "availablePorts": {
           "type": "string",
           "title": "可用端口范围，格式：10000-20000;30001;30002"
+        },
+        "ingressIpv4": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "入口IPv4地址数组，用于生成额外的线路配置"
         }
       },
       "title": "更新服务器请求"
