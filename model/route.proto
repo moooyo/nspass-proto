@@ -70,18 +70,19 @@ message SnellParams {
 // 线路模型
 message Route {
   int32 id = 1;                                    // 数据库自增主键ID
-  string route_name = 2;                           // 线路名称
-  string entry_point = 3;                          // 入口(IP或域名)
-  int32 port = 4;                                  // 端口
-  Protocol protocol = 5;                           // 协议类型
-  ProtocolParams protocol_params = 6;              // 协议参数
-  RouteType type = 7;                              // 线路类型
-  RouteStatus status = 8;                          // 线路状态
-  string server_id = 9;                            // 关联的服务器ID(如果有)
-  int64 created_at = 10;                           // 创建时间（Unix时间戳）
-  int64 updated_at = 11;                           // 更新时间（Unix时间戳）
-  string created_by = 12;                          // 创建者
-  optional string description = 13;                // 描述
-  map<string, string> metadata = 14;               // 元数据
-  optional int32 forward_path_rule_id = 15;        // 关联的转发路径规则ID（仅用于系统生成的线路）
+  string route_id = 2;                             // 线路唯一标识符
+  string route_name = 3;                           // 线路名称
+  string entry_point = 4;                          // 入口(IP或域名)
+  int32 port = 5;                                  // 端口
+  Protocol protocol = 6;                           // 协议类型
+  ProtocolParams protocol_params = 7;              // 协议参数
+  RouteType type = 8;                              // 线路类型
+  RouteStatus status = 9;                          // 线路状态
+  string server_id = 10;                           // 关联的服务器ID(如果有)
+  int64 created_at = 11;                           // 创建时间（Unix时间戳）
+  int64 updated_at = 12;                           // 更新时间（Unix时间戳）
+  string created_by = 13;                          // 创建者
+  optional string description = 14;                // 描述
+  map<string, string> metadata = 15;               // 元数据
+  optional int32 forward_path_rule_id = 16;        // 关联的转发路径规则ID（仅用于系统生成的线路）
 }

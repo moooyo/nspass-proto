@@ -8267,6 +8267,10 @@
           "format": "int32",
           "title": "数据库自增主键ID"
         },
+        "routeId": {
+          "type": "string",
+          "title": "线路唯一标识符"
+        },
         "routeName": {
           "type": "string",
           "title": "线路名称"
