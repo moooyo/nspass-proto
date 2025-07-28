@@ -59,6 +59,7 @@ message SubscriptionData {
   int32 request_count = 13;                        // 请求次数
   optional google.protobuf.Timestamp last_used_at = 14; // 最后使用时间
   string access_url = 15;                          // 访问URL
+  string token = 16;                               // 订阅访问令牌（64位随机字符串）
 }
 
 // 获取用户订阅列表请求

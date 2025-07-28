@@ -4775,6 +4775,10 @@
         "accessUrl": {
           "type": "string",
           "title": "访问URL"
+        },
+        "token": {
+          "type": "string",
+          "title": "订阅访问令牌（64位随机字符串）"
         }
       },
       "title": "订阅数据"
@@ -4823,8 +4827,7 @@
         "SUBSCRIPTION_TYPE_CLASH",
         "SUBSCRIPTION_TYPE_V2RAY"
       ],
-      "default": "SUBSCRIPTION_TYPE_UNSPECIFIED",
-      "title": "??????????????????"
+      "default": "SUBSCRIPTION_TYPE_UNSPECIFIED"
     },
     "v1TypeStats": {
       "type": "object",

@@ -35,6 +35,8 @@ message Subscription {
   int32 request_count = 15;
   optional google.protobuf.Timestamp last_used_at = 16;
   map<string, string> metadata = 17;
+
+  string token = 100;
 }
 
 message SubscriptionLog {
