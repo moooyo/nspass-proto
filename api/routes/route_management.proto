@@ -5,26 +5,8 @@ package nspass.api.routes.v1;
 option go_package = "github.com/moooyo/nspass-proto/generated/api/routes;nspassroutes";
 
 import "google/api/annotations.proto";
-import "google/protobuf/field_mask.proto";
 import "common.proto";
 import "model/route.proto";
-
-// 创建线路请求
-message CreateRouteRequest {
-  string route_name = 1;                           // 线路名称
-  string entry_point = 2;                          // 入口(IP或域名)
-  int32 port = 3;                                  // 端口
-  nspass.model.v1.Protocol protocol = 4;           // 协议类型
-  nspass.model.v1.ProtocolParams protocol_params = 5; // 协议参数
-  optional string description = 6;                 // 描述
-  map<string, string> metadata = 7;               // 元数据
-}
-
-// 创建线路响应
-message CreateRouteResponse {
-  nspass.common.v1.ApiResponseStatus status = 1;
-  optional nspass.model.v1.Route data = 2;
-}
 
 // 获取线路请求
 message GetRouteRequest {
@@ -35,45 +17,6 @@ message GetRouteRequest {
 message GetRouteResponse {
   nspass.common.v1.ApiResponseStatus status = 1;
   optional nspass.model.v1.Route data = 2;
-}
-
-// 更新线路请求
-message UpdateRouteRequest {
-  int32 id = 1; // 数据库自增主键ID
-  optional string route_name = 2;
-  optional string entry_point = 3;
-  optional int32 port = 4;
-  optional nspass.model.v1.Protocol protocol = 5;
-  optional nspass.model.v1.ProtocolParams protocol_params = 6;
-  optional string description = 7;
-  map<string, string> metadata = 9;
-  google.protobuf.FieldMask update_mask = 10;      // 指定要更新的字段
-}
-
-// 更新线路响应
-message UpdateRouteResponse {
-  nspass.common.v1.ApiResponseStatus status = 1;
-  optional nspass.model.v1.Route data = 2;
-}
-
-// 删除线路请求
-message DeleteRouteRequest {
-  int32 id = 1; // 数据库自增主键ID
-}
-
-// 删除线路响应
-message DeleteRouteResponse {
-  nspass.common.v1.ApiResponseStatus status = 1;
-}
-
-// 批量删除线路请求
-message BatchDeleteRoutesRequest {
-  repeated int32 ids = 1; // 数据库自增主键ID列表
-}
-
-// 批量删除线路响应
-message BatchDeleteRoutesResponse {
-  nspass.common.v1.BatchOperationResponse result = 1;
 }
 
 // 列出线路请求
@@ -108,66 +51,8 @@ message SearchRoutesResponse {
   optional nspass.common.v1.PaginationResponse pagination = 3;
 }
 
-// 更新线路状态请求
-message UpdateRouteStatusRequest {
-  int32 id = 1; // 数据库自增主键ID
-  nspass.model.v1.RouteStatus status = 2;
-}
-
-// 更新线路状态响应
-message UpdateRouteStatusResponse {
-  nspass.common.v1.ApiResponseStatus status = 1;
-  optional nspass.model.v1.Route data = 2;
-}
-
-// 批量更新线路状态请求
-message BatchUpdateRouteStatusRequest {
-  repeated int32 ids = 1; // 数据库自增主键ID列表
-  nspass.model.v1.RouteStatus status = 2;
-}
-
-// 批量更新线路状态响应
-message BatchUpdateRouteStatusResponse {
-  nspass.common.v1.BatchOperationResponse result = 1;
-}
-
-// 生成线路配置请求
-message GenerateRouteConfigRequest {
-  int32 id = 1; // 数据库自增主键ID
-  string format = 2; // 配置格式: "json", "yaml", "uri"等
-}
-
-// 生成线路配置响应
-message GenerateRouteConfigResponse {
-  nspass.common.v1.ApiResponseStatus status = 1;
-  optional string config = 4;     // 生成的配置内容
-  optional string format = 5;     // 配置格式
-}
-
-// 验证线路连通性请求
-message ValidateRouteConnectivityRequest {
-  int32 id = 1; // 数据库自增主键ID
-  optional int32 timeout_seconds = 2; // 超时时间，默认30秒
-}
-
-// 验证线路连通性响应
-message ValidateRouteConnectivityResponse {
-  nspass.common.v1.ApiResponseStatus status = 1;
-  optional bool is_reachable = 4;               // 是否可达
-  optional int32 latency_ms = 5;       // 延迟(毫秒)
-  optional string error_message = 6;   // 错误信息
-}
-
-// 线路管理服务
+// 线路管理服务（只读操作，动态生成）
 service RouteManagementService {
-  // 创建线路
-  rpc CreateRoute(CreateRouteRequest) returns (CreateRouteResponse) {
-    option (google.api.http) = {
-      post: "/v1/routes"
-      body: "*"
-    };
-  }
-  
   // 获取线路
   rpc GetRoute(GetRouteRequest) returns (GetRouteResponse) {
     option (google.api.http) = {
@@ -175,71 +60,17 @@ service RouteManagementService {
     };
   }
   
-  // 更新线路
-  rpc UpdateRoute(UpdateRouteRequest) returns (UpdateRouteResponse) {
-    option (google.api.http) = {
-      put: "/v1/routes/{id}"
-      body: "*"
-    };
-  }
-  
-  // 删除线路
-  rpc DeleteRoute(DeleteRouteRequest) returns (DeleteRouteResponse) {
-    option (google.api.http) = {
-      delete: "/v1/routes/{id}"
-    };
-  }
-  
-  // 批量删除线路
-  rpc BatchDeleteRoutes(BatchDeleteRoutesRequest) returns (BatchDeleteRoutesResponse) {
-    option (google.api.http) = {
-      post: "/v1/routes/batch/delete"
-      body: "*"
-    };
-  }
-  
-  // 列出线路
+  // 列出线路（动态生成）
   rpc ListRoutes(ListRoutesRequest) returns (ListRoutesResponse) {
     option (google.api.http) = {
       get: "/v1/routes"
     };
   }
   
-  // 搜索线路
+  // 搜索线路（动态生成）
   rpc SearchRoutes(SearchRoutesRequest) returns (SearchRoutesResponse) {
     option (google.api.http) = {
       get: "/v1/routes/search"
     };
   }
-  
-  // 更新线路状态
-  rpc UpdateRouteStatus(UpdateRouteStatusRequest) returns (UpdateRouteStatusResponse) {
-    option (google.api.http) = {
-      put: "/v1/routes/{id}/status"
-      body: "*"
-    };
-  }
-  
-  // 批量更新线路状态
-  rpc BatchUpdateRouteStatus(BatchUpdateRouteStatusRequest) returns (BatchUpdateRouteStatusResponse) {
-    option (google.api.http) = {
-      post: "/v1/routes/batch/status"
-      body: "*"
-    };
-  }
-  
-  // 生成线路配置
-  rpc GenerateRouteConfig(GenerateRouteConfigRequest) returns (GenerateRouteConfigResponse) {
-    option (google.api.http) = {
-      get: "/v1/routes/{id}/config"
-    };
-  }
-  
-  // 验证线路连通性
-  rpc ValidateRouteConnectivity(ValidateRouteConnectivityRequest) returns (ValidateRouteConnectivityResponse) {
-    option (google.api.http) = {
-      post: "/v1/routes/{id}/validate"
-      body: "*"
-    };
-  }
-} 
+}
