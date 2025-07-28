@@ -21,8 +21,6 @@ message User {
   int64 last_login_time = 13;       // 最后登录时间（Unix时间戳）
   int64 created_at = 14;            // 创建时间（Unix时间戳）
   int64 updated_at = 15;            // 更新时间（Unix时间戳）
-
-  repeated subscriptions = 16;    // 订阅链接
 }
 
 // 用户角色枚举
