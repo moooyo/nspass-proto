@@ -93,6 +93,8 @@ enum WebSocketMessageType {
   WEBSOCKET_MESSAGE_SERVER_TYPE_IPTABLES_CONFIG         = 54;
   WEBSOCKET_MESSAGE_SERVER_TYPE_EGRESS_CONFIG_CHANGE    = 55;
   WEBSOCKET_MESSAGE_SERVER_TYPE_IPTABLES_CONFIG_CHANGE  = 56;
+  WEBSOCKET_MESSAGE_SERVER_TYPE_AGENT_UPGRADE           = 57;
+  WEBSOCKET_MESSAGE_SERVER_TYPE_PROXY_UPGRADE           = 58;
 }
 
 // 任务类型
@@ -353,6 +355,18 @@ message HealthCheckTaskParams {
   repeated string check_types = 1;                 // 检查类型列表
   int32 timeout = 2;                               // 超时时间(秒)
   map<string, string> additional_params = 3;       // 附加参数
+}
+
+// Agent升级消息
+message AgentUpgradeMessage {
+  string target_version = 1;                       // 目标版本（可选，用于验证）
+  map<string, string> metadata = 2;                // 元数据信息（可选）
+}
+
+// Proxy升级消息  
+message ProxyUpgradeMessage {
+  string target_version = 1;                       // 目标版本（可选，用于验证）
+  map<string, string> metadata = 2;                // 元数据信息（可选）
 }
 
 message AgentEgressConfigs {
