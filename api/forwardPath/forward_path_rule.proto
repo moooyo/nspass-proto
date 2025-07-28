@@ -28,9 +28,10 @@ message GetForwardPathRulesResponse {
 // 创建转发路径规则请求
 message CreateForwardPathRuleRequest {
   nspass.model.v1.ForwardPathRuleType type = 1; // 转发类型
-  repeated string path_server_ids = 2;     // 路径服务器ID列表
+  repeated string path_server_ids = 2;     // 路径服务器ID列表 (可选，为空时创建直接线路)
   int32 egress_id = 3;                     // 出口ID (使用自增ID)
   // 注意：egress_name 由后端根据 egress_id 自动填充
+  // 当 path_server_ids 为空时，将直接创建线路而不是转发规则
 }
 
 // 创建转发路径规则响应

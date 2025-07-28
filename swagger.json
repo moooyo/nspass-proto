@@ -8740,7 +8740,7 @@
           "items": {
             "type": "string"
           },
-          "title": "路径服务器ID列表"
+          "title": "路径服务器ID列表 (可选，为空时创建直接线路)"
         },
         "egressId": {
           "type": "integer",
@@ -8762,7 +8762,7 @@
           "items": {
             "type": "string"
           },
-          "title": "路径服务器ID列表"
+          "title": "路径服务器ID列表 (可选，为空时创建直接线路)"
         },
         "egressId": {
           "type": "integer",
@@ -8770,7 +8770,7 @@
           "title": "出口ID (使用自增ID)"
         }
       },
-      "title": "创建转发路径规则请求"
+      "title": "创建转发路径规则请求 - 支持空路径时创建直接线路"
     },
     "v1CreateForwardPathRuleResponse": {
       "type": "object",
