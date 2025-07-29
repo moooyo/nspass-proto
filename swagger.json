@@ -7484,48 +7484,38 @@
           "title": "显示名称"
         },
         "serverId": {
-          "type": "string"
+          "type": "string",
+          "title": "服务器ID"
         },
         "egressMode": {
-          "$ref": "#/definitions/v1EgressMode"
-        },
-        "egressConfig": {
-          "type": "string"
-        },
-        "targetAddress": {
-          "type": "string",
-          "title": "直出模式字段"
-        },
-        "forwardType": {
-          "$ref": "#/definitions/v1ForwardType",
-          "title": "iptables模式字段"
-        },
-        "destAddress": {
-          "type": "string"
-        },
-        "destPort": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string",
-          "title": "shadowsocks-2022模式字段"
-        },
-        "supportUdp": {
-          "type": "boolean"
+          "$ref": "#/definitions/v1EgressMode",
+          "title": "出口模式"
         },
         "port": {
           "type": "integer",
           "format": "int32",
-          "title": "shadowsocks端口"
+          "description": "端口号（通用）",
+          "title": "通用配置字段"
+        },
+        "password": {
+          "type": "string",
+          "title": "密码（通用）"
+        },
+        "egressConfig": {
+          "type": "string",
+          "description": "序列化的代理配置（JSON格式）",
+          "title": "代理配置（JSON序列化存储）\n根据 egressMode 的不同，存储对应的配置类型：\n- EGRESS_MODE_DIRECT: DirectConfig\n- EGRESS_MODE_IPTABLES: IptablesConfig\n- EGRESS_MODE_SS2022: Shadowsocks2022Config\n- EGRESS_MODE_TROJAN: TrojanConfig\n- EGRESS_MODE_SNELL: SnellConfig"
         },
         "createdAt": {
           "type": "string",
           "format": "int64",
+          "description": "创建时间",
           "title": "时间戳"
         },
         "updatedAt": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "更新时间"
         }
       },
       "title": "出口项目消息"

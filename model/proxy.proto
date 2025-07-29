@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package nspass.model.v1;
+
+import "model/route.proto";
+import "model/egress.proto";
+
+option go_package = "github.com/moooyo/nspass-proto/generated/model;model";
+
+// Shadowsocks 2022 配置
+message Shadowsocks2022Config {
+    string password = 1;                    // 密码
+    ShadowsocksMethod method = 2;           // 加密方法
+    bool udp_support = 3;                   // 是否支持UDP
+    bool tcp_fast_open = 4;                 // 是否启用TCP Fast Open
+    string other_params = 5;                // 其他参数（JSON格式）
+}
+
+// Snell 配置
+message SnellConfig {
+    string psk = 1;                         // Pre-shared key
+    SnellVersion version = 2;               // Snell版本
+    bool udp_support = 3;                   // 是否支持UDP
+    bool tcp_fast_open = 4;                 // 是否启用TCP Fast Open
+    string other_params = 5;                // 其他参数（JSON格式）
+}
+
+// Trojan 配置
+message TrojanConfig {
+    string password = 1;                    // 密码
+    bool udp_support = 2;                   // 是否支持UDP
+    bool tcp_fast_open = 3;                 // 是否启用TCP Fast Open
+    string sni = 4;                         // Server Name Indication
+    bool skip_cert_verify = 5;              // 是否跳过证书验证
+    string other_params = 6;                // 其他参数（JSON格式）
+}
+
+// 直出模式配置
+message DirectConfig {
+    string target_address = 1;             // 目标地址
+    string other_params = 2;               // 其他参数（JSON格式）
+}
+
+// 注意：IPTables 配置已在 iptables.proto 中定义为 IptablesConfig
