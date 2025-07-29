@@ -7365,28 +7365,20 @@
         "egressMode": {
           "$ref": "#/definitions/v1EgressMode"
         },
-        "targetAddress": {
-          "type": "string"
-        },
-        "forwardType": {
-          "$ref": "#/definitions/v1ForwardType"
-        },
-        "destAddress": {
-          "type": "string"
-        },
-        "destPort": {
-          "type": "string"
-        },
         "password": {
-          "type": "string"
-        },
-        "supportUdp": {
-          "type": "boolean"
+          "type": "string",
+          "description": "通用密码字段",
+          "title": "通用字段"
         },
         "port": {
           "type": "integer",
           "format": "int32",
-          "title": "shadowsocks端口"
+          "title": "通用端口字段"
+        },
+        "egressConfig": {
+          "type": "string",
+          "description": "序列化的代理配置（JSON格式）",
+          "title": "代理配置（JSON格式）\n前端根据 egressMode 传入对应的配置 JSON 字符串"
         }
       },
       "title": "更新出口请求"
@@ -7419,31 +7411,20 @@
         "egressMode": {
           "$ref": "#/definitions/v1EgressMode"
         },
-        "targetAddress": {
-          "type": "string",
-          "title": "直出模式字段"
-        },
-        "forwardType": {
-          "$ref": "#/definitions/v1ForwardType",
-          "title": "iptables模式字段"
-        },
-        "destAddress": {
-          "type": "string"
-        },
-        "destPort": {
-          "type": "string"
-        },
         "password": {
           "type": "string",
-          "title": "shadowsocks-2022模式字段"
-        },
-        "supportUdp": {
-          "type": "boolean"
+          "description": "通用密码字段",
+          "title": "通用字段"
         },
         "port": {
           "type": "integer",
           "format": "int32",
-          "title": "shadowsocks端口，默认从20000到50000之间随机生成"
+          "title": "通用端口字段"
+        },
+        "egressConfig": {
+          "type": "string",
+          "description": "序列化的代理配置（JSON格式）",
+          "title": "代理配置（JSON格式）\n前端根据 egressMode 传入对应的配置 JSON 字符串"
         }
       },
       "title": "创建出口请求"
@@ -7519,17 +7500,6 @@
         }
       },
       "title": "出口项目消息"
-    },
-    "v1ForwardType": {
-      "type": "string",
-      "enum": [
-        "FORWARD_TYPE_UNSPECIFIED",
-        "FORWARD_TYPE_TCP",
-        "FORWARD_TYPE_UDP",
-        "FORWARD_TYPE_ALL"
-      ],
-      "default": "FORWARD_TYPE_UNSPECIFIED",
-      "title": "转发类型枚举"
     },
     "v1GetAvailableServersResponse": {
       "type": "object",
@@ -7626,17 +7596,9 @@
         "egressMode": {
           "$ref": "#/definitions/v1EgressMode"
         },
-        "targetAddress": {
-          "type": "string"
-        },
-        "forwardType": {
-          "$ref": "#/definitions/v1ForwardType"
-        },
-        "destAddress": {
-          "type": "string"
-        },
-        "destPort": {
-          "type": "string"
+        "egressConfig": {
+          "type": "string",
+          "title": "JSON 格式的配置"
         }
       },
       "title": "验证出口配置请求"
