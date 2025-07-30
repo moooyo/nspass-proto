@@ -11,7 +11,6 @@ import "model/egressItem.proto";
 
 // 创建出口请求
 message CreateEgressRequest {
-  string egressId = 1;           // 业务ID（用户指定）
   optional string egressName = 2;  // 显示名称
   string serverId = 3;
   nspass.model.v1.EgressMode egressMode = 4;
@@ -30,7 +29,6 @@ message CreateEgressRequest {
 // 更新出口请求
 message UpdateEgressRequest {
   int32 id = 1;                  // 使用自增主键ID
-  optional string egressId = 2;  // 业务ID（可更新）
   optional string egressName = 3;  // 显示名称
   optional string serverId = 4;
   optional nspass.model.v1.EgressMode egressMode = 5;
