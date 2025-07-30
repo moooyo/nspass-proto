@@ -27,7 +27,11 @@ message EgressItem {
   // - EGRESS_MODE_SNELL: SnellConfig
   string egressConfig = 8;       // 序列化的代理配置（JSON格式）
 
+
+  // DNS配置
+  optional uint32 dnsConfigId = 9;  // 关联的dns配置ID
+
   // 时间戳
-  int64 createdAt = 9;           // 创建时间
-  int64 updatedAt = 10;          // 更新时间
+  int64 createdAt = 10;           // 创建时间
+  int64 updatedAt = 11;          // 更新时间
 }

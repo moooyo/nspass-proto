@@ -39,14 +39,39 @@ service DnsConfigService {
       delete: "/v1/dns/configs/{id}"
     };
   }
+
+  rpc GetDnsProviderConfigs(GetDnsProviderConfigsRequest) returns (GetDnsProviderConfigsResponse) {
+    option (google.api.http) = {
+      get: "/v1/dns/provider"
+    };
+  }
+
+  rpc CreateDnsProviderConfig(CreateDnsProviderConfigRequest) returns (CreateDnsProviderConfigResponse) {
+    option (google.api.http) = {
+      post: "/v1/dns/provider"
+      body: "*"
+    };
+  }
+
+  rpc UpdateDnsProviderConfig(UpdateDnsProviderConfigRequest) returns (UpdateDnsProviderConfigResponse) {
+    option (google.api.http) = {
+      put: "/v1/dns/provider/{id}"
+      body: "*"
+    };
+  }
+
+  rpc DeleteDnsProviderConfig(DeleteDnsProviderConfigRequest) returns (DeleteDnsProviderConfigResponse) {
+    option (google.api.http) = {
+      delete: "/v1/dns/provider/{id}"
+    };
+  }
 }
 
 // 获取DNS配置列表请求
 message GetDnsConfigsRequest {
   optional string config_name = 1;           // 配置名筛选
-  optional nspass.model.v1.DnsProvider provider = 2;  // provider筛选
-  optional uint32 page = 3;                  // 页码
-  optional uint32 page_size = 4;             // 每页大小
+  optional uint32 page = 2;                  // 页码
+  optional uint32 page_size = 3;             // 每页大小
 }
 
 // 获取DNS配置列表响应
@@ -59,9 +84,8 @@ message GetDnsConfigsResponse {
 // 创建DNS配置请求
 message CreateDnsConfigRequest {
   string config_name = 1;                    // 配置名称
-  nspass.model.v1.DnsProvider provider = 2;  // DNS提供商
+  uint32 provider_id = 2;                    // DNS提供商
   string domain = 3;                         // 域名
-  string config_params = 4;                  // 配置参数（JSON格式）
 }
 
 // 创建DNS配置响应
@@ -74,7 +98,7 @@ message CreateDnsConfigResponse {
 message UpdateDnsConfigRequest {
   uint32 id = 1;                             // 配置ID
   optional string config_name = 2;           // 配置名称
-  optional nspass.model.v1.DnsProvider provider = 3; // DNS提供商
+  uint32 provider_id          = 3;           // DNS提供商
   optional string domain = 4;                // 域名
   optional string config_params = 5;         // 配置参数（JSON格式）
 }
@@ -94,3 +118,44 @@ message DeleteDnsConfigRequest {
 message DeleteDnsConfigResponse {
   nspass.common.v1.ApiResponseStatus status = 1;
 } 
+
+message CreateDnsProviderConfigRequest {
+  nspass.model.v1.DnsProvider provider = 1;   // DNS提供商
+  string config = 2;                        // 配置参数（JSON格式）
+}
+
+message CreateDnsProviderConfigResponse {
+  nspass.common.v1.ApiResponseStatus status = 1;
+  optional nspass.model.v1.DnsProviderConfig data = 2;
+}
+
+message GetDnsProviderConfigsRequest {
+  optional nspass.model.v1.DnsProvider provider = 1;  // provider筛选
+  optional uint32 page = 2;                  // 页码
+  optional uint32 page_size = 3;             // 每页大小
+}
+
+message GetDnsProviderConfigsResponse {
+  nspass.common.v1.ApiResponseStatus status = 1;
+  repeated nspass.model.v1.DnsProviderConfig data = 2;
+  optional nspass.common.v1.PaginationResponse pagination = 3;
+}
+
+message UpdateDnsProviderConfigRequest {
+  uint32 id = 1;                             // 配置ID
+  nspass.model.v1.DnsProvider provider = 2;   // DNS提供商
+  optional string config = 3;                // 配置参数（JSON格式）
+}
+
+message UpdateDnsProviderConfigResponse {
+  nspass.common.v1.ApiResponseStatus status = 1;
+  optional nspass.model.v1.DnsProviderConfig data = 2;
+}
+
+message DeleteDnsProviderConfigRequest {
+  uint32 id = 1;                             // 配置ID
+}
+
+message DeleteDnsProviderConfigResponse {
+  nspass.common.v1.ApiResponseStatus status = 1;
+}

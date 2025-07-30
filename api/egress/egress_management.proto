@@ -23,6 +23,8 @@ message CreateEgressRequest {
   // 代理配置（JSON格式）
   // 前端根据 egressMode 传入对应的配置 JSON 字符串
   string egressConfig = 7;       // 序列化的代理配置（JSON格式）
+
+  optional uint32 dnsConfigId = 8;  // 关联的dns配置ID 
 }
 
 // 更新出口请求
@@ -40,6 +42,8 @@ message UpdateEgressRequest {
   // 代理配置（JSON格式）
   // 前端根据 egressMode 传入对应的配置 JSON 字符串
   optional string egressConfig = 8;  // 序列化的代理配置（JSON格式）
+
+  optional uint32 dnsConfigId = 9;  // 关联的dns配置ID
 }
 
 // 获取出口详情请求

@@ -9,6 +9,7 @@ import "google/protobuf/any.proto";
 
 import "model/egressItem.proto";
 import "model/iptables.proto";
+import "model/dnsConfig.proto";
 
 // ========================================================================
 // WebSocket 通信协议说明
@@ -371,6 +372,8 @@ message ProxyUpgradeMessage {
 
 message AgentEgressConfigs {
   repeated nspass.model.v1.EgressItem egress_items = 1; // 出口配置项列表
+  repeated nspass.model.v1.DnsConfig  dns_configs = 2;   // DNS配置列表
+  repeated nspass.model.v1.DnsProviderConfig dns_provider_configs = 3; // DNS提供商配置列表
 }
 
 message AgentIptablesConfigs {

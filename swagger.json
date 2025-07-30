@@ -716,18 +716,6 @@
             "type": "string"
           },
           {
-            "name": "provider",
-            "description": "provider筛选",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "DNS_PROVIDER_UNSPECIFIED",
-              "DNS_PROVIDER_CLOUDFLARE"
-            ],
-            "default": "DNS_PROVIDER_UNSPECIFIED"
-          },
-          {
             "name": "page",
             "description": "页码",
             "in": "query",
@@ -844,6 +832,158 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/DnsConfigServiceUpdateDnsConfigBody"
+            }
+          }
+        ],
+        "tags": [
+          "DnsConfigService"
+        ]
+      }
+    },
+    "/v1/dns/provider": {
+      "get": {
+        "operationId": "DnsConfigService_GetDnsProviderConfigs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetDnsProviderConfigsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "provider",
+            "description": "provider筛选",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "DNS_PROVIDER_UNSPECIFIED",
+              "DNS_PROVIDER_CLOUDFLARE"
+            ],
+            "default": "DNS_PROVIDER_UNSPECIFIED"
+          },
+          {
+            "name": "page",
+            "description": "页码",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "pageSize",
+            "description": "每页大小",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "DnsConfigService"
+        ]
+      },
+      "post": {
+        "operationId": "DnsConfigService_CreateDnsProviderConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateDnsProviderConfigResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateDnsProviderConfigRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DnsConfigService"
+        ]
+      }
+    },
+    "/v1/dns/provider/{id}": {
+      "delete": {
+        "operationId": "DnsConfigService_DeleteDnsProviderConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteDnsProviderConfigResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "配置ID",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "DnsConfigService"
+        ]
+      },
+      "put": {
+        "operationId": "DnsConfigService_UpdateDnsProviderConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateDnsProviderConfigResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "配置ID",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DnsConfigServiceUpdateDnsProviderConfigBody"
             }
           }
         ],
@@ -5089,8 +5229,9 @@
           "type": "string",
           "title": "配置名称"
         },
-        "provider": {
-          "$ref": "#/definitions/v1DnsProvider",
+        "providerId": {
+          "type": "integer",
+          "format": "int64",
           "title": "DNS提供商"
         },
         "domain": {
@@ -5104,6 +5245,19 @@
       },
       "title": "更新DNS配置请求"
     },
+    "DnsConfigServiceUpdateDnsProviderConfigBody": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "$ref": "#/definitions/v1DnsProvider",
+          "title": "DNS提供商"
+        },
+        "config": {
+          "type": "string",
+          "title": "配置参数（JSON格式）"
+        }
+      }
+    },
     "v1CreateDnsConfigRequest": {
       "type": "object",
       "properties": {
@@ -5111,17 +5265,14 @@
           "type": "string",
           "title": "配置名称"
         },
-        "provider": {
-          "$ref": "#/definitions/v1DnsProvider",
+        "providerId": {
+          "type": "integer",
+          "format": "int64",
           "title": "DNS提供商"
         },
         "domain": {
           "type": "string",
           "title": "域名"
-        },
-        "configParams": {
-          "type": "string",
-          "title": "配置参数（JSON格式）"
         }
       },
       "title": "创建DNS配置请求"
@@ -5138,6 +5289,30 @@
       },
       "title": "创建DNS配置响应"
     },
+    "v1CreateDnsProviderConfigRequest": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "$ref": "#/definitions/v1DnsProvider",
+          "title": "DNS提供商"
+        },
+        "config": {
+          "type": "string",
+          "title": "配置参数（JSON格式）"
+        }
+      }
+    },
+    "v1CreateDnsProviderConfigResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
+        },
+        "data": {
+          "$ref": "#/definitions/v1DnsProviderConfig"
+        }
+      }
+    },
     "v1DeleteDnsConfigResponse": {
       "type": "object",
       "properties": {
@@ -5147,6 +5322,14 @@
       },
       "title": "删除DNS配置响应"
     },
+    "v1DeleteDnsProviderConfigResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
+        }
+      }
+    },
     "v1DnsConfig": {
       "type": "object",
       "properties": {
@@ -5155,19 +5338,50 @@
           "format": "int64",
           "title": "主键ID"
         },
-        "configName": {
+        "domain": {
           "type": "string",
-          "title": "配置名称"
+          "title": "域名"
+        },
+        "providerId": {
+          "type": "integer",
+          "format": "int64",
+          "title": "DNS提供商配置ID"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建时间（Unix时间戳）"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "更新时间（Unix时间戳）"
+        }
+      },
+      "title": "DNS配置"
+    },
+    "v1DnsProvider": {
+      "type": "string",
+      "enum": [
+        "DNS_PROVIDER_UNSPECIFIED",
+        "DNS_PROVIDER_CLOUDFLARE"
+      ],
+      "default": "DNS_PROVIDER_UNSPECIFIED",
+      "title": "DNS提供商枚举"
+    },
+    "v1DnsProviderConfig": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "title": "主键ID"
         },
         "provider": {
           "$ref": "#/definitions/v1DnsProvider",
           "title": "DNS提供商"
         },
-        "domain": {
-          "type": "string",
-          "title": "域名"
-        },
-        "configParams": {
+        "config": {
           "type": "string",
           "title": "配置参数（JSON格式）"
         },
@@ -5181,17 +5395,7 @@
           "format": "int64",
           "title": "更新时间（Unix时间戳）"
         }
-      },
-      "title": "DNS配置信息"
-    },
-    "v1DnsProvider": {
-      "type": "string",
-      "enum": [
-        "DNS_PROVIDER_UNSPECIFIED",
-        "DNS_PROVIDER_CLOUDFLARE"
-      ],
-      "default": "DNS_PROVIDER_UNSPECIFIED",
-      "title": "DNS提供商枚举"
+      }
     },
     "v1GetDnsConfigsResponse": {
       "type": "object",
@@ -5212,6 +5416,24 @@
       },
       "title": "获取DNS配置列表响应"
     },
+    "v1GetDnsProviderConfigsResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1DnsProviderConfig"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/v1PaginationResponse"
+        }
+      }
+    },
     "v1UpdateDnsConfigResponse": {
       "type": "object",
       "properties": {
@@ -5223,6 +5445,17 @@
         }
       },
       "title": "更新DNS配置响应"
+    },
+    "v1UpdateDnsProviderConfigResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/v1ApiResponseStatus"
+        },
+        "data": {
+          "$ref": "#/definitions/v1DnsProviderConfig"
+        }
+      }
     },
     "v1HealthResponse": {
       "type": "object",
@@ -7379,6 +7612,11 @@
           "type": "string",
           "description": "序列化的代理配置（JSON格式）",
           "title": "代理配置（JSON格式）\n前端根据 egressMode 传入对应的配置 JSON 字符串"
+        },
+        "dnsConfigId": {
+          "type": "integer",
+          "format": "int64",
+          "title": "关联的dns配置ID"
         }
       },
       "title": "更新出口请求"
@@ -7425,6 +7663,11 @@
           "type": "string",
           "description": "序列化的代理配置（JSON格式）",
           "title": "代理配置（JSON格式）\n前端根据 egressMode 传入对应的配置 JSON 字符串"
+        },
+        "dnsConfigId": {
+          "type": "integer",
+          "format": "int64",
+          "title": "关联的dns配置ID"
         }
       },
       "title": "创建出口请求"
@@ -7486,6 +7729,12 @@
           "type": "string",
           "description": "序列化的代理配置（JSON格式）",
           "title": "代理配置（JSON序列化存储）\n根据 egressMode 的不同，存储对应的配置类型：\n- EGRESS_MODE_DIRECT: DirectConfig\n- EGRESS_MODE_IPTABLES: IptablesConfig\n- EGRESS_MODE_SS2022: Shadowsocks2022Config\n- EGRESS_MODE_TROJAN: TrojanConfig\n- EGRESS_MODE_SNELL: SnellConfig"
+        },
+        "dnsConfigId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "关联的dns配置ID",
+          "title": "DNS配置"
         },
         "createdAt": {
           "type": "string",
