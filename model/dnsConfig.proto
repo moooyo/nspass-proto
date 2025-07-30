@@ -28,6 +28,5 @@ message DnsProviderConfig {
 }
 
 message CloudflareProviderConfig {
-  string email = 1;
-  string api_key = 2;
+  string api_token = 1;
 }
