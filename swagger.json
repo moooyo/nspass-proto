@@ -7585,10 +7585,6 @@
     "EgressManagementServiceUpdateEgressBody": {
       "type": "object",
       "properties": {
-        "egressId": {
-          "type": "string",
-          "title": "业务ID（可更新）"
-        },
         "egressName": {
           "type": "string",
           "title": "显示名称"
@@ -7636,10 +7632,6 @@
     "v1CreateEgressRequest": {
       "type": "object",
       "properties": {
-        "egressId": {
-          "type": "string",
-          "title": "业务ID（用户指定）"
-        },
         "egressName": {
           "type": "string",
           "title": "显示名称"
@@ -7699,10 +7691,6 @@
           "type": "integer",
           "format": "int32",
           "title": "自增主键ID"
-        },
-        "egressId": {
-          "type": "string",
-          "title": "业务ID（用户可见的标识）"
         },
         "egressName": {
           "type": "string",
