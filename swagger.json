@@ -3473,7 +3473,8 @@
             "enum": [
               "PROTOCOL_UNSPECIFIED",
               "PROTOCOL_SHADOWSOCKS",
-              "PROTOCOL_SNELL"
+              "PROTOCOL_SNELL",
+              "PROTOCOL_TROJAN"
             ],
             "default": "PROTOCOL_UNSPECIFIED"
           }
@@ -7944,7 +7945,8 @@
       "enum": [
         "PROTOCOL_UNSPECIFIED",
         "PROTOCOL_SHADOWSOCKS",
-        "PROTOCOL_SNELL"
+        "PROTOCOL_SNELL",
+        "PROTOCOL_TROJAN"
       ],
       "default": "PROTOCOL_UNSPECIFIED",
       "title": "协议类型枚举"
@@ -7957,6 +7959,9 @@
         },
         "snell": {
           "$ref": "#/definitions/v1SnellParams"
+        },
+        "trojan": {
+          "$ref": "#/definitions/v1TrojanParams"
         }
       },
       "title": "协议特定参数"
@@ -8166,6 +8171,31 @@
         }
       },
       "title": "排序参数"
+    },
+    "v1TrojanParams": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string"
+        },
+        "udpSupport": {
+          "type": "boolean"
+        },
+        "tcpFastOpen": {
+          "type": "boolean"
+        },
+        "sni": {
+          "type": "string"
+        },
+        "skipCertVerify": {
+          "type": "boolean"
+        },
+        "otherParams": {
+          "type": "string",
+          "title": "JSON格式的其他参数"
+        }
+      },
+      "title": "Trojan参数"
     },
     "SettingsManagementServiceUpdateSettingBody": {
       "type": "object",

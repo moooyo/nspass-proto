@@ -9,6 +9,7 @@ enum Protocol {
   PROTOCOL_UNSPECIFIED = 0;
   PROTOCOL_SHADOWSOCKS = 1;
   PROTOCOL_SNELL = 2;
+  PROTOCOL_TROJAN = 3;
 }
 
 // Shadowsocks加密方法枚举  
@@ -46,6 +47,7 @@ message ProtocolParams {
   oneof params {
     ShadowsocksParams shadowsocks = 1;
     SnellParams snell = 2;
+    TrojanParams trojan = 3;
   }
 }
 
@@ -65,6 +67,16 @@ message SnellParams {
   bool udp_support = 3;
   bool tcp_fast_open = 4;
   string other_params = 5; // JSON格式的其他参数
+}
+
+// Trojan参数
+message TrojanParams {
+  string password = 1;
+  bool udp_support = 2;
+  bool tcp_fast_open = 3;
+  string sni = 4;
+  bool skip_cert_verify = 5;
+  string other_params = 6; // JSON格式的其他参数
 }
 
 // 线路模型
