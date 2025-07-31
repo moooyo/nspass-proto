@@ -15,7 +15,7 @@ message IptablesConfig {
   optional string source_port = 7;      // 源端口
   optional string dest_ip = 8;          // 目标IP
   optional string dest_port = 9;        // 目标端口
-  string protocol = 10;                 // 协议 (tcp/udp/icmp/all)
+  IptablesProtocol protocol = 10;       // 协议类型
   optional string interface = 11;       // 网络接口
   optional string rule_comment = 12;    // 规则注释
   int32 priority = 13;                  // 优先级
@@ -110,7 +110,7 @@ message IptablesConfigInfo {
   optional string source_port = 8;         // 源端口
   optional string dest_ip = 9;             // 目标IP
   optional string dest_port = 10;          // 目标端口
-  string protocol = 11;                    // 协议
+  IptablesProtocol protocol = 11;          // 协议类型
   optional string rule_comment = 12;       // 规则注释
   int32 priority = 13;                     // 优先级
   bool is_enabled = 14;                    // 是否启用
