@@ -7096,8 +7096,8 @@
           "title": "目标端口"
         },
         "protocol": {
-          "type": "string",
-          "title": "协议 (tcp/udp/icmp/all)"
+          "$ref": "#/definitions/v1IptablesProtocol",
+          "title": "协议类型"
         },
         "interface": {
           "type": "string",
@@ -8730,8 +8730,8 @@
           "title": "目标端口"
         },
         "protocol": {
-          "type": "string",
-          "title": "协议"
+          "$ref": "#/definitions/v1IptablesProtocol",
+          "title": "协议类型"
         },
         "ruleComment": {
           "type": "string",
